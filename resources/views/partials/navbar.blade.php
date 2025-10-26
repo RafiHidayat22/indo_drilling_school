@@ -11,7 +11,7 @@
     <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16" />
+          d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
 
@@ -20,12 +20,12 @@
       <a href="{{ url('/') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Home</a>
       <a href="{{ url('/about') }}" class="text-gray-700 hover:text-red-700 font-medium transition">About Us</a>
       <a href="{{ url('/programs') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Programs</a>
-      <a href="{{ url('/gallery') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Articles</a>
+      <a href="{{ url('/articles') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Articles</a>
       <a href="{{ url('/contact') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Contact</a>
 
       <a href="{{ url('/join') }}"
-         class="bg-red-700 text-white px-4 py-2 rounded-md hover:bg-red-800 transition font-semibold">
-         Join Now
+        class="bg-red-700 text-white px-4 py-2 rounded-md hover:bg-red-800 transition font-semibold">
+        Join Now
       </a>
     </div>
   </div>
@@ -35,11 +35,11 @@
     <a href="{{ url('/') }}" class="block text-gray-700 hover:text-red-700 font-medium">Home</a>
     <a href="{{ url('/about') }}" class="block text-gray-700 hover:text-red-700 font-medium">About Us</a>
     <a href="{{ url('/programs') }}" class="block text-gray-700 hover:text-red-700 font-medium">Programs</a>
-    <a href="{{ url('/gallery') }}" class="block text-gray-700 hover:text-red-700 font-medium">Articles</a>
+    <a href="{{ url('/articles') }}" class="block text-gray-700 hover:text-red-700 font-medium">Articles</a>
     <a href="{{ url('/contact') }}" class="block text-gray-700 hover:text-red-700 font-medium">Contact</a>
     <a href="{{ url('/join') }}"
-       class="block text-center bg-red-700 text-white py-2 rounded-md hover:bg-red-800 transition font-semibold">
-       Join Now
+      class="block text-center bg-red-700 text-white py-2 rounded-md hover:bg-red-800 transition font-semibold">
+      Join Now
     </a>
   </div>
 </nav>
