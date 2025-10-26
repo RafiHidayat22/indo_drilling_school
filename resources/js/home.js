@@ -22,11 +22,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Accreditation Slider
-    new Swiper(".accreditSwiper", {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        pagination: { el: ".accreditSwiper .swiper-pagination", clickable: true },
-        breakpoints: { 768: { slidesPerView: 2 } },
-    });
+new Swiper(".accreditSwiper", {
+  slidesPerView: 4, // jumlah slide yang kelihatan
+  spaceBetween: 30,
+  loop: true,
+  speed: 2000, // kecepatan perpindahan (semakin besar semakin lambat)
+  autoplay: {
+    delay: 0, // delay antar slide
+    disableOnInteraction: false,
+  },
+  allowTouchMove: false, // biar ga bisa di-drag manual
+  freeMode: true, // biar transisi halus dan tidak lompat
+  freeModeMomentum: false, // biar tidak ngebut di akhir
+  breakpoints: {
+    640: { slidesPerView: 2 },
+    768: { slidesPerView: 3 },
+    1024: { slidesPerView: 4 },
+  },
+});
+
+
 });

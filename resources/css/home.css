@@ -1,0 +1,143 @@
+/* ================================
+   Home Page Custom Animations
+   ================================ */
+
+/* Slow background zoom effect */
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.animate-slow-zoom {
+  animation: slowZoom 10s ease-in-out infinite alternate;
+}
+
+/* Floating effect for images */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Fade-in-up animation for scroll or load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+
+.animate-fadeInUp.delay-200 { animation-delay: 0.2s; }
+.animate-fadeInUp.delay-300 { animation-delay: 0.3s; }
+.animate-fadeInUp.delay-500 { animation-delay: 0.5s; }
+
+/* Hover effects for modern UI */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Glassmorphism card style */
+.glass-card {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15);
+}
+
+
+@media (max-width: 767px) {
+  .hero-engineer {
+    position: relative !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    margin-top: 2rem; /* biar ada jarak aman dari teks */
+  }
+}
+
+.animate-scroll-left,
+.animate-scroll-right {
+    display: flex;
+    width: fit-content;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Animasi scroll ke kiri (International) */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll-left {
+    animation: scroll-left 40s linear infinite;
+}
+
+/* Animasi scroll ke kanan (National) */
+@keyframes scroll-right {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.animate-scroll-right {
+    animation: scroll-right 25s linear infinite;
+}
+
+/* Hover untuk pause animasi */
+.animate-scroll-left:hover,
+.animate-scroll-right:hover {
+    animation-play-state: paused;
+}
+
+/* Pastikan tidak ada gap */
+.overflow-hidden {
+    position: relative;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#programsContainer {
+    cursor: grab;
+}
+
+#programsContainer:active {
+    cursor: grabbing;
+}

@@ -3,7 +3,7 @@
 
     {{-- Logo dan Nama --}}
     <a href="{{ url('/') }}" class="flex items-center space-x-2">
-      <img src="{{ asset('logo.png') }}" alt="Logo" class="w-10 h-10">
+      <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10">
       <span class="font-semibold text-gray-800 text-lg">Indonesia Drilling School</span>
     </a>
 
