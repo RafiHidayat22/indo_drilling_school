@@ -1,0 +1,720 @@
+/**
+ * About Page Custom Styles - Fully Responsive
+ * Import this in your resources/css/app.css:
+ * @import './about.css';
+ * 
+ * Or add directly to app.css
+ */
+
+/* ==============================================
+   ABOUT PAGE CUSTOM STYLES
+   ============================================== */
+
+/* Enhanced Hero Stats Cards */
+.hero-stats-card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-stats-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hero-stats-card:hover::before {
+    opacity: 1;
+}
+
+/* Icon pulse animation */
+@keyframes icon-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.icon-pulse-animation {
+    animation: icon-pulse 2s ease-in-out infinite;
+}
+
+/* Glassmorphism enhancement for hero cards */
+.glass-hero-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Hero Section Enhancements */
+.hero-overlay-pattern {
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 50%);
+}
+
+/* Smooth gradient animations */
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+}
+
+/* Glass morphism effect for cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+.glass-card-dark {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover effects for image galleries */
+.image-gallery-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-gallery-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(239, 68, 68, 0.3));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.image-gallery-item:hover::before {
+    opacity: 1;
+}
+
+.image-gallery-item img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Timeline connector animations */
+.timeline-dot {
+    position: relative;
+}
+
+.timeline-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: inherit;
+    opacity: 0.3;
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Feature card hover enhancements */
+.feature-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.feature-card:hover::before {
+    left: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon animations */
+@keyframes icon-bounce {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+}
+
+.icon-bounce:hover {
+    animation: icon-bounce 0.6s ease;
+}
+
+/* Stats counter animation */
+@keyframes count-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-item {
+    animation: count-up 0.6s ease forwards;
+}
+
+/* Gradient text enhancement */
+.gradient-text {
+    background: linear-gradient(135deg, #3b82f6 0%, #ef4444 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-animated {
+    background: linear-gradient(270deg, #3b82f6, #8b5cf6, #ef4444, #f59e0b);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 8s ease infinite;
+}
+
+/* Badge pulse animation */
+@keyframes badge-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+    }
+}
+
+.badge-pulse {
+    animation: badge-pulse 2s ease-in-out infinite;
+}
+
+/* Swiper customization for About page */
+.accreditSwiper .swiper-slide {
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accreditSwiper .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: #cbd5e1;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.accreditSwiper .swiper-pagination-bullet-active {
+    background: linear-gradient(135deg, #3b82f6, #ef4444);
+    width: 32px;
+    border-radius: 6px;
+}
+
+/* Floating animation for decorative elements */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    33% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    66% {
+        transform: translateY(-10px) translateX(-10px);
+    }
+}
+
+.float-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Card shadow variations */
+.shadow-glow-blue {
+    box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+}
+
+.shadow-glow-red {
+    box-shadow: 0 10px 40px rgba(239, 68, 68, 0.2);
+}
+
+.shadow-glow-blue:hover {
+    box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+}
+
+.shadow-glow-red:hover {
+    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);
+}
+
+/* Responsive video wrapper */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-wrapper iframe,
+.video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Loading skeleton */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Accessibility: Focus states */
+.focus-brand:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 4px;
+}
+
+/* Smooth scrolling enhancement */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar (webkit browsers) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #3b82f6, #ef4444);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #2563eb, #dc2626);
+}
+
+/* Selection color */
+::selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: #1e293b;
+}
+
+::-moz-selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: #1e293b;
+}
+
+/* ==============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================== */
+
+/* Extra Small Devices - Phones (< 480px) */
+@media (max-width: 479px) {
+    /* Typography */
+    h1 {
+        font-size: 1.75rem !important;
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+        line-height: 1.3;
+    }
+    
+    h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    h4 {
+        font-size: 1.125rem !important;
+    }
+    
+    p, body {
+        font-size: 0.875rem;
+    }
+    
+    /* Cards & Containers */
+    .hero-stats-card,
+    .glass-card,
+    .glass-hero-card,
+    .feature-card {
+        padding: 1rem !important;
+        margin-bottom: 1rem;
+    }
+    
+    /* Disable hover effects on touch devices */
+    .feature-card:hover {
+        transform: none;
+    }
+    
+    .image-gallery-item:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Glassmorphism adjustments */
+    .glass-hero-card,
+    .glass-card {
+        backdrop-filter: blur(8px) saturate(150%);
+        -webkit-backdrop-filter: blur(8px) saturate(150%);
+    }
+    
+    /* Reduce animation intensity */
+    .float-animation {
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    /* Scrollbar thinner on mobile */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    /* Swiper adjustments */
+    .accreditSwiper .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .accreditSwiper .swiper-pagination-bullet-active {
+        width: 20px;
+    }
+    
+    /* Shadow reductions for performance */
+    .shadow-glow-blue,
+    .shadow-glow-red {
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+    }
+}
+
+/* Small Devices - Phones Landscape (480px - 639px) */
+@media (min-width: 480px) and (max-width: 639px) {
+    h1 {
+        font-size: 2rem !important;
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: 1.75rem !important;
+        line-height: 1.3;
+    }
+    
+    h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    .hero-stats-card,
+    .glass-card,
+    .feature-card {
+        padding: 1.25rem !important;
+    }
+    
+    /* Optimize touch interactions */
+    .feature-card:active {
+        transform: translateY(-4px);
+    }
+    
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+}
+
+/* Medium Devices - Tablets (640px - 767px) */
+@media (min-width: 640px) and (max-width: 767px) {
+    h1 {
+        font-size: 2.25rem !important;
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: 1.875rem !important;
+        line-height: 1.3;
+    }
+    
+    h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    .hero-stats-card,
+    .feature-card {
+        padding: 1.5rem !important;
+    }
+    
+    /* Enable moderate animations */
+    .feature-card:hover {
+        transform: translateY(-6px);
+    }
+}
+
+/* Medium-Large Devices - Tablets Landscape (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    h1 {
+        font-size: 2.5rem !important;
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: 2rem !important;
+        line-height: 1.3;
+    }
+    
+    h3 {
+        font-size: 1.75rem !important;
+    }
+    
+    .hero-stats-card,
+    .feature-card {
+        padding: 1.75rem !important;
+    }
+}
+
+/* Large Devices - Desktops (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    h1 {
+        font-size: 2.75rem !important;
+    }
+    
+    h2 {
+        font-size: 2.25rem !important;
+    }
+    
+    .hero-stats-card,
+    .feature-card {
+        padding: 2rem !important;
+    }
+}
+
+/* Extra Large Devices - Large Desktops (1280px - 1535px) */
+@media (min-width: 1280px) and (max-width: 1535px) {
+    h1 {
+        font-size: 3rem !important;
+    }
+    
+    h2 {
+        font-size: 2.5rem !important;
+    }
+}
+
+/* 2XL Devices - Ultra Wide (≥ 1536px) */
+@media (min-width: 1536px) {
+    h1 {
+        font-size: 3.5rem !important;
+    }
+    
+    h2 {
+        font-size: 2.75rem !important;
+    }
+    
+    .hero-stats-card,
+    .feature-card {
+        padding: 2.5rem !important;
+    }
+    
+    /* Enhanced effects for larger screens */
+    .shadow-glow-blue:hover {
+        box-shadow: 0 25px 70px rgba(59, 130, 246, 0.35);
+    }
+    
+    .shadow-glow-red:hover {
+        box-shadow: 0 25px 70px rgba(239, 68, 68, 0.35);
+    }
+}
+
+/* Landscape orientation specific */
+@media (orientation: landscape) and (max-height: 600px) {
+    .hero-stats-card,
+    .feature-card {
+        padding: 1rem !important;
+    }
+    
+    h1 {
+        font-size: 1.75rem !important;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Reduce vertical spacing in landscape */
+    .stat-item {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* High DPI / Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .glass-hero-card,
+    .glass-card {
+        backdrop-filter: blur(14px) saturate(180%);
+        -webkit-backdrop-filter: blur(14px) saturate(180%);
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Disable complex hover effects on touch devices */
+    .feature-card:hover::before {
+        display: none;
+    }
+    
+    .hero-stats-card::before {
+        display: none;
+    }
+    
+    /* Enlarge touch targets */
+    button, a, .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Optimize animations for performance */
+    .float-animation,
+    .icon-pulse-animation {
+        animation-duration: 10s;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .float-animation,
+    .icon-pulse-animation,
+    .badge-pulse {
+        animation: none !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .auto-dark-bg {
+        background-color: #0f172a;
+        color: #f1f5f9;
+    }
+    
+    .skeleton {
+        background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #1e293b;
+    }
+    
+    ::selection {
+        background: rgba(59, 130, 246, 0.5);
+        color: #f1f5f9;
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-break-before {
+        page-break-before: always;
+    }
+    
+    .print-break-after {
+        page-break-after: always;
+    }
+    
+    /* Disable animations in print */
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    /* Optimize colors for print */
+    .glass-card,
+    .glass-hero-card {
+        background: white !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    
+    body {
+        font-size: 12pt;
+    }
+}

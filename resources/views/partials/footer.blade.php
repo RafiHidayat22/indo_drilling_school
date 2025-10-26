@@ -6,8 +6,8 @@
             Register now for nationally and internationally certified training and take the next step in your professional journey.
         </p>
         <a href="#register"
-           class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-md transition">
-           Register Now
+            class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-md transition">
+            Register Now
         </a>
 
         <div class="mt-10 border-t border-gray-500 pt-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto text-left">
@@ -18,7 +18,10 @@
                 </svg>
                 <div>
                     <h3 class="font-semibold">Address</h3>
-                    <p>Jl. Industri Migas No. 123, Jakarta, Indonesia</p>
+                    <p>Jl. Lintas Sumatra Duri - Dumai no.KM 6,
+                        Balai Makam, Kec. Mandau, Kab.
+                        Bengkalis, Riau 28983
+                    </p>
                 </div>
             </div>
 
@@ -28,7 +31,7 @@
                 </svg>
                 <div>
                     <h3 class="font-semibold">Email</h3>
-                    <p>contact@ids.ac.id</p>
+                    <p>info.indo@stc-eg.com</p>
                 </div>
             </div>
 
@@ -38,7 +41,7 @@
                 </svg>
                 <div>
                     <h3 class="font-semibold">Phone</h3>
-                    <p>+62 21 1234 5678</p>
+                    <p>+62 851 9460 4893</p>
                 </div>
             </div>
         </div>
@@ -64,23 +67,23 @@
                 </ul>
             </div>
 
-<div>
-    <h3 class="font-semibold mb-3 text-white">Follow Us</h3>
-    <div class="flex space-x-4">
-        <a href="https://www.linkedin.com/" target="_blank" class="hover:text-red-500 transition">
-            <i class="fa-brands fa-linkedin text-xl"></i>
-        </a>
-        <a href="https://www.instagram.com/" target="_blank" class="hover:text-red-500 transition">
-            <i class="fa-brands fa-instagram text-xl"></i>
-        </a>
-        <a href="https://www.tiktok.com/" target="_blank" class="hover:text-red-500 transition">
-            <i class="fa-brands fa-tiktok text-xl"></i>
-        </a>
-        <a href="https://www.twitter.com/" target="_blank" class="hover:text-red-500 transition">
-            <i class="fa-brands fa-x-twitter text-xl"></i>
-        </a>
-    </div>
-</div>
+            <div>
+                <h3 class="font-semibold mb-3 text-white">Follow Us</h3>
+                <div class="flex space-x-4">
+                    <a href="https://www.linkedin.com/" target="_blank" class="hover:text-red-500 transition">
+                        <i class="fa-brands fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="hover:text-red-500 transition">
+                        <i class="fa-brands fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/" target="_blank" class="hover:text-red-500 transition">
+                        <i class="fa-brands fa-tiktok text-xl"></i>
+                    </a>
+                    <a href="https://www.twitter.com/" target="_blank" class="hover:text-red-500 transition">
+                        <i class="fa-brands fa-x-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
 
         </div>
 
