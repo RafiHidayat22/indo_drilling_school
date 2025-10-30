@@ -18,3 +18,18 @@ Route::get('/articlespv', function () {
 Route::get('/program', function () {
     return view('program');
 });
+
+Route::get('/login', function () {
+    return view('login');
+});
+Route::get('/users', function () {
+    return view('users');
+});
+
+use App\Http\Controllers\ArticleAdminController;
+
+Route::get('/articleadmin', [ArticleAdminController::class, 'index'])->name('articleadmin.index');
+
+use App\Http\Controllers\UserAdminController;
+
+Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');

@@ -5,6 +5,7 @@
 @import './about.css';
 @import './articles.css';
 @import 'tailwindcss';
+@import './program.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

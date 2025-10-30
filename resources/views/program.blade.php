@@ -2,9 +2,6 @@
 
 @section('title', 'Training Programs | Indonesia Drilling School')
 
-@section('head')
-    @vite('resources/css/program.css')
-@endsection
 
 @section('content')
 <div class="program-portal">
@@ -165,29 +162,6 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="pp-stats-section">
-        <div class="pp-container">
-            <div class="pp-stats-grid">
-                <div class="pp-stat-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="pp-stat-number">2,500+</div>
-                    <div class="pp-stat-label">Trained Professionals</div>
-                </div>
-                <div class="pp-stat-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="pp-stat-number">15+</div>
-                    <div class="pp-stat-label">Years Experience</div>
-                </div>
-                <div class="pp-stat-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="pp-stat-number">98%</div>
-                    <div class="pp-stat-label">Success Rate</div>
-                </div>
-                <div class="pp-stat-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="pp-stat-number">50+</div>
-                    <div class="pp-stat-label">Industry Partners</div>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 @endsection
 

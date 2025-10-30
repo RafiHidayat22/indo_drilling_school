@@ -1,0 +1,12 @@
+/* resources/css/appadmin.css */
+
+@import 'aos/dist/aos.css';
+
+/* Impor Tailwind CSS terlebih dahulu */
+@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Impor CSS kustom setelah Tailwind */
+@import './admin.css';
