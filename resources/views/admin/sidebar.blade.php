@@ -37,9 +37,9 @@
             </a>
 
             <!-- Pelatihan -->
-            <a href="#"
+            <a href="{{ url('/training') }}"
                 class="sidebar-menu-item flex items-center px-4 py-3 
-                      {{ request()->is('pelatihan*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} 
+                      {{ request()->is('training') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} 
                       rounded-lg">
                 <div class="sidebar-icon">
                     <i class="fas fa-graduation-cap text-lg"></i>

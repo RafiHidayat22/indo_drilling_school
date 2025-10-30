@@ -33,3 +33,7 @@ Route::get('/articleadmin', [ArticleAdminController::class, 'index'])->name('art
 use App\Http\Controllers\UserAdminController;
 
 Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');
+
+use App\Http\Controllers\TrainingController;
+
+Route::get('/training', [TrainingController::class, 'index'])->name('training.index');
