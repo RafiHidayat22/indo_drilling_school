@@ -2,28 +2,32 @@
    Home Page Custom Animations
    ================================ */
 
+.page-home {
+  /* Wrapper utama untuk membatasi cakupan */
+}
+
 /* Slow background zoom effect */
-@keyframes slowZoom {
+@keyframes home-slowZoom {
   0% { transform: scale(1); }
   100% { transform: scale(1.08); }
 }
 
-.animate-slow-zoom {
-  animation: slowZoom 10s ease-in-out infinite alternate;
+.page-home .home-animate-slow-zoom {
+  animation: home-slowZoom 10s ease-in-out infinite alternate;
 }
 
 /* Floating effect for images */
-@keyframes float {
+@keyframes home-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
-.floating {
-  animation: float 5s ease-in-out infinite;
+.page-home .home-floating {
+  animation: home-float 5s ease-in-out infinite;
 }
 
 /* Fade-in-up animation for scroll or load */
-@keyframes fadeInUp {
+@keyframes home-fadeInUp {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -34,28 +38,28 @@
   }
 }
 
-.animate-fadeInUp {
+.page-home .home-animate-fadeInUp {
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
+  animation: home-fadeInUp 1s forwards;
 }
 
-.animate-fadeInUp.delay-200 { animation-delay: 0.2s; }
-.animate-fadeInUp.delay-300 { animation-delay: 0.3s; }
-.animate-fadeInUp.delay-500 { animation-delay: 0.5s; }
+.page-home .home-animate-fadeInUp.delay-200 { animation-delay: 0.2s; }
+.page-home .home-animate-fadeInUp.delay-300 { animation-delay: 0.3s; }
+.page-home .home-animate-fadeInUp.delay-500 { animation-delay: 0.5s; }
 
 /* Hover effects for modern UI */
-.hover-lift {
+.page-home .home-hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hover-lift:hover {
+.page-home .home-hover-lift:hover {
   transform: translateY(-6px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Glassmorphism card style */
-.glass-card {
+.page-home .home-glass-card {
   background: rgba(255, 255, 255, 0.3);
   border: 1px solid rgba(255, 0, 0, 0.3);
   backdrop-filter: blur(12px);
@@ -64,80 +68,73 @@
   transition: all 0.3s ease;
 }
 
-.glass-card:hover {
+.page-home .home-glass-card:hover {
   transform: scale(1.02);
   box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15);
 }
 
-
+/* Responsive adjustments */
 @media (max-width: 767px) {
-  .hero-engineer {
-    position: relative !important;
-    bottom: 0 !important;
-    right: 0 !important;
-    margin-top: 2rem; /* biar ada jarak aman dari teks */
+  .page-home .home-hero-engineer {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin-top: 2rem;
   }
 }
 
-.animate-scroll-left,
-.animate-scroll-right {
-    display: flex;
-    width: fit-content;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+/* Scrolling animations */
+.page-home .home-animate-scroll-left,
+.page-home .home-animate-scroll-right {
+  display: flex;
+  width: fit-content;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
-/* Animasi scroll ke kiri (International) */
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+@keyframes home-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-.animate-scroll-left {
-    animation: scroll-left 40s linear infinite;
+.page-home .home-animate-scroll-left {
+  animation: home-scroll-left 40s linear infinite;
 }
 
-/* Animasi scroll ke kanan (National) */
-@keyframes scroll-right {
-    0% {
-        transform: translateX(-50%);
-    }
-    100% {
-        transform: translateX(0);
-    }
+@keyframes home-scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
 
-.animate-scroll-right {
-    animation: scroll-right 25s linear infinite;
+.page-home .home-animate-scroll-right {
+  animation: home-scroll-right 25s linear infinite;
 }
 
-/* Hover untuk pause animasi */
-.animate-scroll-left:hover,
-.animate-scroll-right:hover {
-    animation-play-state: paused;
+/* Pause on hover */
+.page-home .home-animate-scroll-left:hover,
+.page-home .home-animate-scroll-right:hover {
+  animation-play-state: paused;
 }
 
-/* Pastikan tidak ada gap */
-.overflow-hidden {
-    position: relative;
-}
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
+/* Utility: hide scrollbar */
+.page-home .home-overflow-hidden {
+  position: relative;
 }
 
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+.page-home .home-scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-#programsContainer {
-    cursor: grab;
+.page-home .home-scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-#programsContainer:active {
-    cursor: grabbing;
+/* Grab cursor for interactive container */
+.page-home #programsContainer {
+  cursor: grab;
+}
+
+.page-home #programsContainer:active {
+  cursor: grabbing;
 }

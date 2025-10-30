@@ -1,5 +1,5 @@
 import './bootstrap';
-import './home';
+import './home.js';
 import './about.js';
 import './articles.js';
 import './program';
