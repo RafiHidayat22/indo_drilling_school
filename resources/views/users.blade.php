@@ -9,7 +9,7 @@
                     <h1 class="text-3xl font-bold text-slate-800">User Management</h1>
                     <p class="mt-2 text-sm text-slate-600">Kelola pengguna dan hak akses sistem</p>
                 </div>
-                <button onclick="openAddModal()" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transform transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <button onclick="openAddModal()" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:from-purple-700 hover:to-purple-800 transform transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
@@ -88,23 +88,15 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-slate-200">
-                        <!-- Data dummy tetap ditampilkan seperti aslinya -->
-                        @foreach([
-                        ['no' => 1, 'username' => 'admin', 'email' => 'admin@example.com', 'role' => 'Super Admin', 'status' => 'Active', 'date' => '20 Jan 2024'],
-                        ['no' => 2, 'username' => 'johndoe', 'email' => 'john.doe@example.com', 'role' => 'Admin', 'status' => 'Active', 'date' => '22 Jan 2024'],
-                        ['no' => 3, 'username' => 'janesmith', 'email' => 'jane.smith@example.com', 'role' => 'Admin', 'status' => 'Active', 'date' => '25 Jan 2024'],
-                        ['no' => 4, 'username' => 'robertjohnson', 'email' => 'robert.j@example.com', 'role' => 'User', 'status' => 'Active', 'date' => '28 Jan 2024'],
-                        ['no' => 5, 'username' => 'emilywilson', 'email' => 'emily.w@example.com', 'role' => 'User', 'status' => 'Inactive', 'date' => '01 Feb 2024'],
-                        ['no' => 6, 'username' => 'michaelbrown', 'email' => 'michael.b@example.com', 'role' => 'User', 'status' => 'Active', 'date' => '05 Feb 2024'],
-                        ['no' => 7, 'username' => 'sarahdavis', 'email' => 'sarah.d@example.com', 'role' => 'User', 'status' => 'Active', 'date' => '10 Feb 2024'],
-                        ['no' => 8, 'username' => 'davidmiller', 'email' => 'david.m@example.com', 'role' => 'User', 'status' => 'Inactive', 'date' => '15 Feb 2024']
-                        ] as $user)
+                        @forelse($users as $index => $user)
                         <tr class="hover:bg-slate-50 transition">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{{ $user['no'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
+                                {{ $users->firstItem() + $index }}
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="h-10 w-10 flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
-                                        {{ substr($user['username'], 0, 2) }}
+                                        {{ strtoupper(substr($user['username'], 0, 2)) }}
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-slate-900">{{ $user['username'] }}</div>
@@ -127,36 +119,44 @@
                                     {{ $user['status'] }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{{ $user['date'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
+                                {{ \Carbon\Carbon::parse($user['created_at'])->format('d M Y') }}
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                <!-- Ganti {{ $user['no'] }} dengan angka statis yang sesuai -->
-                                <button onclick="openEditModal(1)" class="text-blue-600 hover:text-blue-900 mr-3 transition">
+                                @php
+                                $userNo = $users->firstItem() + $index;
+                                @endphp
+                                <button onclick="openEditModal({{ $userNo }})" class="text-blue-600 hover:text-blue-900 mr-3 transition">
                                     <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </button>
-                                <button onclick="confirmDelete(1)" class="text-red-600 hover:text-red-900 transition">
+                                <button onclick="confirmDelete({{ $userNo }})" class="text-red-600 hover:text-red-900 transition">
                                     <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
                                 </button>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="7" class="px-6 py-4 text-center text-slate-500">Tidak ada user ditemukan.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
             <div class="bg-white px-6 py-4 border-t border-slate-200">
+                @if($users->isNotEmpty())
+                {{ $users->withQueryString()->links('pagination.custom') }}
+                @else
+                <!-- Fallback statis (opsional) -->
                 <div class="flex items-center justify-between">
                     <div class="text-sm text-slate-600">
-                        Menampilkan <span class="font-semibold">1</span> sampai <span class="font-semibold">8</span> dari <span class="font-semibold">8</span> user
-                    </div>
-                    <div class="flex space-x-2">
-                        <button class="px-3 py-2 bg-slate-100 text-slate-400 rounded-lg cursor-not-allowed">Previous</button>
-                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium">1</button>
-                        <button class="px-3 py-2 bg-slate-100 text-slate-400 rounded-lg cursor-not-allowed">Next</button>
+                        Menampilkan <span class="font-semibold">0</span> sampai <span class="font-semibold">0</span> dari <span class="font-semibold">0</span> user
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -165,7 +165,7 @@
 <!-- Modal Tambah User -->
 <div id="addModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all">
-        <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 rounded-t-2xl">
+        <div class="bg-gradient-to-r from-purple-600 to-purple-700 px-6 py-4 rounded-t-2xl">
             <div class="flex items-center justify-between">
                 <h3 class="text-xl font-bold text-white">Tambah User Baru</h3>
                 <button onclick="closeAddModal()" class="text-white hover:text-slate-200 transition">
@@ -192,14 +192,13 @@
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-2">Role</label>
                 <select class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    <option value="user">User</option>
                     <option value="admin">Admin</option>
                     <option value="super_admin">Super Admin</option>
                 </select>
             </div>
             <div class="flex space-x-3 pt-4">
                 <button type="button" onclick="closeAddModal()" class="flex-1 px-4 py-3 bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300 transition">Batal</button>
-                <button type="button" class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition">Simpan</button>
+                <button type="button" class="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 transition duration-200 shadow-lg hover:shadow-xl">Simpan User</button>
             </div>
         </form>
     </div>
@@ -234,7 +233,6 @@
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-2">Role</label>
                 <select class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
-                    <option value="user">User</option>
                     <option value="admin">Admin</option>
                     <option value="super_admin" selected>Super Admin</option>
                 </select>

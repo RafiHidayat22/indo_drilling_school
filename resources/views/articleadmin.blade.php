@@ -122,86 +122,76 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-slate-200">
-                        @foreach([
-                        ['no' => 1, 'title' => 'Panduan Lengkap Training K3', 'category' => 'Training', 'author' => 'Admin', 'status' => 'Published', 'date' => '20 Jan 2024'],
-                        ['no' => 2, 'title' => 'Pentingnya HSE di Industri', 'category' => 'HSE', 'author' => 'John Doe', 'status' => 'Published', 'date' => '22 Jan 2024'],
-                        ['no' => 3, 'title' => 'Cara Mendapatkan Sertifikasi ISO', 'category' => 'Certification', 'author' => 'Jane Smith', 'status' => 'Published', 'date' => '25 Jan 2024'],
-                        ['no' => 4, 'title' => 'Tips Membangun Karir di HSE', 'category' => 'Career', 'author' => 'Robert Johnson', 'status' => 'Draft', 'date' => '28 Jan 2024'],
-                        ['no' => 5, 'title' => 'Berita Terkini Keselamatan Kerja', 'category' => 'News', 'author' => 'Emily Wilson', 'status' => 'Published', 'date' => '01 Feb 2024'],
-                        ['no' => 6, 'title' => 'Workshop Training Fire Safety', 'category' => 'Training', 'author' => 'Michael Brown', 'status' => 'Published', 'date' => '05 Feb 2024'],
-                        ['no' => 7, 'title' => 'Implementasi HSE Management System', 'category' => 'HSE', 'author' => 'Sarah Davis', 'status' => 'Draft', 'date' => '10 Feb 2024'],
-                        ['no' => 8, 'title' => 'Peluang Karir Safety Officer', 'category' => 'Career', 'author' => 'David Miller', 'status' => 'Published', 'date' => '15 Feb 2024']
-                        ] as $article)
+                        @forelse($articles ?? [] as $index => $article)
                         <tr class="hover:bg-slate-50 transition">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{{ $article['no'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
+                                {{ ($articles->currentPage() - 1) * $articles->perPage() + $index + 1 }}
+                            </td>
                             <td class="px-6 py-4">
-                                <div class="text-sm font-medium text-slate-900 max-w-xs truncate">{{ $article['title'] }}</div>
+                                <div class="text-sm font-medium text-slate-900 max-w-xs truncate">{{ $article->title ?? $article['title'] }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ 'category-badge-' . strtolower($article['category']) }}">
-                                    {{ $article['category'] }}
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ 'category-badge-' . strtolower($article->category ?? $article['category']) }}">
+                                    {{ $article->category ?? $article['category'] }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{{ $article['author'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{{ $article->author ?? $article['author'] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    @if($article['status'] === 'Published') bg-green-100 text-green-800 status-published
-                                    @else bg-amber-100 text-amber-800 @endif">
-                                    {{ $article['status'] }}
+                                        @if(($article->status ?? $article['status']) === 'Published') bg-green-100 text-green-800
+                                        @else bg-amber-100 text-amber-800 @endif">
+                                    {{ $article->status ?? $article['status'] }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{{ $article['date'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
+                                {{ ($article->created_at ?? $article['date']) }}
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                <button
-                                    data-action="view"
-                                    data-article-id="{{ $article['no'] }}"
-                                    class="text-slate-600 hover:text-slate-900 mr-3 transition action-btn"
-                                    title="View">
+                                <!-- tombol aksi tetap sama -->
+                                <button data-action="view" class="text-slate-600 hover:text-slate-900 mr-3 transition action-btn" title="View">
                                     <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </button>
-
-                                <button
-                                    data-action="edit"
-                                    data-article-id="{{ $article['no'] }}"
-                                    class="text-blue-600 hover:text-blue-900 mr-3 transition action-btn"
-                                    title="Edit">
+                                <button data-action="edit" class="text-blue-600 hover:text-blue-900 mr-3 transition action-btn" title="Edit">
                                     <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </button>
-
-                                <button
-                                    data-action="delete"
-                                    data-article-id="{{ $article['no'] }}"
-                                    class="text-red-600 hover:text-red-900 transition action-btn"
-                                    title="Delete">
+                                <button data-action="delete" class="text-red-600 hover:text-red-900 transition action-btn" title="Delete">
                                     <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
                                 </button>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="7" class="px-6 py-4 text-center text-slate-500">Tidak ada artikel ditemukan.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
+            <!-- Pagination (akan diganti dengan custom view) -->
             <div class="bg-white px-6 py-4 border-t border-slate-200">
+                @if(isset($articles) && $articles->isNotEmpty())
+                {{ $articles->withQueryString()->links('pagination.custom') }}
+                @else
+                <!-- TAMPILAN STATIS (HANYA UNTUK PREVIEW) -->
                 <div class="flex items-center justify-between">
                     <div class="text-sm text-slate-600">
-                        Menampilkan <span class="font-semibold">1</span> sampai <span class="font-semibold">8</span> dari <span class="font-semibold">24</span> artikel
+                        Menampilkan <span class="font-semibold">1</span> sampai <span class="font-semibold">8</span> dari <span class="font-semibold">10</span> artikel
                     </div>
                     <div class="flex space-x-2">
-                        <button class="px-3 py-2 bg-slate-100 text-slate-400 rounded-lg cursor-not-allowed pagination-btn">Previous</button>
-                        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium pagination-btn active">1</button>
-                        <button class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 pagination-btn">2</button>
-                        <button class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 pagination-btn">3</button>
-                        <button class="px-3 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 pagination-btn">Next</button>
+                        <button class="px-3 py-2 bg-slate-100 text-slate-400 rounded-lg cursor-not-allowed">Previous</button>
+                        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium">1</button>
+                        <button class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200">2</button>
+                        <button class="px-3 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200">Next</button>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -251,15 +241,27 @@
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Thumbnail / Featured Image</label>
                     <div class="flex items-center justify-center w-full">
-                        <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition">
-                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <label for="thumbnailAdd" class="flex flex-col items-center justify-center w-full h-48 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition relative">
+                            <!-- Preview Image (sembunyikan awalnya) -->
+                            <img id="thumbnailPreviewAdd" class="hidden w-full h-full object-cover rounded-lg" alt="Preview">
+
+                            <!-- Placeholder -->
+                            <div id="thumbnailPlaceholderAdd" class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg class="w-10 h-10 mb-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                 </svg>
                                 <p class="mb-2 text-sm text-slate-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                                 <p class="text-xs text-slate-500">PNG, JPG, JPEG (MAX. 2MB)</p>
                             </div>
-                            <input type="file" class="hidden" accept="image/*" />
+
+                            <!-- Input file (sembunyikan) -->
+                            <input
+                                type="file"
+                                id="thumbnailAdd"
+                                name="thumbnail"
+                                class="hidden"
+                                accept="image/*"
+                                onchange="previewThumbnail('Add')" />
                         </label>
                     </div>
                 </div>
@@ -299,6 +301,8 @@
 <!-- Modal Edit Artikel -->
 <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full my-8 transform transition-all modal-content">
+
+        <!-- Header Modal -->
         <div class="bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-4 rounded-t-2xl">
             <div class="flex items-center justify-between">
                 <h3 class="text-xl font-bold text-white">Edit Artikel</h3>
@@ -309,52 +313,98 @@
                 </button>
             </div>
         </div>
-        <form class="p-6 space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Judul Artikel *</label>
-                    <input type="text" value="Panduan Lengkap Training K3" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
-                </div>
+
+        <!-- Form Content -->
+        <form id="editArticleForm" class="p-6">
+            <div class="space-y-6">
+
+                <!-- Judul Artikel -->
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Kategori *</label>
-                    <select required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition category-select">
-                        <option value="">Pilih Kategori</option>
-                        <option value="training" selected>Training</option>
-                        <option value="hse">HSE</option>
-                        <option value="certification">Certification</option>
-                        <option value="career">Career</option>
-                        <option value="news">News</option>
-                        <option value="other">Lainya..</option>
-                    </select>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">
+                        Judul Artikel <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="title"
+                        value="Panduan Lengkap Training K3"
+                        required
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
                 </div>
+
+                <!-- Kategori & Status (Grid 2 Kolom) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Kategori -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">
+                            Kategori <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                            name="category"
+                            required
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition category-select">
+                            <option value="">Pilih Kategori</option>
+                            <option value="training" selected>Training</option>
+                            <option value="hse">HSE</option>
+                            <option value="certification">Certification</option>
+                            <option value="career">Career</option>
+                            <option value="news">News</option>
+                            <option value="other">Lainnya..</option>
+                        </select>
+                    </div>
+
+                    <!-- Status Publikasi -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">
+                            Status Publikasi <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                            name="status"
+                            required
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
+                            <option value="draft">Draft</option>
+                            <option value="published" selected>Publish</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Thumbnail / Featured Image -->
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Status Publikasi *</label>
-                    <select required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
-                        <option value="draft">Draft</option>
-                        <option value="published" selected>Publish</option>
-                    </select>
-                </div>
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Thumbnail / Featured Image</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">
+                        Thumbnail / Featured Image
+                    </label>
                     <div class="flex items-center justify-center w-full">
-                        <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition">
-                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <label for="thumbnailEdit" class="flex flex-col items-center justify-center w-full h-48 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition relative overflow-hidden">
+
+                            <!-- Preview Image -->
+                            <img
+                                id="thumbnailPreviewEdit"
+                                class="hidden absolute inset-0 w-full h-full object-cover"
+                                alt="Preview">
+
+                            <!-- Placeholder -->
+                            <div id="thumbnailPlaceholderEdit" class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg class="w-10 h-10 mb-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                 </svg>
-                                <p class="mb-2 text-sm text-slate-500"><span class="font-semibold">Click to upload new image</span></p>
+                                <p class="mb-2 text-sm text-slate-500">
+                                    <span class="font-semibold">Click to upload new image</span>
+                                </p>
                                 <p class="text-xs text-slate-500">PNG, JPG, JPEG (MAX. 2MB)</p>
                             </div>
-                            <input type="file" class="hidden" accept="image/*" />
+
+                            <input
+                                type="file"
+                                id="thumbnailEdit"
+                                name="thumbnail"
+                                class="hidden"
+                                accept="image/*"
+                                onchange="previewThumbnail('Edit')" />
                         </label>
                     </div>
                 </div>
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Ringkasan / Excerpt</label>
-                    <textarea rows="3" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition resize-none">Artikel ini membahas secara lengkap tentang training K3 dan implementasinya di berbagai industri.</textarea>
-                </div>
+
                 <!-- Konten Artikel -->
-                <div class="md:col-span-2">
+                <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">
                         Konten Artikel <span class="text-red-500">*</span>
                     </label>
@@ -364,23 +414,28 @@
                         </div>
                     </div>
                     <input type="hidden" name="content" id="contentEditInput">
-                    <p class="mt-1.5 text-xs text-slate-500">Minimal 100 karakter</p>
+                    <p class="mt-2 text-xs text-slate-500">Minimal 100 karakter</p>
                 </div>
-                <!-- Action Buttons -->
-                <div class="flex space-x-3 pt-4 border-t border-slate-200">
-                    <button
-                        type="button"
-                        onclick="closeEditModal()"
-                        class="flex-1 px-6 py-3 bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300 transition duration-200">
-                        Batal
-                    </button>
-                    <button
-                        type="submit"
-                        class="flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg font-semibold hover:from-amber-600 hover:to-amber-700 transition duration-200 shadow-lg hover:shadow-xl">
-                        Update Artikel
-                    </button>
-                </div>
+
+            </div>
         </form>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3 px-6 py-4 bg-slate-50 border-t border-slate-200 rounded-b-2xl">
+            <button
+                type="button"
+                onclick="closeEditModal()"
+                class="flex-1 px-6 py-3 bg-white border-2 border-slate-300 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition duration-200">
+                Batal
+            </button>
+            <button
+                type="submit"
+                form="editArticleForm"
+                class="flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg font-semibold hover:from-amber-600 hover:to-amber-700 transition duration-200 shadow-lg hover:shadow-xl">
+                Update Artikel
+            </button>
+        </div>
+
     </div>
 </div>
 
@@ -402,4 +457,48 @@
         </div>
     </div>
 </div>
+<script>
+    function previewThumbnail(modalType) {
+        const fileInput = document.getElementById('thumbnail' + modalType);
+        const preview = document.getElementById('thumbnailPreview' + modalType);
+        const placeholder = document.getElementById('thumbnailPlaceholder' + modalType);
+
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            }
+
+            reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            // Jika tidak ada file (misal: reset), kembalikan ke placeholder
+            preview.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+        }
+    }
+
+    // Opsional: Reset preview saat modal ditutup
+    function closeAddModal() {
+        document.getElementById('addModal').classList.add('hidden');
+        resetThumbnailPreview('Add');
+    }
+
+    function closeEditModal() {
+        document.getElementById('editModal').classList.add('hidden');
+        resetThumbnailPreview('Edit');
+    }
+
+    function resetThumbnailPreview(modalType) {
+        const fileInput = document.getElementById('thumbnail' + modalType);
+        const preview = document.getElementById('thumbnailPreview' + modalType);
+        const placeholder = document.getElementById('thumbnailPlaceholder' + modalType);
+
+        fileInput.value = ''; // Reset input file
+        preview.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+    }
+</script>
 @endsection
