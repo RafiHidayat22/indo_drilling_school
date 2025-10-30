@@ -1,0 +1,982 @@
+/* ===================================
+   Training Portal Styles - Scoped
+   Indonesia Drilling School
+   Namespace: .program-portal
+   =================================== */
+
+/* Scoped CSS Variables */
+.program-portal {
+    --pp-primary-color: #c41e3a;
+    --pp-primary-dark: #a01629;
+    --pp-primary-light: #d63851;
+    --pp-secondary-color: #1a1a2e;
+    --pp-accent-color: #ff6b35;
+    --pp-text-dark: #1a1a1a;
+    --pp-text-light: #666666;
+    --pp-text-white: #ffffff;
+    --pp-bg-light: #f8f9fa;
+    --pp-bg-white: #ffffff;
+    --pp-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --pp-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --pp-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+    --pp-shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.2);
+    --pp-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --pp-transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --pp-border-radius: 16px;
+    --pp-border-radius-sm: 12px;
+    --pp-border-radius-lg: 24px;
+}
+
+/* Reset only for scoped elements */
+.program-portal * {
+    box-sizing: border-box;
+}
+
+.program-portal .pp-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===================================
+   Hero Section - Scoped
+   =================================== */
+
+.program-portal .pp-hero-section {
+    position: relative;
+    height: 90vh;
+    min-height: 600px;
+    max-height: 900px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
+    overflow: hidden;
+    margin: 0;
+}
+
+.program-portal .pp-hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: pp-gridMove 20s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .program-portal *,
+    .program-portal *::before,
+    .program-portal *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .program-portal .pp-hero-scroll-indicator,
+    .program-portal .pp-scroll-line {
+        animation: none;
+    }
+}
+
+/* ===================================
+   Selection Styles - Scoped
+   =================================== */
+
+.program-portal ::selection {
+    background: var(--pp-primary-color);
+    color: var(--pp-text-white);
+}
+
+.program-portal ::-moz-selection {
+    background: var(--pp-primary-color);
+    color: var(--pp-text-white);
+}
+
+/* ===================================
+   Smooth Scrolling - Scoped
+   =================================== */
+
+.program-portal {
+    scroll-behavior: smooth;
+}
+
+/* ===================================
+   Print Styles - Scoped
+   =================================== */
+
+@media print {
+    .program-portal .pp-hero-section,
+    .program-portal .pp-stats-section,
+    .program-portal .pp-cta-button,
+    .program-portal .pp-hero-scroll-indicator {
+        display: none;
+    }
+
+    .program-portal .pp-programs-section {
+        padding: 20px 0;
+    }
+
+    .program-portal .pp-program-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+}       
+
+.program-portal .pp-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(196, 30, 58, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 30%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(196, 30, 58, 0.1) 0%, transparent 60%);
+    animation: pp-gradientShift 15s ease-in-out infinite;
+}
+
+@keyframes pp-gradientShift {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.program-portal .pp-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.program-portal .pp-hero-text {
+    max-width: 800px;
+    animation: pp-fadeInUp 1s ease-out;
+}
+
+@keyframes pp-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.program-portal .pp-hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--pp-text-white);
+    line-height: 1.2;
+    margin: 0 0 24px 0;
+    padding: 0;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.program-portal .pp-hero-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--pp-primary-color), var(--pp-accent-color));
+    margin-top: 20px;
+    border-radius: 3px;
+    animation: pp-expandWidth 1s ease-out 0.5s both;
+}
+
+@keyframes pp-expandWidth {
+    from { width: 0; }
+    to { width: 80px; }
+}
+
+.program-portal .pp-hero-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 40px 0;
+    padding: 0;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.program-portal .pp-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, var(--pp-primary-color) 0%, var(--pp-primary-light) 100%);
+    color: var(--pp-text-white);
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--pp-transition);
+    box-shadow: 0 8px 24px rgba(196, 30, 58, 0.35);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    text-decoration: none;
+}
+
+.program-portal .pp-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+    z-index: -1;
+}
+
+.program-portal .pp-cta-button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--pp-primary-light) 0%, var(--pp-accent-color) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 50px;
+    z-index: -1;
+}
+
+.program-portal .pp-cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(196, 30, 58, 0.45);
+}
+
+.program-portal .pp-cta-button:hover::before {
+    left: 100%;
+}
+
+.program-portal .pp-cta-button:hover::after {
+    opacity: 1;
+}
+
+.program-portal .pp-cta-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+}
+
+.program-portal .pp-cta-button svg {
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.program-portal .pp-cta-button:hover svg {
+    transform: translateX(5px);
+}
+
+.program-portal .pp-hero-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    animation: pp-float 3s ease-in-out infinite;
+    transition: opacity 0.3s;
+    z-index: 2;
+}
+
+.program-portal .pp-scroll-line {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: pp-scroll 2s ease-in-out infinite;
+    border-radius: 2px;
+}
+
+@keyframes pp-float {
+    0%, 100% { 
+        transform: translateX(-50%) translateY(0); 
+    }
+    50% { 
+        transform: translateX(-50%) translateY(-10px); 
+    }
+}
+
+@keyframes pp-scroll {
+    0% { 
+        transform: scaleY(0); 
+        transform-origin: top; 
+        opacity: 0;
+    }
+    50% { 
+        transform: scaleY(1); 
+        transform-origin: top; 
+        opacity: 1;
+    }
+    51% { 
+        transform: scaleY(1); 
+        transform-origin: bottom; 
+    }
+    100% { 
+        transform: scaleY(0); 
+        transform-origin: bottom; 
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   Programs Section - Scoped
+   =================================== */
+
+.program-portal .pp-programs-section {
+    padding: 120px 0;
+    background: var(--pp-bg-light);
+    position: relative;
+}
+
+.program-portal .pp-programs-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(196, 30, 58, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.program-portal .pp-programs-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.program-portal .pp-section-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 1;
+}
+
+.program-portal .pp-section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--pp-text-dark);
+    margin: 0 0 16px 0;
+    padding: 0;
+    letter-spacing: -0.02em;
+    position: relative;
+    display: inline-block;
+}
+
+.program-portal .pp-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pp-primary-color), var(--pp-accent-color));
+    border-radius: 2px;
+}
+
+.program-portal .pp-section-subtitle {
+    font-size: 1.2rem;
+    color: var(--pp-text-light);
+    max-width: 600px;
+    margin: 20px auto 0;
+    padding: 0;
+    line-height: 1.7;
+}
+
+.program-portal .pp-programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Program Card - Scoped */
+.program-portal .pp-program-card {
+    position: relative;
+    background: var(--pp-bg-white);
+    border-radius: var(--pp-border-radius);
+    padding: 40px 32px;
+    transition: var(--pp-transition);
+    box-shadow: var(--pp-shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.program-portal .pp-program-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, var(--pp-primary-color), var(--pp-accent-color));
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.program-portal .pp-program-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(196, 30, 58, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+}
+
+.program-portal .pp-program-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: var(--pp-shadow-xl);
+    border-color: rgba(196, 30, 58, 0.15);
+}
+
+.program-portal .pp-program-card:hover::before {
+    height: 100%;
+}
+
+.program-portal .pp-program-card:hover::after {
+    opacity: 1;
+}
+
+.program-portal .pp-program-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--pp-primary-color) 0%, var(--pp-accent-color) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 24px 0;
+    color: var(--pp-text-white);
+    transition: var(--pp-transition);
+    position: relative;
+    box-shadow: 0 8px 20px rgba(196, 30, 58, 0.25);
+}
+
+.program-portal .pp-program-icon::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, var(--pp-primary-color), var(--pp-accent-color));
+    border-radius: 23px;
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.program-portal .pp-program-card:hover .pp-program-icon {
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 12px 30px rgba(196, 30, 58, 0.35);
+}
+
+.program-portal .pp-program-card:hover .pp-program-icon::before {
+    opacity: 0.6;
+}
+
+.program-portal .pp-program-icon svg {
+    width: 40px;
+    height: 40px;
+    stroke-width: 2.5;
+}
+
+.program-portal .pp-program-content {
+    position: relative;
+    z-index: 1;
+}
+
+.program-portal .pp-program-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--pp-text-dark);
+    margin: 0 0 12px 0;
+    padding: 0;
+    line-height: 1.3;
+    transition: color 0.3s;
+}
+
+.program-portal .pp-program-card:hover .pp-program-title {
+    color: var(--pp-primary-color);
+}
+
+.program-portal .pp-program-description {
+    font-size: 1rem;
+    color: var(--pp-text-light);
+    margin: 0 0 24px 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.program-portal .pp-program-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--pp-primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--pp-transition);
+    position: relative;
+    font-size: 0.95rem;
+}
+
+.program-portal .pp-program-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--pp-primary-color), var(--pp-accent-color));
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.program-portal .pp-program-link:hover {
+    gap: 12px;
+    color: var(--pp-primary-dark);
+}
+
+.program-portal .pp-program-link:hover::after {
+    width: calc(100% - 24px);
+}
+
+.program-portal .pp-program-link svg {
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.program-portal .pp-program-link:hover svg {
+    transform: translateX(4px);
+}
+
+.program-portal .pp-program-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--pp-accent-color) 0%, #ff8c61 100%);
+    color: var(--pp-text-white);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.35);
+    z-index: 2;
+    animation: pp-pulse 2s ease-in-out infinite;
+}
+
+@keyframes pp-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ===================================
+   Stats Section - Scoped
+   =================================== */
+
+.program-portal .pp-stats-section {
+    padding: 100px 0;
+    background: var(--pp-secondary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.program-portal .pp-stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(196, 30, 58, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+    animation: pp-backgroundPulse 10s ease-in-out infinite;
+}
+
+@keyframes pp-backgroundPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.program-portal .pp-stats-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100px 100px;
+}
+
+.program-portal .pp-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 60px;
+    position: relative;
+    z-index: 1;
+}
+
+.program-portal .pp-stat-item {
+    text-align: center;
+    position: relative;
+}
+
+.program-portal .pp-stat-item::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(196, 30, 58, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.program-portal .pp-stat-item:hover::before {
+    opacity: 1;
+}
+
+.program-portal .pp-stat-number {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--pp-primary-color) 0%, var(--pp-accent-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 12px 0;
+    padding: 0;
+    line-height: 1;
+    position: relative;
+    display: inline-block;
+}
+
+.program-portal .pp-stat-label {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===================================
+   Animation States - Scoped
+   =================================== */
+
+.program-portal .pp-program-card.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.program-portal .pp-loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    color: var(--pp-primary-color);
+}
+
+.program-portal .pp-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(196, 30, 58, 0.3);
+    transform: scale(0);
+    animation: pp-ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes pp-ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* AOS Animations - Scoped */
+.program-portal [data-aos] {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.program-portal [data-aos].aos-animate {
+    opacity: 1;
+}
+
+.program-portal [data-aos="fade-up"] {
+    transform: translateY(30px);
+}
+
+.program-portal [data-aos="fade-up"].aos-animate {
+    transform: translateY(0);
+}
+
+/* ===================================
+   Responsive Design - Scoped
+   =================================== */
+
+@media (max-width: 1200px) {
+    .program-portal .pp-programs-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+@media (max-width: 1024px) {
+    .program-portal .pp-hero-section {
+        height: 85vh;
+        min-height: 550px;
+    }
+
+    .program-portal .pp-programs-section {
+        padding: 100px 0;
+    }
+
+    .program-portal .pp-programs-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+    }
+
+    .program-portal .pp-stats-grid {
+        gap: 48px;
+    }
+}
+
+@media (max-width: 768px) {
+    .program-portal .pp-hero-section {
+        height: 80vh;
+        min-height: 500px;
+    }
+
+    .program-portal .pp-hero-title {
+        font-size: 2.25rem;
+        margin-bottom: 20px;
+    }
+
+    .program-portal .pp-hero-title::after {
+        width: 60px;
+        margin-top: 16px;
+    }
+
+    .program-portal .pp-hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 32px;
+    }
+
+    .program-portal .pp-cta-button {
+        padding: 16px 32px;
+        font-size: 1rem;
+    }
+
+    .program-portal .pp-programs-section {
+        padding: 80px 0;
+    }
+
+    .program-portal .pp-section-header {
+        margin-bottom: 56px;
+    }
+
+    .program-portal .pp-section-title {
+        font-size: 2rem;
+    }
+
+    .program-portal .pp-section-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .program-portal .pp-programs-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .program-portal .pp-program-card {
+        padding: 36px 28px;
+    }
+
+    .program-portal .pp-program-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+    }
+
+    .program-portal .pp-program-icon svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .program-portal .pp-program-title {
+        font-size: 1.35rem;
+    }
+
+    .program-portal .pp-stats-section {
+        padding: 80px 0;
+    }
+
+    .program-portal .pp-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .program-portal .pp-stat-number {
+        font-size: 2.75rem;
+    }
+
+    .program-portal .pp-stat-label {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .program-portal .pp-container {
+        padding: 0 16px;
+    }
+
+    .program-portal .pp-hero-section {
+        min-height: 450px;
+    }
+
+    .program-portal .pp-hero-title {
+        font-size: 1.85rem;
+    }
+
+    .program-portal .pp-hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .program-portal .pp-cta-button {
+        padding: 14px 28px;
+        font-size: 0.95rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .program-portal .pp-hero-scroll-indicator {
+        bottom: 24px;
+        font-size: 0.75rem;
+    }
+
+    .program-portal .pp-scroll-line {
+        height: 30px;
+    }
+
+    .program-portal .pp-programs-section {
+        padding: 60px 0;
+    }
+
+    .program-portal .pp-section-header {
+        margin-bottom: 40px;
+    }
+
+    .program-portal .pp-section-title {
+        font-size: 1.75rem;
+    }
+
+    .program-portal .pp-section-subtitle {
+        font-size: 1rem;
+    }
+
+    .program-portal .pp-program-card {
+        padding: 32px 24px;
+    }
+
+    .program-portal .pp-program-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+    }
+
+    .program-portal .pp-program-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .program-portal .pp-program-title {
+        font-size: 1.25rem;
+    }
+
+    .program-portal .pp-program-description {
+        font-size: 0.95rem;
+    }
+
+    .program-portal .pp-program-badge {
+        top: 16px;
+        right: 16px;
+        padding: 5px 12px;
+        font-size: 0.7rem;
+    }
+
+    .program-portal .pp-stats-section {
+        padding: 60px 0;
+    }
+
+    .program-portal .pp-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .program-portal .pp-stat-number {
+        font-size: 2.5rem;
+    }
+
+    .program-portal .pp-stat-label {
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+}
+
+/* ===================================
+   Accessibility - Scoped
+   =================================== */
+
+.program-portal .pp-program-card:focus {
+    outline: 3px solid var(--pp-primary-color);
+    outline-offset: 4px;
+}
+
+.program-portal .pp-program-card:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.program-portal .pp-cta-button:focus-visible {
+    outline: 3px solid var(--pp-text-white);
+    outline-offset: 4px;
+}
+
+.program-portal .pp-program-link:focus-visible {
+    outline: 2px solid var(--pp-primary-color);
+    outline-offset: 4px;
+    border-radius: 4px;
+}

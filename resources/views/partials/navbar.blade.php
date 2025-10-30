@@ -19,7 +19,7 @@
     <div id="menu" class="hidden md:flex items-center space-x-6">
       <a href="{{ url('/') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Home</a>
       <a href="{{ url('/about') }}" class="text-gray-700 hover:text-red-700 font-medium transition">About Us</a>
-      <a href="{{ url('/programs') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Programs</a>
+      <a href="{{ url('/program') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Programs</a>
       <a href="{{ url('/articles') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Articles</a>
       <a href="{{ url('/contact') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Contact</a>
 

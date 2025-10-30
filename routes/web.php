@@ -14,3 +14,7 @@ Route::get('/articles', function () {
 Route::get('/articlespv', function () {
     return view('articlespv');
 });
+
+Route::get('/program', function () {
+    return view('program');
+});
