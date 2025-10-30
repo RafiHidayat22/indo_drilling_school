@@ -2,10 +2,7 @@
 
 @section('title', 'Home | Indonesia Drilling School')
 
-@section('head')
-@vite('resources/css/home.css')
-@vite('resources/js/home.js')
-@endsection
+
 
 @section('content')
 

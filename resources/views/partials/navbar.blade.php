@@ -34,7 +34,7 @@
   <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-2 bg-gray-100">
     <a href="{{ url('/') }}" class="block text-gray-700 hover:text-red-700 font-medium">Home</a>
     <a href="{{ url('/about') }}" class="block text-gray-700 hover:text-red-700 font-medium">About Us</a>
-    <a href="{{ url('/programs') }}" class="block text-gray-700 hover:text-red-700 font-medium">Programs</a>
+    <a href="{{ url('/program') }}" class="block text-gray-700 hover:text-red-700 font-medium">Programs</a>
     <a href="{{ url('/articles') }}" class="block text-gray-700 hover:text-red-700 font-medium">Articles</a>
     <a href="{{ url('/contact') }}" class="block text-gray-700 hover:text-red-700 font-medium">Contact</a>
     <a href="{{ url('/join') }}"
