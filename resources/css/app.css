@@ -10,6 +10,11 @@
 @import './home.css';
 @import './contact.css';
 
+/* Import Custom CSS */
+@import './home.css';
+
+
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
