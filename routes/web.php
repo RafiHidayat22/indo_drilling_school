@@ -34,6 +34,14 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+// Logout route
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/login')->with('success', 'Logout berhasil');
+})->name('logout');
+
 // Program Portal (Public)
 Route::get('/program', [ProgramWebController::class, 'index'])->name('program.index');
 Route::get('/program/{categorySlug}', [ProgramWebController::class, 'showCategory'])->name('program.category');
@@ -53,10 +61,3 @@ Route::middleware(['check.auth'])->group(function () {
         Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');
     });
 });
-
-Route::post('/logout', function () {
-    Auth::logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-    return redirect('/login')->with('success', 'Logout berhasil');
-})->name('logout');

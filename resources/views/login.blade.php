@@ -245,7 +245,7 @@
         <div class="logo-container text-center mb-8 px-4">
             <div class="flex justify-center mb-6">
                 <div class="logo-container-box p-5 rounded-2xl">
-                    <img src="{{ asset('logo.png') }}" alt="Indonesia Drilling School Logo" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
+                    <img src="{{ asset('images/logo.png') }}" alt="Indonesia Drilling School Logo" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
                 </div>
             </div>
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight leading-tight px-2">Indonesia Drilling School</h1>

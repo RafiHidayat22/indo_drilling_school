@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'check.auth' => \App\Http\Middleware\CheckAuth::class,
             'role' => \App\Http\Middleware\CheckRole::class,
+            'super.admin' => \App\Http\Middleware\CheckSuperAdmin::class,
         ]);
 
         // Web middleware group - tambahkan session

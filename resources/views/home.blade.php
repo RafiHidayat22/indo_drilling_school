@@ -332,16 +332,17 @@
                         ['BNSP', 'accredited/bnsp.png'],
                         ['Kemnaker', 'accredited/kemenaker.png'],
                         ['LSP Energi', 'accredited/lspenergi.jpg'],
-                        ['LSP Energi', 'accredited/lspikn.jpg'],
-                        ['LSP Energi', 'accredited/lsplh.png'],
-                        ['LSP Energi', 'accredited/lspmigas.jpg'],
-                        ['LSP Energi', 'accredited/lsppim.png'],
-                        ['LSP Energi', 'accredited/lsptti.png'],
-                        ['LSP Energi', 'accredited/ppsdm2.png'],
-                        ['LSP Energi', 'accredited/ppsdm.png'],
-                        ['LSP Energi', 'accredited/iccosh.png'],
-                        ['LSP Energi', 'accredited/geomigas.png'],
-                        ['K3 Nasional', 'accredited/k3nasional.png']
+                        ['LSP IKN', 'accredited/lspikn.jpg'],
+                        ['LSP LH', 'accredited/lsplh.png'],
+                        ['LSP Migas', 'accredited/lspmigas.jpg'],
+                        ['LSP PIM', 'accredited/lsppim.png'],
+                        ['LSP TTI', 'accredited/lsptti.png'],
+                        ['PPSDM', 'accredited/ppsdm2.png'],
+                        ['PPSDM', 'accredited/ppsdm.png'],
+                        ['ICCOSH', 'accredited/iccosh.png'],
+                        ['GEO MIGAS', 'accredited/geomigas.png'],
+                        ['K3 Nasional', 'accredited/k3nasional.png'],
+                        ['EPS Aryndo', 'accredited/epsaryndo.png']
                         ];
                         @endphp
 

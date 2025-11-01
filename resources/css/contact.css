@@ -163,24 +163,25 @@ background: linear-gradient(135deg, #a00000 0%, #000000 100%);
 }
 
 .contact-address-icon {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ff0000;
     color: var(--white);
 }
 
 .contact-phone-icon {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: #ff0000;
     color: var(--white);
 }
 
 .contact-whatsapp-icon {
-    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    background: #ff0000;
     color: var(--white);
 }
 
 .contact-email-icon {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: #ff0000;
     color: var(--white);
 }
+
 
 .contact-card-content h3 {
     font-size: 1.1rem;

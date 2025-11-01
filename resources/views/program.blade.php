@@ -7,7 +7,12 @@
 <div class="program-portal">
     <!-- Hero Section -->
     <section class="pp-hero-section">
-        <div class="pp-hero-overlay"></div>
+        <div class="pp-hero-overlay">
+                        <img src="{{ asset('images/imgHeroProgram.jpg') }}"
+                alt="Oil Rig Background"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+            <div class="absolute inset-0 bg-black/60"></div>
+        </div>
         <div class="pp-hero-content">
             <div class="pp-container">
                 <div class="pp-hero-text" data-aos="fade-up">

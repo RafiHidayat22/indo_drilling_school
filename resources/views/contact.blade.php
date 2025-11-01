@@ -6,7 +6,12 @@
 
 <!-- Hero Section -->
 <section class="contact-hero">
-    <div class="contact-hero-overlay"></div>
+    <div class="contact-hero-overlay">
+                    <img src="{{ asset('images/imgHeroContact.jpg') }}"
+                alt="Oil Rig Background"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+            <div class="absolute inset-0 bg-black/60"></div>
+    </div>
     <div class="contact-hero-content">
         <h1 class="contact-hero-title">Contact Us</h1>
         <p class="contact-hero-subtitle">We're here to help you with information about our training programs and partnerships</p>

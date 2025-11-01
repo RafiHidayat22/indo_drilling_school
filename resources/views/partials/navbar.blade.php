@@ -39,7 +39,7 @@
     <a href="{{ url('/contact') }}" class="block text-gray-700 hover:text-red-700 font-medium">Contact</a>
     <a href="{{ url('/join') }}"
       class="block text-center bg-red-700 text-white py-2 rounded-md hover:bg-red-800 transition font-semibold">
-      Join Now
+      Register Now
     </a>
   </div>
 </nav>
