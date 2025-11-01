@@ -7,8 +7,10 @@
 <!-- Hero Section with Overlay -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
     <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-red-900">
-        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1600&q=80"
-            alt="Drilling Rig" class="w-full h-full object-cover mix-blend-overlay opacity-40">
+            <img src="{{ asset('images/imgHeroAbout.jpg') }}"
+                alt="Oil Rig Background"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+            <div class="absolute inset-0 bg-black/60"></div>
     </div>
     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
 
@@ -357,8 +359,9 @@
 <!-- Facilities Showcase -->
 <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
     <div class="absolute inset-0 opacity-10">
-        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1600&q=80"
-            alt="Facilities" class="w-full h-full object-cover">
+            <img src="{{ asset('images/imgHeroAbout2.jpg') }}"
+                alt="Oil Rig Background"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
     </div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">

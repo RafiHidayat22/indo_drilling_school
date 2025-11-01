@@ -7,12 +7,8 @@ use App\Models\TrainingSubcategory;
 use App\Models\Training;
 use Illuminate\Http\Request;
 
-class ProgramController extends Controller
+class ProgramWebController extends Controller
 {
-    /**
-     * Display program portal (program.blade.php)
-     * Menampilkan semua kategori pelatihan
-     */
     public function index()
     {
         $categories = TrainingCategory::where('status', 'Active')
@@ -22,38 +18,48 @@ class ProgramController extends Controller
         return view('program', compact('categories'));
     }
 
-    /**
-     * Display program detail by category (programDetail.blade.php)
-     * Menampilkan sub kategori dari kategori yang dipilih
-     */
-    public function show($categorySlug)
+    public function showCategory($categorySlug)
     {
         $category = TrainingCategory::where('slug', $categorySlug)
             ->where('status', 'Active')
-            ->firstOrFail();
-
-        $subcategories = TrainingSubcategory::where('category_id', $category->id)
-            ->where('status', 'Active')
-            ->with(['trainings' => function($query) {
-                $query->where('status', 'Active');
+            ->with(['subcategories' => function($query) {
+                $query->where('status', 'Active')
+                    ->orderBy('order')
+                    ->withCount('trainings');
             }])
-            ->orderBy('order')
-            ->get();
+            ->firstOrFail();
 
         return view('programDetail', [
             'programTitle' => $category->title,
             'programDescription' => $category->description,
             'programSlug' => $category->slug,
             'programIcon' => $category->icon,
-            'subcategories' => $subcategories
+            'subcategories' => $category->subcategories
         ]);
     }
 
-    /**
-     * Display training enrollment page (enroll.blade.php)
-     * Menampilkan detail pelatihan untuk enrollment
-     */
-    public function enroll($categorySlug, $subcategorySlug, $trainingSlug)
+    public function showSubcategory($categorySlug, $subcategorySlug)
+    {
+        $category = TrainingCategory::where('slug', $categorySlug)
+            ->where('status', 'Active')
+            ->firstOrFail();
+
+        $subcategory = TrainingSubcategory::where('slug', $subcategorySlug)
+            ->where('category_id', $category->id)
+            ->where('status', 'Active')
+            ->with(['trainings' => function($query) {
+                $query->where('status', 'Active')->orderBy('order');
+            }])
+            ->firstOrFail();
+
+        return view('subcategoryDetail', [
+            'category' => $category,
+            'subcategory' => $subcategory,
+            'trainings' => $subcategory->trainings
+        ]);
+    }
+
+    public function showTraining($categorySlug, $subcategorySlug, $trainingSlug)
     {
         $category = TrainingCategory::where('slug', $categorySlug)
             ->where('status', 'Active')
@@ -70,10 +76,8 @@ class ProgramController extends Controller
             ->firstOrFail();
 
         return view('enroll', [
-            'programTitle' => $category->title,
-            'programSlug' => $category->slug,
+            'category' => $category,
             'subcategory' => $subcategory,
-            'course' => $training, // untuk backward compatibility dengan view lama
             'training' => $training
         ]);
     }

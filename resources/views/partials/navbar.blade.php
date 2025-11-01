@@ -30,6 +30,7 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   {{-- Dropdown Mobile Menu dengan Animasi --}}
   <div id="mobile-menu" class="md:hidden overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0;">
     <div class="px-4 pb-4 pt-2 space-y-2 bg-gray-100">
@@ -43,6 +44,19 @@
         Join Now
       </a>
     </div>
+=======
+  {{-- Dropdown Mobile Menu --}}
+  <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-2 bg-gray-100">
+    <a href="{{ url('/') }}" class="block text-gray-700 hover:text-red-700 font-medium">Home</a>
+    <a href="{{ url('/about') }}" class="block text-gray-700 hover:text-red-700 font-medium">About Us</a>
+    <a href="{{ url('/program') }}" class="block text-gray-700 hover:text-red-700 font-medium">Programs</a>
+    <a href="{{ url('/articles') }}" class="block text-gray-700 hover:text-red-700 font-medium">Articles</a>
+    <a href="{{ url('/contact') }}" class="block text-gray-700 hover:text-red-700 font-medium">Contact</a>
+    <a href="{{ url('/join') }}"
+      class="block text-center bg-red-700 text-white py-2 rounded-md hover:bg-red-800 transition font-semibold">
+      Register Now
+    </a>
+>>>>>>> 598923491ce371d77a127e3f428ea4deeec73ef0
   </div>
 </nav>
 

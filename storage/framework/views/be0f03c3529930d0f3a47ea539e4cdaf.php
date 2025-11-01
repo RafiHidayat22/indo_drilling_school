@@ -43,7 +43,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
-                        <p class="text-sm font-medium text-slate-600 mb-1">Total Provider</p>
+                        <p class="text-sm font-medium text-slate-600 mb-1">Total Program</p>
                         <p class="text-3xl font-bold text-slate-800"><?php echo e(count($trainings)); ?></p>
                         <p class="text-xs text-slate-500 mt-1">Program aktif</p>
                     </div>
@@ -109,7 +109,7 @@
                         <input
                             type="text"
                             id="searchInput"
-                            placeholder="Cari provider atau pelatihan..."
+                            placeholder="Cari program atau pelatihan..."
                             class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
                         <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -137,7 +137,7 @@
                     <select
                         id="providerFilter"
                         class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
-                        <option value="">Semua Provider</option>
+                        <option value="">Semua Program</option>
                         <?php $__currentLoopData = $trainings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $training): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <option value="<?php echo e($training['provider']); ?>"><?php echo e($training['provider']); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -158,7 +158,7 @@
         <!-- Table Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
-                <h2 class="text-lg font-semibold text-slate-800">Daftar Provider & Pelatihan</h2>
+                <h2 class="text-lg font-semibold text-slate-800">Daftar Program & Pelatihan</h2>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-slate-200">
@@ -166,7 +166,7 @@
                         <tr>
                             <th class="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider w-12">No</th>
                             <th class="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider w-32">Kategori</th>
-                            <th class="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider w-48">Provider</th>
+                            <th class="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider w-48">Program</th>
                             <th class="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Pelatihan</th>
                             <th class="px-4 py-4 text-center text-xs font-semibold text-slate-600 uppercase tracking-wider w-24">Status</th>
                             <th class="px-4 py-4 text-center text-xs font-semibold text-slate-600 uppercase tracking-wider w-28">Aktif/Total</th>
@@ -322,7 +322,7 @@
                     <svg class="mx-auto h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                     </svg>
-                    <p class="mt-2 text-sm text-slate-500">Tidak ada data provider.</p>
+                    <p class="mt-2 text-sm text-slate-500">Tidak ada data program.</p>
                 </td>
             </tr>
             <?php endif; ?>
@@ -384,12 +384,12 @@
                         required
                         placeholder="Contoh: AOSH, PT Safety Pro"
                         class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                    <p class="mt-1 text-xs text-slate-500">Masukkan nama provider atau lembaga penyelenggara pelatihan</p>
+                    <p class="mt-1 text-xs text-slate-500">Masukkan nama program atau lembaga penyelenggara pelatihan</p>
                 </div>
 
                 <!-- Status Provider -->
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Status Provider *</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Status Program *</label>
                     <select
                         name="status"
                         required
@@ -406,14 +406,14 @@
                     <textarea
                         name="provider_description"
                         rows="3"
-                        placeholder="Deskripsi singkat tentang program atau provider ini"
+                        placeholder="Deskripsi singkat tentang program atau program ini"
                         class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"></textarea>
                 </div>
 
                 <!-- Daftar Pelatihan -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Daftar Pelatihan *</label>
-                    <p class="text-xs text-slate-500 mb-3">Tambahkan jenis pelatihan yang disediakan oleh provider ini</p>
+                    <p class="text-xs text-slate-500 mb-3">Tambahkan jenis pelatihan yang disediakan oleh program ini</p>
                     <div id="trainingInputs" class="space-y-3 max-h-[40vh] overflow-y-auto pr-2">
                         <!-- Input pertama -->
                         <div class="flex flex-col gap-2 p-4 bg-slate-50 rounded-lg border border-slate-200">
@@ -456,7 +456,7 @@
                         Batal
                     </button>
                     <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 transition shadow-lg">
-                        Simpan Provider
+                        Simpan Program
                     </button>
                 </div>
             </form>
@@ -509,12 +509,12 @@
                         required
                         placeholder="Contoh: AOSH, PT Safety Pro"
                         class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                    <p class="mt-1 text-xs text-slate-500">Masukkan nama provider atau lembaga penyelenggara pelatihan</p>
+                    <p class="mt-1 text-xs text-slate-500">Masukkan nama program atau lembaga penyelenggara pelatihan</p>
                 </div>
 
                 <!-- Status Provider -->
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Status Provider *</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Status Program *</label>
                     <select
                         id="editProviderStatus"
                         name="status"
@@ -558,7 +558,7 @@
                         Batal
                     </button>
                     <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg font-semibold hover:from-amber-600 hover:to-amber-700 transition shadow-lg">
-                        Update Provider
+                        Update Program
                     </button>
                 </div>
             </form>

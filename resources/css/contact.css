@@ -183,6 +183,7 @@ section.contact-main .contact-card-icon svg {
     height: 24px;
 }
 
+<<<<<<< HEAD
 section.contact-main .contact-address-icon {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
@@ -200,6 +201,30 @@ section.contact-main .contact-email-icon {
 }
 
 section.contact-main .contact-card-content h3 {
+=======
+.contact-address-icon {
+    background: #ff0000;
+    color: var(--white);
+}
+
+.contact-phone-icon {
+    background: #ff0000;
+    color: var(--white);
+}
+
+.contact-whatsapp-icon {
+    background: #ff0000;
+    color: var(--white);
+}
+
+.contact-email-icon {
+    background: #ff0000;
+    color: var(--white);
+}
+
+
+.contact-card-content h3 {
+>>>>>>> 598923491ce371d77a127e3f428ea4deeec73ef0
     font-size: 1.1rem;
     color: var(--contact-text-dark);
     margin-bottom: 0.3rem;

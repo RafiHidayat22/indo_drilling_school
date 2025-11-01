@@ -36,38 +36,38 @@
             </div>
 
             <div class="pd-courses-list">
-                @foreach($companies as $companyName => $trainings)
-                <div class="pd-course-item" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                    <div class="pd-item-header" onclick="toggleCompany({{ $loop->index }})">
+                @foreach($subcategories as $subcategory)
+                <div class="pd-course-item" data-aos="fade-up">
+                    <div class="pd-item-header" onclick="toggleSubcategory({{ $loop->index }})">
                         <div class="pd-item-title-wrapper">
                             <div class="pd-expand-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2"/>
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="pd-item-title">{{ $companyName }}</h3>
-                                <p class="pd-item-subtitle">{{ count($trainings) }} training{{ count($trainings) > 1 ? 's' : '' }} available</p>
+                                <h3 class="pd-item-title">{{ $subcategory->title }}</h3>
+                                <p class="pd-item-subtitle">{{ $subcategory->description }}</p>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="pd-item-content" id="company-content-{{ $loop->index }}">
+                    <div class="pd-item-content" id="subcategory-content-{{ $loop->index }}">
                         <div class="pd-training-detail">
-                            <div class="pd-detail-section">
-                                <div class="pd-company-trainings">
-                                    @foreach($trainings as $training)
-                                    <div class="pd-training-item">
-                                        <h4 class="pd-training-title">{{ $training['title'] }}</h4>
-                                        <a href="/programs/{{ $programSlug }}/enroll/{{ $training['slug'] }}" class="pd-enroll-button">
-                                            <span>Enroll Now</span>
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    @endforeach
+                            <div class="pd-company-trainings">
+                                @foreach($subcategory->trainings as $training)
+                                <div class="pd-training-item">
+                                    <h4 class="pd-training-title">{{ $training->title }}</h4>
+                                    <p class="pd-training-description">{{ $training->description }}</p>
+                                    <a href="{{ route('program.training', [$programSlug, $subcategory->slug, $training->slug]) }}" 
+                                    class="pd-enroll-button">
+                                        <span>Enroll Now</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </a>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -93,8 +93,8 @@
 </div>
 
 <script>
-function toggleCompany(index) {
-    const content = document.getElementById('company-content-' + index);
+function toggleSubcategory(index) {
+    const content = document.getElementById('subcategory-content-' + index);
     const item = content.closest('.pd-course-item');
     const icon = item.querySelector('.pd-expand-icon svg');
     
@@ -116,6 +116,7 @@ function toggleCompany(index) {
         content.style.maxHeight = '0';
     }
 }
+
 </script>
 
 @endsection

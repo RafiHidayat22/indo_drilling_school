@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>Login - Indonesia Drilling School</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,7 +22,6 @@
             min-height: 100vh;
         }
 
-        /* Animated background particles */
         .particle {
             position: absolute;
             border-radius: 50%;
@@ -30,21 +30,16 @@
         }
 
         @keyframes float {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0) translateX(0);
                 opacity: 0;
             }
-
             10% {
                 opacity: 1;
             }
-
             90% {
                 opacity: 1;
             }
-
             100% {
                 transform: translateY(-100vh) translateX(100px);
                 opacity: 0;
@@ -120,7 +115,6 @@
             animation: fadeInDown 0.8s ease-out;
         }
 
-        /* Form Container Responsive */
         .form-container {
             animation: fadeInUp 0.8s ease-out;
         }
@@ -146,7 +140,6 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -158,7 +151,6 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -174,7 +166,6 @@
                 opacity: 0;
                 transform: translateX(20px);
             }
-
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -250,11 +241,11 @@
     <div class="particle" style="width: 90px; height: 90px; left: 50%; animation-delay: 12s;"></div>
 
     <div class="w-full max-w-md relative z-10 px-4 sm:px-6">
-        <!-- Logo dan Header - DIPERBAIKI -->
+        <!-- Logo dan Header -->
         <div class="logo-container text-center mb-8 px-4">
             <div class="flex justify-center mb-6">
                 <div class="logo-container-box p-5 rounded-2xl">
-                    <img src="<?php echo e(asset('logo.png')); ?>" alt="Indonesia Drilling School Logo" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
+                    <img src="<?php echo e(asset('images/logo.png')); ?>" alt="Indonesia Drilling School Logo" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
                 </div>
             </div>
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight leading-tight px-2">Indonesia Drilling School</h1>
@@ -263,35 +254,53 @@
             </div>
         </div>
 
-        <!-- Form Login - DIPERBAIKI -->
+        <!-- Form Login -->
         <div class="form-container glass-effect rounded-2xl p-6 sm:p-8 shadow-2xl">
-            <!-- Header Form -->
             <div class="text-center mb-6 sm:mb-8">
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-1">Selamat Datang</h2>
                 <p class="text-gray-500 text-xs sm:text-sm">Silakan masuk ke akun admin Anda</p>
             </div>
 
-            <!-- Alert Error (Hidden by default) -->
-            <div id="errorAlert" class="hidden alert bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg">
-                <div class="flex items-center">
-                    <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
-                    <p class="text-red-700 text-sm font-medium" id="errorMessage"></p>
-                </div>
-            </div>
+<?php if(session('success')): ?>
+<div class="alert bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded-lg animate-slideInRight">
+    <div class="flex items-center">
+        <i class="fas fa-check-circle text-green-500 mr-3"></i>
+        <p class="text-green-700 text-sm font-medium"><?php echo e(session('success')); ?></p>
+    </div>
+</div>
+<?php endif; ?>
+
+<!-- Alert Error -->
+<?php if(session('error')): ?>
+<div class="alert bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg animate-slideInRight">
+    <div class="flex items-center">
+        <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
+        <p class="text-red-700 text-sm font-medium"><?php echo e(session('error')); ?></p>
+    </div>
+</div>
+<?php endif; ?>
+
+<div id="errorAlert" class="hidden alert bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg animate-slideInRight">
+    <div class="flex items-center">
+        <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
+        <p id="errorMessage" class="text-red-700 text-sm font-medium"></p>
+    </div>
+</div>
+
 
             <form id="loginForm">
-                <!-- Username Field -->
+                <!-- Email Field -->
                 <div class="mb-5">
-                    <label for="username" class="flex items-center text-gray-700 text-xs sm:text-sm font-semibold mb-2">
-                        <i class="fas fa-user text-purple-600 mr-2 text-sm"></i>
-                        <span>Username</span>
+                    <label for="email" class="flex items-center text-gray-700 text-xs sm:text-sm font-semibold mb-2">
+                        <i class="fas fa-envelope text-purple-600 mr-2 text-sm"></i>
+                        <span>Email</span>
                     </label>
                     <input
-                        type="text"
-                        id="username"
-                        name="username"
+                        type="email"
+                        id="email"
+                        name="email"
                         class="input-field w-full px-4 py-3 sm:py-3.5 rounded-xl focus:outline-none text-gray-700 text-sm sm:text-base"
-                        placeholder="Masukkan username Anda"
+                        placeholder="Masukkan email Anda"
                         required>
                 </div>
 
@@ -318,7 +327,7 @@
                     </div>
                 </div>
 
-                <!-- Remember Me & Forgot Password -->
+                <!-- Remember Me -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3 sm:gap-0">
                     <label class="flex items-center cursor-pointer group">
                         <input type="checkbox" name="remember" class="checkbox-custom w-4 h-4 text-purple-600 border-2 border-gray-300 rounded focus:ring-2 focus:ring-purple-500">
@@ -330,7 +339,7 @@
                 <button
                     type="submit"
                     class="btn-login w-full text-white font-bold py-3 sm:py-3.5 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-300 text-sm sm:text-base">
-                    <i class="fas fa-sign-in-alt mr-2" href="<?php echo e(url('/users')); ?>"></i>Masuk ke Dashboard
+                    <i class="fas fa-sign-in-alt mr-2"></i>Masuk ke Dashboard
                 </button>
             </form>
 
@@ -394,68 +403,109 @@
 
         // Form Validation & Submit
         const loginForm = document.getElementById('loginForm');
-        const errorAlert = document.getElementById('errorAlert');
-        const errorMessage = document.getElementById('errorMessage');
+const errorAlert = document.getElementById('errorAlert');
+const errorMessage = document.getElementById('errorMessage');
 
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+loginForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const remember = document.querySelector('input[name="remember"]').checked;
 
-            // Clear previous errors
-            errorAlert.classList.add('hidden');
+    // Clear previous errors
+    errorAlert.classList.add('hidden');
 
-            // Validation
-            if (username === '') {
-                showError('Username tidak boleh kosong');
-                return false;
-            }
+    // Validation
+    if (email === '') {
+        showError('Email tidak boleh kosong');
+        return false;
+    }
 
-            if (password === '') {
-                showError('Password tidak boleh kosong');
-                return false;
-            }
+    if (password === '') {
+        showError('Password tidak boleh kosong');
+        return false;
+    }
 
-            if (password.length < 6) {
-                showError('Password minimal 6 karakter');
-                return false;
-            }
+    if (password.length < 6) {
+        showError('Password minimal 6 karakter');
+        return false;
+    }
 
-            // Simulate successful login
-            showSuccess();
+    // Disable button saat loading
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Memproses...';
+
+    try {
+        // Request ke API login
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+            },
+            credentials: 'same-origin', // Penting untuk cookies
+            body: JSON.stringify({ 
+                email, 
+                password,
+                remember 
+            })
         });
 
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorAlert.classList.remove('hidden');
-            errorAlert.classList.remove('bg-green-50', 'border-green-500');
-            errorAlert.classList.add('bg-red-50', 'border-red-500');
-            errorAlert.querySelector('i').classList.remove('fa-check-circle', 'text-green-500');
-            errorAlert.querySelector('i').classList.add('fa-exclamation-circle', 'text-red-500');
-            errorAlert.querySelector('p').classList.remove('text-green-700');
-            errorAlert.querySelector('p').classList.add('text-red-700');
+        const data = await response.json();
 
-            setTimeout(() => {
-                errorAlert.classList.add('hidden');
-            }, 5000);
+        if (!response.ok) {
+            showError(data.message || 'Login gagal. Periksa email dan password Anda.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+            return;
         }
 
-        function showSuccess() {
-            errorMessage.textContent = 'Login berhasil! Mengalihkan ke dashboard...';
-            errorAlert.classList.remove('hidden', 'bg-red-50', 'border-red-500');
-            errorAlert.classList.add('bg-green-50', 'border-green-500');
-            errorAlert.querySelector('i').classList.remove('fa-exclamation-circle', 'text-red-500');
-            errorAlert.querySelector('i').classList.add('fa-check-circle', 'text-green-500');
-            errorAlert.querySelector('p').classList.remove('text-red-700');
-            errorAlert.querySelector('p').classList.add('text-green-700');
+        // Login berhasil
+        showSuccess('Login berhasil! Mengalihkan ke dashboard...');
+        
+        // Redirect ke dashboard setelah 1 detik
+        setTimeout(() => {
+            window.location.href = '/users';
+        }, 1000);
 
-            setTimeout(() => {
-                console.log('Redirecting to dashboard...');
-            }, 2000);
-        }
+    } catch (error) {
+        showError('Terjadi kesalahan koneksi. Silakan coba lagi.');
+        console.error('Login error:', error);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+    }
+});
 
-        // Add ripple effect to button
+function showError(message) {
+    errorMessage.textContent = message;
+    errorAlert.classList.remove('hidden');
+    errorAlert.classList.remove('bg-green-50', 'border-green-500');
+    errorAlert.classList.add('bg-red-50', 'border-red-500');
+    errorAlert.querySelector('i').classList.remove('fa-check-circle', 'text-green-500');
+    errorAlert.querySelector('i').classList.add('fa-exclamation-circle', 'text-red-500');
+    errorAlert.querySelector('p').classList.remove('text-green-700');
+    errorAlert.querySelector('p').classList.add('text-red-700');
+
+    setTimeout(() => {
+        errorAlert.classList.add('hidden');
+    }, 5000);
+}
+
+function showSuccess(message) {
+    errorMessage.textContent = message;
+    errorAlert.classList.remove('hidden', 'bg-red-50', 'border-red-500');
+    errorAlert.classList.add('bg-green-50', 'border-green-500');
+    errorAlert.querySelector('i').classList.remove('fa-exclamation-circle', 'text-red-500');
+    errorAlert.querySelector('i').classList.add('fa-check-circle', 'text-green-500');
+    errorAlert.querySelector('p').classList.remove('text-red-700');
+    errorAlert.querySelector('p').classList.add('text-green-700');
+}
+
+        // Ripple effect
         const loginBtn = document.querySelector('.btn-login');
         loginBtn.addEventListener('click', function(e) {
             const ripple = document.createElement('span');
@@ -470,10 +520,9 @@
             ripple.classList.add('ripple');
 
             this.appendChild(ripple);
-
             setTimeout(() => ripple.remove(), 600);
         });
     </script>
 </body>
-
-</html><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/login.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/login.blade.php ENDPATH**/ ?>

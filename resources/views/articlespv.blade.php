@@ -1,38 +1,78 @@
 @extends('layouts.app')
 
-@section('title', 'Advanced Drilling Techniques for Offshore Operations')
+@section('title', $article->meta_title ?? $article->title . ' | Indonesia Drilling School')
+
+@section('meta_description', $article->meta_description ?? $article->excerpt)
 
 @section('content')
+<!-- Reading Progress Bar -->
+<div id="reading-progress"></div>
+
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center">
     <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: url('https://images.unsplash.com/photo-1600864854605-9e0c8e5d5c5e?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;"></div>
+        <div class="absolute inset-0" style="background-image: url('{{ $article->featured_image }}'); background-size: cover; background-position: center;"></div>
     </div>
     <div class="particles-container"></div>
 
     <div class="relative z-10 w-full py-16 md:py-20 lg:py-24">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-5xl mx-auto">
+                <!-- Breadcrumb -->
+                <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.05s;">
+                    <nav class="flex items-center gap-2 text-sm text-gray-300">
+                        <a href="/" class="hover:text-red-400 transition">Home</a>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                        <a href="{{ route('articles.index') }}" class="hover:text-red-400 transition">Articles</a>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                        <a href="{{ route('articles.index', ['category' => $article->category->slug]) }}" class="hover:text-red-400 transition">{{ $article->category->name }}</a>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                        <span class="text-gray-400">Current Article</span>
+                    </nav>
+                </div>
+
                 <!-- Category Badge -->
                 <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
-                    <span class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-red-600 bg-white/95 backdrop-blur-sm rounded-full shadow-lg">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                        Training & Education
-                    </span>
+                    @php
+                        $categoryBgClass = match($article->category->color) {
+                            'red' => 'bg-red-600 hover:bg-red-700',
+                            'orange' => 'bg-orange-600 hover:bg-orange-700',
+                            'blue' => 'bg-blue-600 hover:bg-blue-700',
+                            'green' => 'bg-green-600 hover:bg-green-700',
+                            'purple' => 'bg-purple-600 hover:bg-purple-700',
+                            default => 'bg-gray-600 hover:bg-gray-700'
+                        };
+                    @endphp
+                    <a href="{{ route('articles.index', ['category' => $article->category->slug]) }}" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white {{ $categoryBgClass }} backdrop-blur-sm rounded-full shadow-lg transition">
+                        <i class="{{ 'fa-solid fa-folder' }}"></i>
+                        {{ $article->category->name }}
+                    </a>
                 </div>
 
                 <!-- Title -->
                 <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
-                    Advanced Drilling Techniques for Offshore Operations
+                    {{ $article->title }}
                 </h1>
 
                 <!-- Meta Information -->
                 <div class="flex flex-wrap items-center gap-6 lg:gap-8 text-gray-300 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    
                     <div class="hidden md:block h-12 w-px bg-gray-700"></div>
+                    
                     <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-sm md:text-base">
                         <span class="flex items-center gap-2">
                             <i class="fa-solid fa-calendar"></i>
-                            October 10, 2025
+                            {{ $article->formatted_date }}
+                        </span>
+                        <span class="hidden sm:inline">•</span>
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-clock"></i>
+                            {{ $article->reading_time }}
+                        </span>
+                        <span class="hidden sm:inline">•</span>
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-eye"></i>
+                            {{ number_format($article->views_count) }} views
                         </span>
                     </div>
                 </div>
@@ -47,71 +87,74 @@
         <div class="max-w-4xl mx-auto">
 
             <!-- Featured Image -->
+            @if($article->featured_image)
             <div class="py-12">
                 <div class="rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="https://cdn.pixabay.com/photo/2019/10/19/16/46/drill-4561730_1280.jpg"
-                        alt="Offshore Drilling Platform"
+                    <img src="{{ $article->featured_image }}"
+                        alt="{{ $article->title }}"
                         class="w-full h-auto object-cover">
                 </div>
+                @if($article->featured_image_caption)
                 <p class="mt-4 text-center text-sm text-gray-500 italic">
-                    Modern offshore drilling platform in operation
+                    {{ $article->featured_image_caption }}
                 </p>
+                @endif
             </div>
+            @endif
+
 
             <!-- Article Body -->
             <div class="prose prose-lg max-w-none pb-12">
-
-                <p class="text-gray-700 leading-relaxed mb-6">
-                    The oil and gas industry has witnessed remarkable technological advancement in recent years. These innovations have transformed offshore drilling operations, making them safer, more efficient, and environmentally responsible.
-                </p>
-                <p class="text-gray-700 leading-relaxed mb-6">
-                    Automated drilling systems reduce human error and increase precision through advanced robotics and AI-powered controls. These systems can handle repetitive tasks with remarkable consistency, allowing human operators to focus on critical decision-making and oversight.
-                </p>
-                <p class="text-gray-700 leading-relaxed mb-6">
-                    Advanced sensor networks and data analytics platforms allow engineers to detect anomalies before they become critical. Real-time monitoring provides unprecedented visibility into drilling operations, enabling proactive maintenance and risk mitigation.
-                </p>
-                <p class="text-gray-700 leading-relaxed mb-6">
-                    Modern blowout preventers (BOPs) feature redundant control systems and fail-safe mechanisms. These advanced safety systems protect both personnel and the environment, representing the industry's commitment to responsible operations.
-                </p>
-
-                <!-- Info Box -->
-                <div class="my-10 p-8 bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-600 rounded-r-xl">
-                    <p class="text-gray-800 leading-relaxed">
-                        <strong class="text-red-600">At Indonesia Drilling School,</strong> we integrate these technologies into our training curriculum to ensure graduates are ready for the field from day one. Our state-of-the-art simulation facilities provide hands-on experience with industry-leading equipment.
-                    </p>
-                </div>
-
-                <!-- Section 2 -->
-                <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">
-                    The Impact on Industry Standards
-                </h2>
-
-                <p class="text-gray-700 leading-relaxed mb-6">
-                    These technological advancements have not only improved operational efficiency but have also set new benchmarks for safety and environmental responsibility across the industry. Companies adopting these practices report significant reductions in incidents and environmental impact.
-                </p>
-
-                <p class="text-gray-700 leading-relaxed mb-8">
-                    The integration of digital technologies has revolutionized how we approach drilling operations. From predictive maintenance to automated decision support systems, the modern drilling rig is a showcase of engineering excellence and technological innovation.
-                </p>
-                <!-- Section 3 -->
-                <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">
-                    Training for Tomorrow's Challenges
-                </h2>
-
-                <p class="text-gray-700 leading-relaxed mb-6">
-                    As the industry continues to evolve, staying current with these technologies and best practices is essential for professionals at all levels of the drilling operation. Comprehensive training programs must address both technical competencies and safety awareness.
-                </p>
-
-                <p class="text-gray-700 leading-relaxed mb-8">
-                    Our curriculum is continuously updated to reflect the latest industry developments, ensuring that our graduates possess the knowledge and skills demanded by today's offshore operators. From classroom instruction to hands-on simulation, every aspect of our training is designed to build confidence and competence.
-                </p>
-
+                {!! $article->content !!}
             </div>
+
+
+            <!-- Navigation to Previous/Next Articles -->
+            <div class="my-12 grid md:grid-cols-2 gap-6">
+                @php
+                    $prevArticle = \App\Models\Article::published()
+                        ->where('published_at', '<', $article->published_at)
+                        ->orderBy('published_at', 'desc')
+                        ->first();
+                    $nextArticle = \App\Models\Article::published()
+                        ->where('published_at', '>', $article->published_at)
+                        ->orderBy('published_at', 'asc')
+                        ->first();
+                @endphp
+
+                @if($prevArticle)
+                <a href="{{ route('articles.show', $prevArticle->slug) }}" class="group p-6 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition">
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Previous Article</span>
+                    </div>
+                    <h4 class="font-bold text-gray-900 group-hover:text-red-600 transition line-clamp-2">
+                        {{ $prevArticle->title }}
+                    </h4>
+                </a>
+                @else
+                <div></div>
+                @endif
+
+                @if($nextArticle)
+                <a href="{{ route('articles.show', $nextArticle->slug) }}" class="group p-6 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition text-right">
+                    <div class="flex items-center justify-end gap-2 text-sm text-gray-500 mb-2">
+                        <span>Next Article</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 group-hover:text-red-600 transition line-clamp-2">
+                        {{ $nextArticle->title }}
+                    </h4>
+                </a>
+                @endif
+            </div>
+
         </div>
     </div>
 </article>
 
 <!-- Related Articles Section -->
+@if($relatedArticles->count() > 0)
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
@@ -121,19 +164,16 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach([
-                ['title' => 'Essential HSE Protocols Every Driller Must Know', 'category' => 'HSE', 'image' => 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=600&h=400&q=80', 'date' => 'Oct 5, 2025', 'read' => '6 min'],
-                ['title' => 'How to Prepare for IADC WellSharp Certification', 'category' => 'Certification', 'image' => 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&h=400&q=80', 'date' => 'Oct 1, 2025', 'read' => '10 min'],
-                ['title' => 'Career Pathways in Oil & Gas Industry', 'category' => 'Career', 'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&h=400&q=80', 'date' => 'Sep 28, 2025', 'read' => '7 min']
-                ] as $item)
+                @foreach($relatedArticles as $related)
                 <article class="article-card group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-48">
-                        <img src="{{ $item['image'] }}"
-                            alt="{{ $item['title'] }}"
+                        <img src="{{ $related->featured_image }}"
+                            alt="{{ $related->title }}"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute top-3 left-3">
-                            <span class="inline-block px-3 py-1 text-xs font-semibold text-white bg-red-600 rounded-full shadow-lg">
-                                {{ $item['category'] }}
+                            <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-white bg-{{ $related->category->color }}-600 rounded-full shadow-lg">
+                                <i class="{{ $related->category->icon ?? 'fa-solid fa-folder' }}"></i>
+                                {{ $related->category->name }}
                             </span>
                         </div>
                     </div>
@@ -141,18 +181,18 @@
                         <div class="flex items-center gap-3 text-sm text-gray-500 mb-3">
                             <span class="flex items-center gap-1">
                                 <i class="fa-regular fa-calendar"></i>
-                                {{ $item['date'] }}
+                                {{ $related->formatted_date }}
                             </span>
                             <span>•</span>
                             <span class="flex items-center gap-1">
                                 <i class="fa-regular fa-clock"></i>
-                                {{ $item['read'] }}
+                                {{ $related->reading_time }}
                             </span>
                         </div>
                         <h3 class="font-bold text-lg text-gray-900 mb-3 line-clamp-2 group-hover:text-red-600 transition-colors">
-                            {{ $item['title'] }}
+                            {{ $related->title }}
                         </h3>
-                        <a href="/articlespv"
+                        <a href="{{ route('articles.show', $related->slug) }}"
                             class="inline-flex items-center gap-2 text-red-600 font-semibold hover:gap-3 transition-all text-sm">
                             Read Article
                             <i class="fa-solid fa-arrow-right"></i>
@@ -164,6 +204,10 @@
         </div>
     </div>
 </section>
+@endif
+
+
+
 <!-- Additional CSS for Article Page -->
 <style>
     /* Prose styling */
@@ -176,12 +220,18 @@
         margin-top: 2rem;
         margin-bottom: 1.5rem;
         line-height: 1.3;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
     }
 
     .prose h3 {
         margin-top: 1.5rem;
         margin-bottom: 1rem;
         line-height: 1.4;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #374151;
     }
 
     .prose p {
@@ -193,14 +243,46 @@
         color: #1f2937;
     }
 
-    /* First letter drop cap */
-    .prose p.first-letter\:text-6xl::first-letter {
-        font-size: 3.75rem;
-        font-weight: 700;
+    .prose ul, .prose ol {
+        margin: 1.25rem 0;
+        padding-left: 1.75rem;
+    }
+
+    .prose li {
+        margin-bottom: 0.5rem;
+    }
+
+    .prose a {
         color: #dc2626;
-        line-height: 1;
-        float: left;
-        margin-right: 0.5rem;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .prose a:hover {
+        text-decoration: underline;
+    }
+
+    .prose img {
+        border-radius: 0.5rem;
+        max-width: 100%;
+        height: auto;
+        margin: 2rem 0;
+    }
+
+    .prose blockquote {
+        border-left: 4px solid #dc2626;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #6b7280;
+    }
+
+    .prose code {
+        background-color: #f3f4f6;
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+        color: #dc2626;
     }
 
     /* Line clamp utility */
@@ -234,22 +316,15 @@
         outline: 2px solid #dc2626;
         outline-offset: 2px;
     }
-
-    /* Responsive images */
-    .prose img {
-        border-radius: 0.5rem;
-        max-width: 100%;
-        height: auto;
-    }
 </style>
 
 <!-- JavaScript for Article Page -->
 <script>
     // Share functionality
     function shareArticle(platform) {
-        const title = 'Advanced Drilling Techniques for Offshore Operations';
+        const title = '{{ addslashes($article->title) }}';
         const url = window.location.href;
-        const text = 'Check out this article about offshore drilling techniques';
+        const text = 'Check out this article: ' + title;
 
         let shareUrl = '';
 
@@ -276,9 +351,17 @@
     // Copy link functionality
     function copyLink() {
         navigator.clipboard.writeText(window.location.href).then(() => {
-            showNotification('Link copied to clipboard!', 'success');
+            // Show notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-8 right-8 bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl z-50 animate-fade-in-up';
+            notification.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Link copied to clipboard!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }).catch(() => {
-            showNotification('Failed to copy link', 'error');
+            alert('Failed to copy link');
         });
     }
 
@@ -288,8 +371,17 @@
         const email = event.target.querySelector('input[type="email"]').value;
 
         if (email) {
-            showNotification('Thank you for subscribing!', 'success');
+            // Show success notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-8 right-8 bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl z-50 animate-fade-in-up';
+            notification.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Thank you for subscribing!';
+            document.body.appendChild(notification);
+            
             event.target.reset();
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
 
         return false;
@@ -302,12 +394,9 @@
         const scrolled = (winScroll / height) * 100;
 
         let progressBar = document.getElementById('reading-progress');
-        if (!progressBar) {
-            progressBar = document.createElement('div');
-            progressBar.id = 'reading-progress';
-            document.body.appendChild(progressBar);
+        if (progressBar) {
+            progressBar.style.width = scrolled + '%';
         }
-        progressBar.style.width = scrolled + '%';
     }
 
     window.addEventListener('scroll', updateReadingProgress);
@@ -326,26 +415,6 @@
                 }
             });
         });
-
-        // Lazy load images
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        if (img.dataset.src) {
-                            img.src = img.dataset.src;
-                            img.removeAttribute('data-src');
-                        }
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
-
-            document.querySelectorAll('img[data-src]').forEach(img => {
-                imageObserver.observe(img);
-            });
-        }
     });
 </script>
 @endsection
