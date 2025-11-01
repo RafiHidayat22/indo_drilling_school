@@ -33,6 +33,7 @@ Route::get('/users', function () {
 });
 
 use App\Http\Controllers\ArticleAdminController;
+use App\Http\Controllers\UserAdminController;
 
 Route::get('/articleadmin', [ArticleAdminController::class, 'index'])->name('articleadmin.index');
 
