@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleAdminController;
+use App\Http\Controllers\ArticleWebController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\ProgramWebController;
 
@@ -14,17 +15,13 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/articles', function () {
-    return view('articles');
-});
-
-Route::get('/articlespv', function () {
-    return view('articlespv');
-});
-
 Route::get('/contact', function () {
     return view('contact');
 });
+
+// Article Public Routes
+Route::get('/articles', [ArticleWebController::class, 'index'])->name('articles.index');
+Route::get('/articles/{slug}', [ArticleWebController::class, 'show'])->name('articles.show');
 
 // Login route (hanya untuk guest)
 Route::get('/login', function () {

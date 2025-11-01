@@ -3,12 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TrainingController;
-
-
-
+use App\Http\Controllers\Api\ArticleController;
 
 // Public routes
 Route::post('/login', [AuthController::class, 'login']);
+
+// ==================== PUBLIC ARTICLE ROUTES ====================
+Route::prefix('articles')->group(function () {
+    Route::get('/', [ArticleController::class, 'index']);
+    Route::get('/stats', [ArticleController::class, 'getStats']);
+    Route::get('/categories', [ArticleController::class, 'getCategories']);
+    Route::get('/recent', [ArticleController::class, 'getRecent']);
+    Route::get('/{slug}', [ArticleController::class, 'show']);
+});
 
 // Public Training Routes
 Route::prefix('trainings')->group(function () {
@@ -26,13 +33,28 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     
     // User Management Routes - Super Admin only
-    // GANTI super.admin dengan role:superAdmin
-    Route::middleware(['auth:sanctum', 'role:superAdmin'])->group(function () {
+    Route::middleware(['role:superAdmin'])->group(function () {
         Route::get('/users', [AuthController::class, 'getAllUsers']);
         Route::post('/users', [AuthController::class, 'register']);
         Route::get('/users/{id}', [AuthController::class, 'getUser']);
         Route::put('/users/{id}', [AuthController::class, 'updateUser']);
         Route::delete('/users/{id}', [AuthController::class, 'deleteUser']);
+    });
+    
+    // Article Management Routes - Admin & Super Admin
+    Route::middleware(['role:admin,superAdmin'])->prefix('admin/articles')->group(function () {
+        // Articles CRUD
+        Route::get('/', [ArticleController::class, 'adminIndex']);
+        Route::post('/', [ArticleController::class, 'store']);
+        Route::get('/{id}', [ArticleController::class, 'show']);
+        Route::put('/{id}', [ArticleController::class, 'update']);
+        Route::delete('/{id}', [ArticleController::class, 'destroy']);
+        
+        // Category Management
+        Route::get('/categories/list', [ArticleController::class, 'adminGetCategories']);
+        Route::post('/categories', [ArticleController::class, 'storeCategory']);
+        Route::put('/categories/{id}', [ArticleController::class, 'updateCategory']);
+        Route::delete('/categories/{id}', [ArticleController::class, 'destroyCategory']);
     });
     
     // Training Management Routes - Admin & Super Admin
