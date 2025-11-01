@@ -7,11 +7,8 @@
     <title>@yield('title', 'Indonesia Drilling School')</title>
     <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 
-    <!-- Load built CSS -->
-    <link rel="stylesheet" href="{{ asset('build/assets/app-wG3newB9.css') }}">
-
-    <!-- Load built JS -->
-    <script type="module" src="{{ asset('build/assets/app-EphZmeVH.js') }}"></script>
+    {{-- Load default Laravel + Vite assets --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- Font Awesome --}}
     <link

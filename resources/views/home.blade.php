@@ -2,6 +2,7 @@
 
 @section('title', 'Home | Indonesia Drilling School')
 
+
 @section('content')
 <div class="page-home">
     <!-- ================= HERO SECTION ================= -->

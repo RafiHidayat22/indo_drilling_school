@@ -47,7 +47,7 @@
                     <div class="pp-program-content">
                         <h3 class="pp-program-title">Drilling Program</h3>
                         <p class="pp-program-description">Master the fundamentals of drilling operations.</p>
-                        <a href="/programs/drilling" class="pp-program-link">
+                        <a href="/program/drilling" class="pp-program-link">
                             <span>Learn More</span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -68,7 +68,7 @@
                     <div class="pp-program-content">
                         <h3 class="pp-program-title">Safety Program</h3>
                         <p class="pp-program-description">Essential safety protocols and procedures.</p>
-                        <a href="/programs/safety" class="pp-program-link">
+                        <a href="/program/safety" class="pp-program-link">
                             <span>Learn More</span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -88,7 +88,7 @@
                     <div class="pp-program-content">
                         <h3 class="pp-program-title">IDS Drilling Program</h3>
                         <p class="pp-program-description">Advanced drilling techniques with IDS.</p>
-                        <a href="/programs/ids-drilling" class="pp-program-link">
+                        <a href="/program/ids-drilling" class="pp-program-link">
                             <span>Learn More</span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -108,7 +108,7 @@
                     <div class="pp-program-content">
                         <h3 class="pp-program-title">IDS Safety Program</h3>
                         <p class="pp-program-description">Comprehensive safety for IDS operations.</p>
-                        <a href="/programs/ids-safety" class="pp-program-link">
+                        <a href="/program/ids-safety" class="pp-program-link">
                             <span>Learn More</span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -128,7 +128,7 @@
                     <div class="pp-program-content">
                         <h3 class="pp-program-title">International Training Program</h3>
                         <p class="pp-program-description">Global standards for international projects.</p>
-                        <a href="/programs/international" class="pp-program-link">
+                        <a href="/program/international" class="pp-program-link">
                             <span>Learn More</span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -150,7 +150,7 @@
                     <div class="pp-program-content">
                         <h3 class="pp-program-title">Local Certification Program</h3>
                         <p class="pp-program-description">Achieve certification for local compliance.</p>
-                        <a href="/programs/certification" class="pp-program-link">
+                        <a href="/program/certification" class="pp-program-link">
                             <span>Learn More</span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />

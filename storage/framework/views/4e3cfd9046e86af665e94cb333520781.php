@@ -1,5 +1,6 @@
 <?php $__env->startSection('title', 'Home | Indonesia Drilling School'); ?>
 
+
 <?php $__env->startSection('content'); ?>
 <div class="page-home">
     <!-- ================= HERO SECTION ================= -->
