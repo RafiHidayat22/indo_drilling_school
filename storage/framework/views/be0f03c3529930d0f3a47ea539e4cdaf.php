@@ -1,5 +1,5 @@
-@extends('layouts.adminmain')
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <!-- Header Section -->
@@ -25,10 +25,10 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total Kategori</p>
-                        @php
+                        <?php
                         $categories = collect($trainings)->pluck('category')->unique()->filter();
-                        @endphp
-                        <p class="text-3xl font-bold text-slate-800">{{ $categories->count() }}</p>
+                        ?>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($categories->count()); ?></p>
                         <p class="text-xs text-slate-500 mt-1">Kategori program</p>
                     </div>
                     <div class="p-3 bg-indigo-100 rounded-lg">
@@ -44,7 +44,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total Provider</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ count($trainings) }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e(count($trainings)); ?></p>
                         <p class="text-xs text-slate-500 mt-1">Program aktif</p>
                     </div>
                     <div class="p-3 bg-purple-100 rounded-lg">
@@ -60,12 +60,12 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total Pelatihan</p>
-                        @php
+                        <?php
                         $totalTrainings = collect($trainings)->sum(function($training) {
                         return count($training['trainings'] ?? []);
                         });
-                        @endphp
-                        <p class="text-3xl font-bold text-slate-800">{{ $totalTrainings }}</p>
+                        ?>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($totalTrainings); ?></p>
                         <p class="text-xs text-slate-500 mt-1">Jenis pelatihan</p>
                     </div>
                     <div class="p-3 bg-blue-100 rounded-lg">
@@ -81,15 +81,15 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Kategori Terbanyak</p>
-                        @php
+                        <?php
                         $grouped = collect($trainings)->groupBy('category');
                         $topCategory = $grouped->sortByDesc(function ($items) {
                         return $items->count();
                         })->keys()->first();
                         $categoryCount = $topCategory ? $grouped->get($topCategory)->count() : 0;
-                        @endphp
-                        <p class="text-3xl font-bold text-slate-800">{{ $categoryCount }}</p>
-                        <p class="text-xs text-slate-500 mt-1 truncate">{{ $topCategory ?? 'Belum ada' }}</p>
+                        ?>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($categoryCount); ?></p>
+                        <p class="text-xs text-slate-500 mt-1 truncate"><?php echo e($topCategory ?? 'Belum ada'); ?></p>
                     </div>
                     <div class="p-3 bg-green-100 rounded-lg">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,12 +123,12 @@
                         id="categoryFilter"
                         class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
                         <option value="">Semua Kategori</option>
-                        @php
+                        <?php
                         $uniqueCategories = collect($trainings)->pluck('category')->unique()->filter()->sort();
-                        @endphp
-                        @foreach($uniqueCategories as $category)
-                        <option value="{{ $category }}">{{ $category }}</option>
-                        @endforeach
+                        ?>
+                        <?php $__currentLoopData = $uniqueCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($category); ?>"><?php echo e($category); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
 
@@ -138,9 +138,9 @@
                         id="providerFilter"
                         class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
                         <option value="">Semua Provider</option>
-                        @foreach($trainings as $training)
-                        <option value="{{ $training['provider'] }}">{{ $training['provider'] }}</option>
-                        @endforeach
+                        <?php $__currentLoopData = $trainings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $training): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($training['provider']); ?>"><?php echo e($training['provider']); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
                 <div class="min-w-[150px]">
@@ -175,46 +175,48 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-slate-200">
-                        @forelse($trainings as $index => $training)
+                        <?php $__empty_1 = true; $__currentLoopData = $trainings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $training): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr class="hover:bg-slate-50 transition">
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-slate-700 font-medium">
-                                {{ ($trainings->currentPage() - 1) * $trainings->perPage() + $index + 1 }}
+                                <?php echo e(($trainings->currentPage() - 1) * $trainings->perPage() + $index + 1); ?>
+
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap">
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800">
-                                    {{ $training['category'] ?? 'Tidak ada kategori' }}
+                                    <?php echo e($training['category'] ?? 'Tidak ada kategori'); ?>
+
                                 </span>
                             </td>
                             <td class="px-4 py-4">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-9 w-9 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                                        <span class="text-white font-bold text-xs">{{ strtoupper(substr($training['provider'], 0, 2)) }}</span>
+                                        <span class="text-white font-bold text-xs"><?php echo e(strtoupper(substr($training['provider'], 0, 2))); ?></span>
                                     </div>
                                     <div class="ml-3">
-                                        <div class="text-sm font-semibold text-slate-900">{{ $training['provider'] }}</div>
+                                        <div class="text-sm font-semibold text-slate-900"><?php echo e($training['provider']); ?></div>
                                         <div class="text-xs text-slate-500">
-                                            {{ count($training['trainings'] ?? []) }} pelatihan
+                                            <?php echo e(count($training['trainings'] ?? [])); ?> pelatihan
                                         </div>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-4 py-4">
-                                @if($training['trainings'] && count($training['trainings']) > 0)
+                                <?php if($training['trainings'] && count($training['trainings']) > 0): ?>
                                 <div class="relative">
                                     <button
                                         type="button"
-                                        onclick="toggleDropdown({{ $index }})"
+                                        onclick="toggleDropdown(<?php echo e($index); ?>)"
                                         class="w-full flex items-center justify-between px-3 py-2.5 bg-gradient-to-r from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 rounded-lg border border-purple-200 transition-all duration-200">
                                         <div class="flex items-center gap-2">
                                             <div class="h-7 w-7 rounded-full bg-purple-500 flex items-center justify-center flex-shrink-0">
-                                                <span class="text-white font-bold text-xs">{{ count($training['trainings']) }}</span>
+                                                <span class="text-white font-bold text-xs"><?php echo e(count($training['trainings'])); ?></span>
                                             </div>
                                             <div class="text-left">
-                                                <p class="text-sm font-semibold text-slate-800">{{ count($training['trainings']) }} Pelatihan</p>
+                                                <p class="text-sm font-semibold text-slate-800"><?php echo e(count($training['trainings'])); ?> Pelatihan</p>
                                             </div>
                                         </div>
                                         <svg
-                                            id="dropdown-icon-{{ $index }}"
+                                            id="dropdown-icon-<?php echo e($index); ?>"
                                             class="w-5 h-5 text-purple-600 transition-transform duration-200 flex-shrink-0"
                                             fill="none"
                                             stroke="currentColor"
@@ -223,88 +225,90 @@
                                         </svg>
                                     </button>
                                     <div
-                                        id="dropdown-menu-{{ $index }}"
+                                        id="dropdown-menu-<?php echo e($index); ?>"
                                         class="hidden absolute z-10 mt-2 w-full min-w-[300px] bg-white rounded-lg shadow-xl border border-slate-200 max-h-80 overflow-y-auto">
                                         <div class="p-2">
-                                            @foreach($training['trainings'] as $tIndex => $t)
+                                            <?php $__currentLoopData = $training['trainings']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tIndex => $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <div class="flex items-start gap-3 p-3 hover:bg-slate-50 rounded-lg transition-colors group">
                                                 <div class="flex-shrink-0 mt-0.5">
                                                     <div class="h-7 w-7 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center shadow-sm">
-                                                        <span class="text-white font-bold text-xs">{{ $tIndex + 1 }}</span>
+                                                        <span class="text-white font-bold text-xs"><?php echo e($tIndex + 1); ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="flex-1 min-w-0">
                                                     <p class="text-sm font-semibold text-slate-900 leading-tight group-hover:text-purple-600 transition-colors">
-                                                        {{ $t['name'] }}
+                                                        <?php echo e($t['name']); ?>
+
                                                     </p>
-                                                    @if(!empty($t['description']))
-                                                    <p class="text-xs text-slate-500 mt-1 line-clamp-2">{{ $t['description'] }}</p>
-                                                    @endif
+                                                    <?php if(!empty($t['description'])): ?>
+                                                    <p class="text-xs text-slate-500 mt-1 line-clamp-2"><?php echo e($t['description']); ?></p>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="flex-shrink-0 mt-0.5">
-                                                    @if(($t['status'] ?? 'active') === 'active')
+                                                    <?php if(($t['status'] ?? 'active') === 'active'): ?>
                                                     <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
                                                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                                         </svg>
                                                         Active
                                                     </span>
-                                                    @else
+                                                    <?php else: ?>
                                                     <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
                                                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                         </svg>
                                                         Inactive
                                                     </span>
-                                                    @endif
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
-                                            @if($tIndex < count($training['trainings']) - 1)
+                                            <?php if($tIndex < count($training['trainings']) - 1): ?>
                                                 <div class="border-b border-slate-100 my-1">
                                         </div>
-                                        @endif
-                                        @endforeach
+                                        <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
                                 </div>
             </div>
-            @else
+            <?php else: ?>
             <div class="flex items-center gap-2 text-slate-400 text-sm italic px-3 py-2 bg-slate-50 rounded-lg">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                 </svg>
                 Tidak ada
             </div>
-            @endif
+            <?php endif; ?>
             </td>
             <td class="px-4 py-4 whitespace-nowrap text-center">
-                @if(($training['status'] ?? 'active') === 'active')
+                <?php if(($training['status'] ?? 'active') === 'active'): ?>
                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
                     Active
                 </span>
-                @else
+                <?php else: ?>
                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
                     Inactive
                 </span>
-                @endif
+                <?php endif; ?>
             </td>
             <td class="px-4 py-4 whitespace-nowrap text-center">
                 <span class="text-sm font-semibold text-slate-900">
-                    {{ collect($training['trainings'] ?? [])->where('status', 'active')->count() }}
+                    <?php echo e(collect($training['trainings'] ?? [])->where('status', 'active')->count()); ?>
+
                 </span>
-                <span class="text-sm text-slate-500">/ {{ count($training['trainings'] ?? []) }}</span>
+                <span class="text-sm text-slate-500">/ <?php echo e(count($training['trainings'] ?? [])); ?></span>
             </td>
             <td class="px-4 py-4 whitespace-nowrap">
-                <div class="text-sm text-slate-900">{{ \Carbon\Carbon::parse($training['created_at'])->format('d M Y') }}</div>
-                <div class="text-xs text-slate-500">{{ \Carbon\Carbon::parse($training['created_at'])->format('H:i') }}</div>
+                <div class="text-sm text-slate-900"><?php echo e(\Carbon\Carbon::parse($training['created_at'])->format('d M Y')); ?></div>
+                <div class="text-xs text-slate-500"><?php echo e(\Carbon\Carbon::parse($training['created_at'])->format('H:i')); ?></div>
             </td>
             <td class="px-4 py-4 whitespace-nowrap">
                 <div class="flex items-center justify-center gap-1">
-                    <button onclick='openEditModal({{ json_encode($training, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) }})' class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Edit">
+                    <button onclick='openEditModal(<?php echo e(json_encode($training, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)); ?>)' class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Edit">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
                     </button>
-                    <button onclick='openDeleteModal({{ json_encode($training, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) }})' class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition" title="Hapus">
+                    <button onclick='openDeleteModal(<?php echo e(json_encode($training, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)); ?>)' class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition" title="Hapus">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -312,7 +316,7 @@
                 </div>
             </td>
             </tr>
-            @empty
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
             <tr>
                 <td colspan="8" class="px-6 py-12 text-center">
                     <svg class="mx-auto h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -321,20 +325,21 @@
                     <p class="mt-2 text-sm text-slate-500">Tidak ada data provider.</p>
                 </td>
             </tr>
-            @endforelse
+            <?php endif; ?>
             </tbody>
             </table>
         </div>
         <div class="bg-white px-6 py-4 border-t border-slate-200">
-            @if($trainings->isNotEmpty())
-            {{ $trainings->withQueryString()->links('pagination.custom') }}
-            @else
+            <?php if($trainings->isNotEmpty()): ?>
+            <?php echo e($trainings->withQueryString()->links('pagination.custom')); ?>
+
+            <?php else: ?>
             <div class="flex items-center justify-between">
                 <div class="text-sm text-slate-600">
                     Menampilkan <span class="font-semibold">0</span> sampai <span class="font-semibold">0</span> dari <span class="font-semibold">0</span> data
                 </div>
             </div>
-            @endif
+            <?php endif; ?>
         </div>
     </div>
 
@@ -353,7 +358,7 @@
                 </div>
             </div>
             <form class="p-6 space-y-6 overflow-y-auto flex-1" method="POST" action="#" onsubmit="alert('Fitur ini belum aktif (preview UI saja).'); return false;">
-                @csrf
+                <?php echo csrf_field(); ?>
                 <!-- Kategori Program -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Kategori Program *</label>
@@ -473,8 +478,8 @@
                 </div>
             </div>
             <form id="editForm" class="p-6 space-y-6 overflow-y-auto flex-1" method="POST">
-                @csrf
-                @method('PUT')
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('PUT'); ?>
                 <input type="hidden" id="editId" name="id">
 
                 <!-- Kategori Program -->
@@ -578,8 +583,8 @@
                         Batal
                     </button>
                     <form id="deleteForm" method="POST" style="flex: 1;">
-                        @csrf
-                        @method('DELETE')
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('DELETE'); ?>
                         <input type="hidden" id="deleteId" name="id">
                         <button type="submit" class="w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition shadow-lg">
                             Hapus
@@ -862,4 +867,5 @@
         });
     </script>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminmain', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/training.blade.php ENDPATH**/ ?>

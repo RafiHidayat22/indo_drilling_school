@@ -34,10 +34,14 @@ Route::get('/users', function () {
 
 use App\Http\Controllers\ArticleAdminController;
 use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\CategoriesController;
 
 Route::get('/articleadmin', [ArticleAdminController::class, 'index'])->name('articleadmin.index');
 
 Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');
+Route::get('/training', [TrainingController::class, 'index'])->name('training.index');
+Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
 
 use App\Http\Controllers\ProgramController;
 

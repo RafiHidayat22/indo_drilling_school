@@ -7,11 +7,8 @@
     <title><?php echo $__env->yieldContent('title', 'Indonesia Drilling School'); ?></title>
     <link rel="icon" href="<?php echo e(asset('images/logo.png')); ?>" type="image/png">
 
-    <!-- Load built CSS -->
-    <link rel="stylesheet" href="<?php echo e(asset('build/assets/app-wG3newB9.css')); ?>">
-
-    <!-- Load built JS -->
-    <script type="module" src="<?php echo e(asset('build/assets/app-EphZmeVH.js')); ?>"></script>
+    
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
 
     
     <link
@@ -31,6 +28,7 @@
 
     
     <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
 
 </body>
 

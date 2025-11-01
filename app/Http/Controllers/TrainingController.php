@@ -13,6 +13,7 @@ class TrainingController extends Controller
         $dummyTrainings = [
             [
                 'id' => 1,
+                'category' => 'Keselamatan Kerja',
                 'provider' => 'AOSH',
                 'trainings' => [
                     ['id' => 101, 'name' => 'Basic Safety Induction'],
@@ -22,6 +23,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 2,
+                'category' => 'Keselamatan Kerja',
                 'provider' => 'PT Safety Pro',
                 'trainings' => [
                     ['id' => 201, 'name' => 'Fire Fighting Certificate']
@@ -30,6 +32,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 3,
+                'category' => 'Teknik & Operasional',
                 'provider' => 'Global Training Hub',
                 'trainings' => [
                     ['id' => 301, 'name' => 'H2S Awareness'],
@@ -40,6 +43,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 4,
+                'category' => 'Manajemen & Leadership',
                 'provider' => 'EduSafe Academy',
                 'trainings' => [
                     ['id' => 401, 'name' => 'Working at Heights'],
@@ -49,6 +53,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 5,
+                'category' => 'Sertifikasi Profesional',
                 'provider' => 'NexGen Training Center',
                 'trainings' => [
                     ['id' => 501, 'name' => 'Risk Assessment & JSA']
@@ -57,6 +62,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 6,
+                'category' => 'Keselamatan Kerja',
                 'provider' => 'SafeWork Institute',
                 'trainings' => [
                     ['id' => 601, 'name' => 'Lifting & Rigging Operations'],
@@ -66,6 +72,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 7,
+                'category' => 'Manajemen & Leadership',
                 'provider' => 'ProTrain Solutions',
                 'trainings' => [
                     ['id' => 701, 'name' => 'Incident Investigation'],
@@ -75,6 +82,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 8,
+                'category' => 'Teknik & Operasional',
                 'provider' => 'SkillSafe International',
                 'trainings' => [
                     ['id' => 801, 'name' => 'Manual Handling Safety']
@@ -83,6 +91,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 9,
+                'category' => 'Sertifikasi Profesional',
                 'provider' => 'CertifyMe Training',
                 'trainings' => [
                     ['id' => 901, 'name' => 'LOTO (Lockout/Tagout)'],
@@ -93,6 +102,7 @@ class TrainingController extends Controller
             ],
             [
                 'id' => 10,
+                'category' => 'Manajemen & Leadership',
                 'provider' => 'SafeOps Academy',
                 'trainings' => [
                     ['id' => 1001, 'name' => 'Behavior-Based Safety'],
@@ -102,7 +112,7 @@ class TrainingController extends Controller
             ],
         ];
 
-        // === PAGINASI MANUAL MENGGUNAKAN LengthAwarePaginator ===
+        // === PAGINASI MANUAL ===
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $perPage = 8;
         $currentItems = array_slice($dummyTrainings, ($currentPage - 1) * $perPage, $perPage);
@@ -117,7 +127,7 @@ class TrainingController extends Controller
             ]
         );
 
-        // Kirim ke view
+        // Kirim sebagai `$trainings` (SESUAI NAMA DI VIEW)
         return view('training', compact('trainings'));
     }
 }

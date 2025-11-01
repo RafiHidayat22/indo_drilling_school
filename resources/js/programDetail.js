@@ -304,63 +304,124 @@ fadeElements.forEach(el => {
     fadeObserver.observe(el);
 });
 
-// Back to top functionality
-function initBackToTop() {
-    const backToTop = document.createElement('button');
-    backToTop.className = 'detailProgram-back-to-top';
-    backToTop.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" 
-                  stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    `;
-    backToTop.style.cssText = `
+// Floating Buttons: Scroll to Top + Contact Us
+function initFloatingButtons() {
+    // Buat container utama
+    const container = document.createElement('div');
+    container.id = 'floating-buttons-container';
+    container.style.cssText = `
         position: fixed;
         bottom: 2rem;
         right: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; /* Jarak antar tombol */
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    `;
+
+    // Tombol Scroll to Top (BIRU) - DI ATAS
+    const scrollToTopBtn = document.createElement('button');
+    scrollToTopBtn.className = 'detailProgram-scroll-to-top';
+    scrollToTopBtn.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+    `;
+    scrollToTopBtn.style.cssText = `
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background: #2563eb;
+        background: #2563eb; /* blue-700 */
         color: white;
         border: none;
         cursor: pointer;
-        display: none;
+        display: flex;
         align-items: center;
         justify-content: center;
         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-        transition: all 0.3s;
-        z-index: 1000;
+        transition: all 0.3s ease;
     `;
 
-    document.body.appendChild(backToTop);
-
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTop.style.display = 'flex';
-        } else {
-            backToTop.style.display = 'none';
-        }
+    // Hover effect
+    scrollToTopBtn.addEventListener('mouseenter', () => {
+        scrollToTopBtn.style.transform = 'translateY(-5px)';
+        scrollToTopBtn.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.5)';
+    });
+    scrollToTopBtn.addEventListener('mouseleave', () => {
+        scrollToTopBtn.style.transform = 'translateY(0)';
+        scrollToTopBtn.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.4)';
     });
 
-    backToTop.addEventListener('click', () => {
+    // Scroll to top action
+    scrollToTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
 
-    backToTop.addEventListener('mouseenter', () => {
-        backToTop.style.transform = 'translateY(-5px)';
-        backToTop.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.5)';
+    // Tombol Contact Us (MERAH) - DI BAWAH
+    const contactBtn = document.createElement('a');
+    contactBtn.href = '/contact';
+    contactBtn.className = 'detailProgram-contact-button';
+    contactBtn.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+    `;
+    contactBtn.style.cssText = `
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #dc2626; /* red-700 */
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        transition: all 0.3s ease;
+        text-decoration: none;
+    `;
+
+    // Hover effect
+    contactBtn.addEventListener('mouseenter', () => {
+        contactBtn.style.transform = 'translateY(-5px)';
+        contactBtn.style.boxShadow = '0 6px 20px rgba(220, 38, 38, 0.5)';
+    });
+    contactBtn.addEventListener('mouseleave', () => {
+        contactBtn.style.transform = 'translateY(0)';
+        contactBtn.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.4)';
     });
 
-    backToTop.addEventListener('mouseleave', () => {
-        backToTop.style.transform = 'translateY(0)';
-        backToTop.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.4)';
-    });
+    // Tambahkan tombol ke container
+    container.appendChild(scrollToTopBtn);
+    container.appendChild(contactBtn);
+
+    // Tambahkan container ke body
+    document.body.appendChild(container);
+
+    // Fungsi untuk menampilkan/menyembunyikan
+    function toggleButtons() {
+        if (window.scrollY > 400) {
+            container.style.opacity = '1';
+            container.style.pointerEvents = 'auto';
+            container.style.transform = 'translateY(0)';
+        } else {
+            container.style.opacity = '0';
+            container.style.pointerEvents = 'none';
+            container.style.transform = 'translateY(20px)';
+        }
+    }
+
+    // Jalankan saat halaman dimuat
+    toggleButtons();
+
+    // Jalankan saat scroll
+    window.addEventListener('scroll', toggleButtons);
 }
 
-
-
-initBackToTop();
+// Panggil fungsi
+initFloatingButtons();
