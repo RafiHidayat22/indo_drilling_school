@@ -1,7 +1,7 @@
 <aside class="fixed left-0 top-0 w-64 h-screen overflow-y-auto z-40 bg-slate-800 shadow-xl">
     <!-- Logo Section -->
     <div class="p-6 flex items-center justify-center border-b border-slate-700">
-        <img src="{{ asset('images/logo.png') }}" alt="Indonesia Drilling School" class="w-12 h-12 object-contain mr-3">
+        <img src="<?php echo e(asset('images/logo.png')); ?>" alt="Indonesia Drilling School" class="w-12 h-12 object-contain mr-3">
         <div class="text-white">
             <h2 class="font-bold text-lg leading-tight">Indonesia</h2>
             <p class="text-xs text-slate-400">Drilling School</p>
@@ -14,9 +14,9 @@
             <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 mb-3">Menu Utama</p>
 
             <!-- Dashboard -->
-            <a href="{{ url('/dashboard') }}"
+            <a href="<?php echo e(url('/dashboard')); ?>"
                 class="sidebar-menu-item flex items-center px-4 py-3 
-                      {{ request()->is('dashboard') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} 
+                      <?php echo e(request()->is('dashboard') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700'); ?> 
                       rounded-lg font-medium">
                 <div class="sidebar-icon">
                     <i class="fas fa-home text-lg"></i>
@@ -25,9 +25,9 @@
             </a>
 
             <!-- Artikel -->
-            <a href="{{ url('/articleadmin') }}"
+            <a href="<?php echo e(url('/articleadmin')); ?>"
                 class="sidebar-menu-item flex items-center px-4 py-3 
-                      {{ request()->is('articleadmin') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} 
+                      <?php echo e(request()->is('articleadmin') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700'); ?> 
                       rounded-lg">
                 <div class="sidebar-icon">
                     <i class="fas fa-newspaper text-lg"></i>
@@ -40,7 +40,7 @@
             <div class="relative">
                 <button onclick="toggleDropdown()"
                     class="sidebar-menu-item flex items-center px-4 py-3 w-full
-                          {{ request()->is('training*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} 
+                          <?php echo e(request()->is('training*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700'); ?> 
                           rounded-lg">
                     <div class="sidebar-icon">
                         <i class="fas fa-graduation-cap text-lg"></i>
@@ -51,16 +51,16 @@
 
                 <!-- Dropdown Menu -->
                 <div id="dropdownMenu" class="hidden mt-1 ml-4 space-y-1">
-                    <a href="{{ url('/training') }}"
+                    <a href="<?php echo e(url('/training')); ?>"
                         class="flex items-center px-4 py-2 
-                              {{ request()->is('training/input*') ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700' }} 
+                              <?php echo e(request()->is('training/input*') ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700'); ?> 
                               rounded-lg text-sm">
                         <i class="fas fa-plus-circle text-xs mr-3"></i>
                         <span>Input Pelatihan</span>
                     </a>
-                    <a href="{{ url('/categories') }}"
+                    <a href="<?php echo e(url('/categories')); ?>"
                         class="flex items-center px-4 py-2 
-                              {{ request()->is('training/kategori*') ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700' }} 
+                              <?php echo e(request()->is('training/kategori*') ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700'); ?> 
                               rounded-lg text-sm">
                         <i class="fas fa-tags text-xs mr-3"></i>
                         <span>Input Kategori</span>
@@ -70,9 +70,9 @@
             <!-- Divider -->
             <div class="border-t border-slate-700 my-6"></div>
             <!-- Tambah User -->
-            <a href="{{ url('/users') }}"
+            <a href="<?php echo e(url('/users')); ?>"
                 class="sidebar-menu-item flex items-center px-4 py-3 
-                      {{ request()->is('users') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} 
+                      <?php echo e(request()->is('users') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700'); ?> 
                       rounded-lg">
                 <div class="sidebar-icon">
                     <i class="fas fa-user-plus text-lg"></i>
@@ -80,10 +80,10 @@
                 <span class="ml-4">Tambah User</span>
             </a>
             <!-- Contact Admin -->
-            <a href="{{ route('contactadmin') }}" {{-- Gunakan nama route yang didefinisikan di web.php --}}
-                class="sidebar-menu-item flex items-center px-4 py-3 {{ request()->is('contactadmin*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} rounded-lg">
+            <a href="<?php echo e(route('contactadmin')); ?>" 
+                class="sidebar-menu-item flex items-center px-4 py-3 <?php echo e(request()->is('contactadmin*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700'); ?> rounded-lg">
                 <div class="sidebar-icon">
-                    <i class="fas fa-phone text-lg"></i> {{-- Gunakan ikon yang sesuai --}}
+                    <i class="fas fa-phone text-lg"></i> 
                 </div>
                 <span class="ml-4">Contact Admin</span>
             </a>
@@ -120,4 +120,4 @@
             icon.classList.add('rotate-180');
         }
     });
-</script>
+</script><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/admin/sidebar.blade.php ENDPATH**/ ?>
