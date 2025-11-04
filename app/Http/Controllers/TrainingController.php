@@ -3,131 +3,223 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\TrainingCategory;
+use App\Models\TrainingSubcategory;
+use App\Models\Training;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class TrainingController extends Controller
 {
     public function index(Request $request)
     {
-        // === DATA DUMMY (10 PROVIDER) ===
-        $dummyTrainings = [
-            [
-                'id' => 1,
-                'category' => 'Keselamatan Kerja',
-                'provider' => 'AOSH',
-                'trainings' => [
-                    ['id' => 101, 'name' => 'Basic Safety Induction'],
-                    ['id' => 102, 'name' => 'Safety Officer Certification']
-                ],
-                'created_at' => '2025-10-15'
-            ],
-            [
-                'id' => 2,
-                'category' => 'Keselamatan Kerja',
-                'provider' => 'PT Safety Pro',
-                'trainings' => [
-                    ['id' => 201, 'name' => 'Fire Fighting Certificate']
-                ],
-                'created_at' => '2025-10-20'
-            ],
-            [
-                'id' => 3,
-                'category' => 'Teknik & Operasional',
-                'provider' => 'Global Training Hub',
-                'trainings' => [
-                    ['id' => 301, 'name' => 'H2S Awareness'],
-                    ['id' => 302, 'name' => 'Confined Space Entry'],
-                    ['id' => 303, 'name' => 'First Aid & CPR']
-                ],
-                'created_at' => '2025-10-25'
-            ],
-            [
-                'id' => 4,
-                'category' => 'Manajemen & Leadership',
-                'provider' => 'EduSafe Academy',
-                'trainings' => [
-                    ['id' => 401, 'name' => 'Working at Heights'],
-                    ['id' => 402, 'name' => 'Electrical Safety']
-                ],
-                'created_at' => '2025-10-18'
-            ],
-            [
-                'id' => 5,
-                'category' => 'Sertifikasi Profesional',
-                'provider' => 'NexGen Training Center',
-                'trainings' => [
-                    ['id' => 501, 'name' => 'Risk Assessment & JSA']
-                ],
-                'created_at' => '2025-10-22'
-            ],
-            [
-                'id' => 6,
-                'category' => 'Keselamatan Kerja',
-                'provider' => 'SafeWork Institute',
-                'trainings' => [
-                    ['id' => 601, 'name' => 'Lifting & Rigging Operations'],
-                    ['id' => 602, 'name' => 'Permit to Work System']
-                ],
-                'created_at' => '2025-10-10'
-            ],
-            [
-                'id' => 7,
-                'category' => 'Manajemen & Leadership',
-                'provider' => 'ProTrain Solutions',
-                'trainings' => [
-                    ['id' => 701, 'name' => 'Incident Investigation'],
-                    ['id' => 702, 'name' => 'Emergency Response Planning']
-                ],
-                'created_at' => '2025-10-28'
-            ],
-            [
-                'id' => 8,
-                'category' => 'Teknik & Operasional',
-                'provider' => 'SkillSafe International',
-                'trainings' => [
-                    ['id' => 801, 'name' => 'Manual Handling Safety']
-                ],
-                'created_at' => '2025-10-05'
-            ],
-            [
-                'id' => 9,
-                'category' => 'Sertifikasi Profesional',
-                'provider' => 'CertifyMe Training',
-                'trainings' => [
-                    ['id' => 901, 'name' => 'LOTO (Lockout/Tagout)'],
-                    ['id' => 902, 'name' => 'Machine Guarding'],
-                    ['id' => 903, 'name' => 'Hazard Communication']
-                ],
-                'created_at' => '2025-10-12'
-            ],
-            [
-                'id' => 10,
-                'category' => 'Manajemen & Leadership',
-                'provider' => 'SafeOps Academy',
-                'trainings' => [
-                    ['id' => 1001, 'name' => 'Behavior-Based Safety'],
-                    ['id' => 1002, 'name' => 'Environmental Compliance']
-                ],
-                'created_at' => '2025-10-30'
-            ],
-        ];
+        // Query dengan relasi
+        $query = TrainingCategory::with([
+            'subcategories' => function($q) {
+                $q->orderBy('order', 'asc');
+            },
+            'subcategories.trainings'
+        ]);
 
-        // === PAGINASI MANUAL ===
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 8;
-        $currentItems = array_slice($dummyTrainings, ($currentPage - 1) * $perPage, $perPage);
-        $trainings = new LengthAwarePaginator(
-            $currentItems,
-            count($dummyTrainings),
-            $perPage,
-            $currentPage,
-            [
-                'path' => LengthAwarePaginator::resolveCurrentPath(),
-                'pageName' => 'page',
-            ]
-        );
+        // Filter berdasarkan status kategori
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', ucfirst($request->status));
+        }
 
-        // Kirim sebagai `$trainings` (SESUAI NAMA DI VIEW)
-        return view('training', compact('trainings'));
+        // Filter berdasarkan pencarian
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhereHas('subcategories', function($subQ) use ($search) {
+                      $subQ->where('title', 'like', "%{$search}%");
+                  })
+                  ->orWhereHas('trainings', function($trainQ) use ($search) {
+                      $trainQ->where('title', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        // Ambil data dengan pagination
+        $categories = $query->orderBy('order', 'asc')
+                           ->orderBy('created_at', 'desc')
+                           ->paginate(8);
+
+        // Transform data untuk view (sesuai struktur lama)
+        $trainings = $categories->through(function($category) {
+            $allTrainings = [];
+            
+            foreach($category->subcategories as $subcategory) {
+                foreach($subcategory->trainings as $training) {
+                    $allTrainings[] = [
+                        'id' => $training->id,
+                        'name' => $training->title,
+                        'description' => $training->description,
+                        'status' => strtolower($training->status),
+                        'subcategory' => $subcategory->title,
+                        'subcategory_id' => $subcategory->id
+                    ];
+                }
+            }
+            
+            return [
+                'id' => $category->subcategories->first()->id ?? $category->id,
+                'category' => $category->title,
+                'provider' => $category->subcategories->first()->title ?? $category->title,
+                'provider_description' => $category->description,
+                'status' => strtolower($category->status),
+                'created_at' => $category->created_at,
+                'trainings' => $allTrainings
+            ];
+        });
+
+        // Ambil semua kategori untuk dropdown - TAMBAHAN INI
+        $allCategories = TrainingCategory::where('status', 'Active')
+                                        ->orderBy('title', 'asc')
+                                        ->get(['id', 'title']);
+
+        return view('training', compact('trainings', 'allCategories'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'category' => 'required|string|max:255',
+            'provider' => 'required|string|max:255',
+            'status' => 'required|in:active,inactive',
+            'provider_description' => 'nullable|string',
+            'trainings' => 'required|array|min:1',
+            'trainings.*.name' => 'required|string|max:255',
+            'trainings.*.description' => 'nullable|string',
+            'trainings.*.status' => 'required|in:active,inactive'
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // Create or get category
+            $category = TrainingCategory::firstOrCreate(
+                ['slug' => Str::slug($validated['category'])],
+                [
+                    'title' => $validated['category'],
+                    'description' => $validated['provider_description'] ?? '',
+                    'status' => ucfirst($validated['status']),
+                    'order' => TrainingCategory::max('order') + 1
+                ]
+            );
+
+            // Create subcategory (using provider as subcategory name)
+            $subcategory = TrainingSubcategory::create([
+                'category_id' => $category->id,
+                'title' => $validated['provider'],
+                'slug' => Str::slug($validated['provider']),
+                'description' => $validated['provider_description'],
+                'status' => ucfirst($validated['status']),
+                'order' => $category->subcategories()->max('order') + 1
+            ]);
+
+            // Create trainings
+            foreach ($validated['trainings'] as $trainingData) {
+                Training::create([
+                    'subcategory_id' => $subcategory->id,
+                    'title' => $trainingData['name'],
+                    'slug' => Str::slug($trainingData['name']),
+                    'description' => $trainingData['description'] ?? '',
+                    'status' => ucfirst($trainingData['status'])
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('training.index')
+                           ->with('success', 'Program berhasil ditambahkan!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                           ->with('error', 'Gagal menambahkan program: ' . $e->getMessage())
+                           ->withInput();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'category' => 'required|string|max:255',
+            'provider' => 'required|string|max:255',
+            'status' => 'required|in:active,inactive',
+            'provider_description' => 'nullable|string',
+            'trainings' => 'required|array|min:1',
+            'trainings.*.name' => 'required|string|max:255',
+            'trainings.*.description' => 'nullable|string',
+            'trainings.*.status' => 'required|in:active,inactive'
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $subcategory = TrainingSubcategory::findOrFail($id);
+            
+            $category = TrainingCategory::firstOrCreate(
+                ['slug' => Str::slug($validated['category'])],
+                [
+                    'title' => $validated['category'],
+                    'description' => $validated['provider_description'] ?? '',
+                    'status' => ucfirst($validated['status']),
+                    'order' => TrainingCategory::max('order') + 1
+                ]
+            );
+
+            $subcategory->update([
+                'category_id' => $category->id,
+                'title' => $validated['provider'],
+                'slug' => Str::slug($validated['provider']),
+                'description' => $validated['provider_description'],
+                'status' => ucfirst($validated['status'])
+            ]);
+
+            $subcategory->trainings()->delete();
+
+            foreach ($validated['trainings'] as $trainingData) {
+                Training::create([
+                    'subcategory_id' => $subcategory->id,
+                    'title' => $trainingData['name'],
+                    'slug' => Str::slug($trainingData['name']),
+                    'description' => $trainingData['description'] ?? '',
+                    'status' => ucfirst($trainingData['status'])
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('training.index')
+                           ->with('success', 'Program berhasil diupdate!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                           ->with('error', 'Gagal mengupdate program: ' . $e->getMessage())
+                           ->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $subcategory = TrainingSubcategory::findOrFail($id);
+            $subcategory->delete();
+
+            DB::commit();
+
+            return redirect()->route('training.index')
+                           ->with('success', 'Program berhasil dihapus!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                           ->with('error', 'Gagal menghapus program: ' . $e->getMessage());
+        }
     }
 }
