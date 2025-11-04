@@ -111,7 +111,7 @@ Route::middleware(['check.auth'])->group(function () {
         Route::get('/', [ArticleAdminController::class, 'index'])->name('index');
         Route::post('/', [ArticleAdminController::class, 'store'])->name('store');
         Route::get('/{id}', [ArticleAdminController::class, 'show'])->name('show');
-        Route::post('/{id}', [ArticleAdminController::class, 'update'])->name('update'); // Using POST for file upload
+        Route::match(['put', 'post'], '/{id}', [ArticleAdminController::class, 'update'])->name('update');
         Route::delete('/{id}', [ArticleAdminController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-delete', [ArticleAdminController::class, 'bulkDelete'])->name('bulkDelete');
         Route::post('/{id}/restore', [ArticleAdminController::class, 'restore'])->name('restore');

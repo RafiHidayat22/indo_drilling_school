@@ -124,71 +124,70 @@ class ArticleAdminController extends Controller
     }
 
     /**
-     * Update the specified article
-     */
-    public function update(Request $request, $id)
-    {
-        $article = Article::findOrFail($id);
+ * Update the specified article
+ */
+public function update(Request $request, $id)
+{
+    $article = Article::findOrFail($id);
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'category_id' => 'required|exists:article_categories,id',
-            'content' => 'required|string|min:100',
-            'status' => 'required|in:draft,published,archived',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'excerpt' => 'nullable|string|max:500',
-        ]);
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'category_id' => 'required|exists:article_categories,id',
+        'content' => 'required|string|min:100',
+        'status' => 'required|in:draft,published,archived',
+        'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'excerpt' => 'nullable|string|max:500',
+    ]);
 
-        // Handle thumbnail upload
-        if ($request->hasFile('thumbnail')) {
-            // Delete old thumbnail
-            if ($article->featured_image) {
-                Storage::disk('public')->delete($article->featured_image);
-            }
-
-            $validated['featured_image'] = $request->file('thumbnail')
-                ->store('articles/thumbnails', 'public');
+    // Handle thumbnail upload
+    if ($request->hasFile('thumbnail')) {
+        // Delete old thumbnail
+        if ($article->featured_image) {
+            Storage::disk('public')->delete($article->featured_image);
         }
 
-        // Update slug if title changed
-        if ($article->title !== $validated['title']) {
-            $validated['slug'] = Str::slug($validated['title']);
-            
-            // Ensure unique slug
-            $originalSlug = $validated['slug'];
-            $count = 1;
-            while (Article::where('slug', $validated['slug'])
-                         ->where('id', '!=', $id)
-                         ->exists()) {
-                $validated['slug'] = $originalSlug . '-' . $count;
-                $count++;
-            }
-        }
-
-        // Generate excerpt if not provided
-        if (empty($validated['excerpt'])) {
-            $validated['excerpt'] = Str::limit(strip_tags($validated['content']), 200);
-        }
-
-        // Set published_at if status changed to published
-        if ($validated['status'] === 'published' && $article->status !== 'published') {
-            $validated['published_at'] = now();
-        }
-
-        // Recalculate read time if content changed
-        if ($article->content !== $validated['content']) {
-            $validated['read_time'] = Article::calculateReadTime($validated['content']);
-        }
-
-        $article->update($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Artikel berhasil diupdate',
-            'data' => $article->fresh(['category', 'author'])
-        ]);
+        $validated['featured_image'] = $request->file('thumbnail')
+            ->store('articles/thumbnails', 'public');
     }
 
+    // Update slug if title changed
+    if ($article->title !== $validated['title']) {
+        $validated['slug'] = Str::slug($validated['title']);
+        
+        // Ensure unique slug
+        $originalSlug = $validated['slug'];
+        $count = 1;
+        while (Article::where('slug', $validated['slug'])
+                     ->where('id', '!=', $id)
+                     ->exists()) {
+            $validated['slug'] = $originalSlug . '-' . $count;
+            $count++;
+        }
+    }
+
+    // Generate excerpt if not provided
+    if (empty($validated['excerpt'])) {
+        $validated['excerpt'] = Str::limit(strip_tags($validated['content']), 200);
+    }
+
+    // Set published_at if status changed to published
+    if ($validated['status'] === 'published' && $article->status !== 'published') {
+        $validated['published_at'] = now();
+    }
+
+    // Recalculate read time if content changed
+    if ($article->content !== $validated['content']) {
+        $validated['read_time'] = Article::calculateReadTime($validated['content']);
+    }
+
+    $article->update($validated);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Artikel berhasil diupdate',
+        'data' => $article->fresh(['category', 'author'])
+    ]);
+}
     /**
      * Remove the specified article
      */

@@ -9,7 +9,9 @@
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center">
     <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: url('<?php echo e($article->featured_image); ?>'); background-size: cover; background-position: center;"></div>
+        <?php if($article->featured_image): ?>
+            <div class="absolute inset-0" style="background-image: url('<?php echo e(asset('storage/' . $article->featured_image)); ?>'); background-size: cover; background-position: center;"></div>
+        <?php endif; ?>
     </div>
     <div class="particles-container"></div>
 
@@ -92,7 +94,7 @@
             <?php if($article->featured_image): ?>
             <div class="py-12">
                 <div class="rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="<?php echo e($article->featured_image); ?>"
+                    <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>"
                         alt="<?php echo e($article->title); ?>"
                         class="w-full h-auto object-cover">
                 </div>
@@ -173,9 +175,15 @@
                 <?php $__currentLoopData = $relatedArticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <article class="article-card group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-48">
-                        <img src="<?php echo e($related->featured_image); ?>"
-                            alt="<?php echo e($related->title); ?>"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <?php if($related->featured_image): ?>
+                            <img src="<?php echo e(asset('storage/' . $related->featured_image)); ?>"
+                                alt="<?php echo e($related->title); ?>"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <?php else: ?>
+                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                <i class="fa-solid fa-image text-gray-400 text-4xl"></i>
+                            </div>
+                        <?php endif; ?>
                         <div class="absolute top-3 left-3">
                             <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-white bg-<?php echo e($related->category->color); ?>-600 rounded-full shadow-lg">
                                 <i class="<?php echo e($related->category->icon ?? 'fa-solid fa-folder'); ?>"></i>

@@ -11,7 +11,9 @@
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center">
     <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: url('{{ $article->featured_image }}'); background-size: cover; background-position: center;"></div>
+        @if($article->featured_image)
+            <div class="absolute inset-0" style="background-image: url('{{ asset('storage/' . $article->featured_image) }}'); background-size: cover; background-position: center;"></div>
+        @endif
     </div>
     <div class="particles-container"></div>
 
@@ -90,7 +92,7 @@
             @if($article->featured_image)
             <div class="py-12">
                 <div class="rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="{{ $article->featured_image }}"
+                    <img src="{{ asset('storage/' . $article->featured_image) }}"
                         alt="{{ $article->title }}"
                         class="w-full h-auto object-cover">
                 </div>
@@ -167,9 +169,15 @@
                 @foreach($relatedArticles as $related)
                 <article class="article-card group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-48">
-                        <img src="{{ $related->featured_image }}"
-                            alt="{{ $related->title }}"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        @if($related->featured_image)
+                            <img src="{{ asset('storage/' . $related->featured_image) }}"
+                                alt="{{ $related->title }}"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        @else
+                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                <i class="fa-solid fa-image text-gray-400 text-4xl"></i>
+                            </div>
+                        @endif
                         <div class="absolute top-3 left-3">
                             <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-white bg-{{ $related->category->color }}-600 rounded-full shadow-lg">
                                 <i class="{{ $related->category->icon ?? 'fa-solid fa-folder' }}"></i>

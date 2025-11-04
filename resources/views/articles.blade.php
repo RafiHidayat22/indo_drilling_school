@@ -108,7 +108,7 @@
                              data-aos="fade-up" 
                              data-category="{{ $article->category->slug }}">
                         <div class="relative overflow-hidden aspect-video">
-                            <img src="{{ $article->featured_image }}"
+                            <img src="{{ asset('storage/' . $article->featured_image) }}"
                                 alt="{{ $article->title }}"
                                 class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                             <div class="absolute top-4 left-4">
@@ -273,8 +273,7 @@
                         <div class="space-y-4">
                             @foreach($recentArticles as $recent)
                             <a href="{{ route('articles.show', $recent->slug) }}" class="flex gap-4 group">
-                                <img src="{{ $recent->featured_image }}"
-                                    alt="{{ $recent->title }}"
+                                <img src="{{ asset('storage/' . $article->featured_image) }}" alt="{{ $article->title }}"
                                     class="w-20 h-20 object-cover rounded-xl group-hover:scale-110 transition duration-300">
                                 <div class="flex-1">
                                     <h4 class="text-white font-semibold mb-1 line-clamp-2 group-hover:text-red-400 transition duration-300">

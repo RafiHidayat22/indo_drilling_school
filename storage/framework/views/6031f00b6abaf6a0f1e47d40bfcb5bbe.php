@@ -484,10 +484,12 @@ function articleAdmin_closeDeleteModal() {
 }
 
 // Thumbnail Preview
-function articleAdmin_previewThumbnail(modalType) {
+// Perbaikan fungsi preview thumbnail
+function previewThumbnail(modalType) {
     const fileInput = document.getElementById('thumbnail' + modalType);
     const preview = document.getElementById('thumbnailPreview' + modalType);
     const placeholder = document.getElementById('thumbnailPlaceholder' + modalType);
+    
     if (fileInput.files && fileInput.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -502,12 +504,17 @@ function articleAdmin_previewThumbnail(modalType) {
     }
 }
 
+// Perbaikan fungsi reset
 function articleAdmin_resetThumbnailPreview(modalType) {
     const fileInput = document.getElementById('thumbnail' + modalType);
     const preview = document.getElementById('thumbnailPreview' + modalType);
     const placeholder = document.getElementById('thumbnailPlaceholder' + modalType);
+    
     if (fileInput) fileInput.value = '';
-    if (preview) preview.classList.add('hidden');
+    if (preview) {
+        preview.classList.add('hidden');
+        preview.src = '';
+    }
     if (placeholder) placeholder.classList.remove('hidden');
 }
 
@@ -589,6 +596,7 @@ async function articleAdmin_editArticle(id) {
     }
 }
 
+// Perbaikan Edit Article Form Submit
 document.getElementById('editArticleForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const content = quillEdit.root.innerHTML;
@@ -600,6 +608,10 @@ document.getElementById('editArticleForm').addEventListener('submit', async func
     }
     const articleId = document.getElementById('editArticleId').value;
     const formData = new FormData(this);
+    
+    // Tambahkan _method untuk PUT
+    formData.append('_method', 'PUT');
+    
     const submitBtn = this.parentElement.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
     submitBtn.disabled = true;
@@ -628,6 +640,7 @@ document.getElementById('editArticleForm').addEventListener('submit', async func
         submitBtn.innerHTML = originalText;
     }
 });
+
 
 // Delete Article
 let articleToDelete = null;
@@ -669,7 +682,24 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', async func
 
 // View Article
 function articleAdmin_viewArticle(id) {
-    window.open(`/articles/${id}`, '_blank');
+    // Fetch article data dulu untuk mendapat slug
+    fetch(`/articleadmin/${id}`, {
+        headers: {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success && result.data.slug) {
+            window.open(`/articles/${result.data.slug}`, '_blank');
+        } else {
+            articleAdmin_showNotification('error', 'Gagal membuka artikel');
+        }
+    })
+    .catch(error => {
+        articleAdmin_showNotification('error', 'Gagal membuka artikel');
+    });
 }
 
 // Notification Function
