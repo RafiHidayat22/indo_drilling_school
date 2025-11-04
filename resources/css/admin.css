@@ -724,3 +724,24 @@ tbody tr:hover td:first-child::before {
         border-radius: 0.5rem !important;
         border: 1px solid #cbd5e1 !important;
     }
+    /* Efek hover untuk gambar di tabel */
+tbody tr td:nth-child(5) img {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+tbody tr td:nth-child(5) img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.backdrop-blur-sm {
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    transition: all 0.3s ease;
+}
+
+.loading-spinner {
+    display: none;
+}

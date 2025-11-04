@@ -21,7 +21,9 @@
                         {!! $programIcon !!}
                     </div>
                     <h1 class="pd-hero-title">{{ $programTitle }}</h1>
-                    <p class="pd-hero-subtitle">{{ $programDescription }}</p>
+                    <p class="pd-hero-subtitle line-clamp-3 break-words overflow-hidden">
+                        {{ $programDescription }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -42,7 +44,7 @@
                         <div class="pd-item-title-wrapper">
                             <div class="pd-expand-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" />
                                 </svg>
                             </div>
                             <div>
@@ -51,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="pd-item-content" id="subcategory-content-{{ $loop->index }}">
                         <div class="pd-training-detail">
                             <div class="pd-company-trainings">
@@ -59,11 +61,11 @@
                                 <div class="pd-training-item">
                                     <h4 class="pd-training-title">{{ $training->title }}</h4>
                                     <p class="pd-training-description">{{ $training->description }}</p>
-                                    <a href="{{ route('program.training', [$programSlug, $subcategory->slug, $training->slug]) }}" 
-                                    class="pd-enroll-button">
+                                    <a href="{{ route('program.training', [$programSlug, $subcategory->slug, $training->slug]) }}"
+                                        class="pd-enroll-button">
                                         <span>Enroll Now</span>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" />
                                         </svg>
                                     </a>
                                 </div>
@@ -85,7 +87,7 @@
                 <p>Join thousands of professionals who have advanced their careers with our training programs</p>
                 <div class="pd-cta-buttons">
                     <a href="/contact" class="pd-cta-primary">Contact Us</a>
-                    <a href="/programs" class="pd-cta-secondary">View All Programs</a>
+                    <a href="/program" class="pd-cta-secondary">View All Programs</a>
                 </div>
             </div>
         </div>
@@ -93,30 +95,29 @@
 </div>
 
 <script>
-function toggleSubcategory(index) {
-    const content = document.getElementById('subcategory-content-' + index);
-    const item = content.closest('.pd-course-item');
-    const icon = item.querySelector('.pd-expand-icon svg');
-    
-    // Tutup item lain (opsional)
-    document.querySelectorAll('.pd-course-item.active').forEach(activeItem => {
-        if (activeItem !== item) {
-            activeItem.classList.remove('active');
-            const activeContent = activeItem.querySelector('.pd-item-content');
-            activeContent.style.maxHeight = '0';
-        }
-    });
-    
-    // Toggle item saat ini
-    item.classList.toggle('active');
-    
-    if (item.classList.contains('active')) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-    } else {
-        content.style.maxHeight = '0';
-    }
-}
+    function toggleSubcategory(index) {
+        const content = document.getElementById('subcategory-content-' + index);
+        const item = content.closest('.pd-course-item');
+        const icon = item.querySelector('.pd-expand-icon svg');
 
+        // Tutup item lain (opsional)
+        document.querySelectorAll('.pd-course-item.active').forEach(activeItem => {
+            if (activeItem !== item) {
+                activeItem.classList.remove('active');
+                const activeContent = activeItem.querySelector('.pd-item-content');
+                activeContent.style.maxHeight = '0';
+            }
+        });
+
+        // Toggle item saat ini
+        item.classList.toggle('active');
+
+        if (item.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+        } else {
+            content.style.maxHeight = '0';
+        }
+    }
 </script>
 
 @endsection

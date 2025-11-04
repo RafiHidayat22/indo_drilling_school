@@ -6,6 +6,7 @@ use App\Models\TrainingCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage; // Tambahkan ini
 
 class CategoriesController extends Controller
 {
@@ -19,9 +20,9 @@ class CategoriesController extends Controller
         // Filter berdasarkan search
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -54,12 +55,16 @@ class CategoriesController extends Controller
             'description' => 'nullable|string',
             'icon' => 'required|string',
             'status' => 'required|in:Active,Inactive',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Tambahkan validasi untuk gambar
         ], [
             'name.required' => 'Nama kategori wajib diisi',
             'name.max' => 'Nama kategori maksimal 255 karakter',
             'icon.required' => 'Icon wajib dipilih',
             'status.required' => 'Status wajib dipilih',
             'status.in' => 'Status harus Active atau Inactive',
+            'image.image' => 'File harus berupa gambar',
+            'image.mimes' => 'Format gambar harus jpeg, png, jpg, gif, atau svg',
+            'image.max' => 'Ukuran gambar maksimal 2MB',
         ]);
 
         if ($validator->fails()) {
@@ -72,7 +77,7 @@ class CategoriesController extends Controller
         try {
             // Generate slug
             $slug = Str::slug($request->name);
-            
+
             // Cek apakah slug sudah ada
             $count = TrainingCategory::where('slug', $slug)->count();
             if ($count > 0) {
@@ -82,6 +87,19 @@ class CategoriesController extends Controller
             // Get max order untuk urutan baru
             $maxOrder = TrainingCategory::max('order') ?? 0;
 
+            // Proses upload gambar jika ada
+            $imagePath = null;
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                $imageName = time() . '_' . Str::slug($request->name) . '.' . $request->file('image')->extension();
+                $imagePath = $request->file('image')->storeAs(
+                    'categories', // folder di dalam storage/app/public/
+                    time() . '_' . Str::slug($request->name) . '.' . $request->file('image')->extension(),
+                    'public' // disk name
+                );
+                // Jika ingin menyimpan path relatif saja (tanpa 'storage/')
+                // $imagePath = str_replace('public/', '', $imagePath); // Opsional
+            }
+
             TrainingCategory::create([
                 'title' => $request->name,
                 'slug' => $slug,
@@ -89,11 +107,11 @@ class CategoriesController extends Controller
                 'icon' => $request->icon,
                 'status' => $request->status,
                 'order' => $maxOrder + 1,
+                'image' => $imagePath, // Simpan path gambar
             ]);
 
             return redirect()->route('categories.index')
                 ->with('success', 'Kategori berhasil ditambahkan!');
-                
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
@@ -113,12 +131,16 @@ class CategoriesController extends Controller
             'description' => 'nullable|string',
             'icon' => 'required|string',
             'status' => 'required|in:Active,Inactive',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'name.required' => 'Nama kategori wajib diisi',
             'name.max' => 'Nama kategori maksimal 255 karakter',
             'icon.required' => 'Icon wajib dipilih',
             'status.required' => 'Status wajib dipilih',
             'status.in' => 'Status harus Active atau Inactive',
+            'image.image' => 'File harus berupa gambar',
+            'image.mimes' => 'Format gambar harus jpeg, png, jpg, gif, atau svg',
+            'image.max' => 'Ukuran gambar maksimal 2MB',
         ]);
 
         if ($validator->fails()) {
@@ -132,15 +154,35 @@ class CategoriesController extends Controller
             $slug = $category->slug;
             if ($request->name !== $category->title) {
                 $slug = Str::slug($request->name);
-                
+
                 // Cek apakah slug sudah ada (kecuali milik sendiri)
                 $count = TrainingCategory::where('slug', $slug)
                     ->where('id', '!=', $id)
                     ->count();
-                    
+
                 if ($count > 0) {
                     $slug = $slug . '-' . ($count + 1);
                 }
+            }
+
+            // Proses upload gambar jika ada
+            $imagePath = $category->image; // Default: gunakan gambar lama
+            $shouldDeleteImage = $request->has('delete_image') && $request->delete_image == '1';
+
+            if ($shouldDeleteImage) {
+                // Hapus gambar lama jika ada
+                if ($category->image && Storage::exists($category->image)) {
+                    Storage::delete($category->image);
+                }
+                $imagePath = null; // Set menjadi null
+            } elseif ($request->hasFile('image') && $request->file('image')->isValid()) {
+                // Hapus gambar lama jika ada
+                if ($category->image && Storage::exists($category->image)) {
+                    Storage::delete($category->image);
+                }
+
+                $imageName = time() . '_' . Str::slug($request->name) . '.' . $request->file('image')->extension();
+                $imagePath = $request->file('image')->storeAs('categories', $imageName, 'public');
             }
 
             $category->update([
@@ -149,11 +191,11 @@ class CategoriesController extends Controller
                 'description' => $request->description,
                 'icon' => $request->icon,
                 'status' => $request->status,
+                'image' => $imagePath, // Simpan path gambar baru atau null
             ]);
 
             return redirect()->route('categories.index')
                 ->with('success', 'Kategori berhasil diperbarui!');
-                
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -167,20 +209,24 @@ class CategoriesController extends Controller
     {
         try {
             $category = TrainingCategory::findOrFail($id);
-            
+
             // Cek apakah kategori memiliki subcategories
             $subcategoriesCount = $category->subcategories()->count();
-            
+
             if ($subcategoriesCount > 0) {
                 return redirect()->back()
                     ->with('error', 'Kategori tidak dapat dihapus karena masih memiliki ' . $subcategoriesCount . ' sub-kategori. Hapus sub-kategori terlebih dahulu.');
+            }
+
+            // Hapus gambar jika ada
+            if ($category->image && Storage::exists($category->image)) {
+                Storage::delete($category->image);
             }
 
             $category->delete();
 
             return redirect()->route('categories.index')
                 ->with('success', 'Kategori berhasil dihapus!');
-                
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -213,7 +259,6 @@ class CategoriesController extends Controller
                 'success' => true,
                 'message' => 'Urutan kategori berhasil diperbarui'
             ]);
-            
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

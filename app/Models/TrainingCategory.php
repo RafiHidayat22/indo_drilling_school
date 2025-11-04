@@ -14,6 +14,7 @@ class TrainingCategory extends Model
         'slug',
         'description',
         'icon',
+        'image',
         'order',
         'status'
     ];

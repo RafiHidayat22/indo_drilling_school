@@ -46,7 +46,7 @@
                             </svg>
                         </span>
                     </a>
-                    <a href="#contact" class="group bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <a href="/contact" class="group bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                         Contact Us
                     </a>
                 </div>
@@ -151,33 +151,24 @@
             <div class="relative">
                 <div class="overflow-x-auto overflow-y-hidden home-animate-fadeInUp delay-200 home-scrollbar-hide pb-4" id="programsContainer" style="scroll-behavior: smooth;">
                     <div class="flex gap-6 w-max" id="programsScroll">
-                        @foreach ([
-                        ['Drilling Program', 'Comprehensive drilling operations training covering equipment, procedures, and safety protocols for drilling professionals.', 'images/DrillingImg.jpg'],
-                        ['Safety Program', 'Essential safety training and HSE protocols for high-risk oil and gas environments.', 'images/SafetyImg.jpg'],
-                        ['IDS Drilling Program', 'Specialized Indonesia Drilling School curriculum combining theory and hands-on drilling experience.', 'images/IDSImg.jpg'],
-                        ['IDS Safety Program', 'Customized safety certification program tailored for Indonesian oil and gas industry standards.', 'images/SafetyTrainIndo.jpg'],
-                        ['International Training Program', 'Globally recognized training programs meeting international oil and gas industry standards.', 'images/InternationalTrain.jpg'],
-                        ['Local Certification Program', 'BNSP, Kemnaker, and Dinas Perhubungan certified training programs for local workforce development.', 'images/BNSPTrain.jpg'],
-                        ['Drilling Program', 'Comprehensive drilling operations training covering equipment, procedures, and safety protocols for drilling professionals.', 'images/DrillingImg.jpg'],
-                        ['Safety Program', 'Essential safety training and HSE protocols for high-risk oil and gas environments.', 'images/SafetyImg.jpg'],
-                        ['IDS Drilling Program', 'Specialized Indonesia Drilling School curriculum combining theory and hands-on drilling experience.', 'images/IDSImg.jpg'],
-                        ['IDS Safety Program', 'Customized safety certification program tailored for Indonesian oil and gas industry standards.', 'images/SafetyTrainIndo.jpg'],
-                        ['International Training Program', 'Globally recognized training programs meeting international oil and gas industry standards.', 'images/InternationalTrain.jpg'],
-                        ['Local Certification Program', 'BNSP, Kemnaker, and Dinas Perhubungan certified training programs for local workforce development.', 'images/BNSPTrain.jpg']
-                        ] as [$title, $desc, $img])
+                        @forelse ($trainingCategories as $category)
                         <div class="flex-shrink-0 w-80">
                             <div class="group bg-white rounded-3xl shadow-lg overflow-hidden text-center hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 flex flex-col h-full">
                                 <div class="relative h-64 overflow-hidden flex-shrink-0">
-                                    <img src="{{ asset($img) }}" alt="{{ $title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                    <img src="{{ $category->image ? asset('storage/' . $category->image) : asset('images/default-program-img.jpg') }}" alt="{{ $category->title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition"></div>
                                     <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-gray-900">
                                         Professional
                                     </div>
                                 </div>
                                 <div class="p-8 flex flex-col flex-grow">
-                                    <h3 class="text-2xl font-bold text-gray-900 mb-4 min-h-[4rem] flex items-center justify-center">{{ $title }}</h3>
-                                    <p class="text-gray-600 mb-6 leading-relaxed flex-grow min-h-[6rem]">{{ $desc }}</p>
-                                    <a href="#"
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-4 min-h-[4rem] flex items-center justify-center">
+                                        {{ $category->title }}
+                                    </h3>
+                                    <p class="text-gray-600 mb-6 leading-relaxed flex-grow min-h-[6rem] line-clamp-3 break-words overflow-hidden">
+                                        {{ $category->description ?? '-' }}
+                                    </p>
+                                    <a href="{{ route('program.category', ['categorySlug' => $category->slug]) }}"
                                         class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-6 rounded-xl shadow-md hover:shadow-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 transform hover:-translate-y-1 font-semibold mt-auto">
                                         Learn More
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,7 +178,11 @@
                                 </div>
                             </div>
                         </div>
-                        @endforeach
+                        @empty
+                        <div class="w-full text-center py-12">
+                            <p class="text-gray-500 text-lg">No training programs available at the moment.</p>
+                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>

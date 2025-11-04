@@ -280,3 +280,66 @@ export function initArticleManagement() {
         });
     });
 }
+// Global function to handle modal close and refresh
+window.refreshPageAfterSubmit = function() {
+    // Jika Anda ingin reload halaman
+    location.reload();
+
+    // Atau jika ingin refresh hanya bagian tertentu (misal: table)
+    // document.getElementById('table-container').innerHTML = '<div>Loading...</div>';
+    // fetch(window.location.href)
+    //     .then(res => res.text())
+    //     .then(html => {
+    //         const parser = new DOMParser();
+    //         const doc = parser.parseFromString(html, 'text/html');
+    //         document.getElementById('table-container').replaceWith(doc.getElementById('table-container'));
+    //     });
+};
+
+// Untuk meng-handle form submit di dalam modal
+document.addEventListener('DOMContentLoaded', function() {
+    // Jika ada form di dalam modal
+    document.addEventListener('submit', function(e) {
+        if (e.target.closest('.modal-form')) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Tampilkan loading
+            const modal = form.closest('.modal-content');
+            if (modal) {
+                modal.querySelector('.loading-spinner')?.classList.remove('hidden');
+            }
+
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            })
+            .then(response => {
+                if (response.ok) return response.json();
+                throw new Error('Gagal menyimpan data.');
+            })
+            .then(data => {
+                if (data.success) {
+                    alert(data.message || 'Data berhasil disimpan!');
+                    window.refreshPageAfterSubmit();
+                } else {
+                    alert(data.message || 'Terjadi kesalahan.');
+                }
+            })
+            .catch(err => {
+                alert('Error: ' + err.message);
+            })
+            .finally(() => {
+                if (modal) {
+                    modal.querySelector('.loading-spinner')?.classList.add('hidden');
+                }
+            });
+        }
+    });
+});
