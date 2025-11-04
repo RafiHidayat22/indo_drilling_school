@@ -857,3 +857,17 @@ div#successModal button.contact-modal-btn:hover {
         border: 1px solid #ddd;
     }
 }
+.contact-alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 500;
+    display: none; /* Tetapkan display: none sebagai default */
+}
+
+.contact-alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}

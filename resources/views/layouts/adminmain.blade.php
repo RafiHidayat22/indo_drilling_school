@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Indonesia Drilling School')</title>
 
     @vite(['resources/css/appadmin.css', 'resources/js/appadmin.js'])
@@ -14,7 +14,7 @@
 </head>
 
 <body class="bg-gray-50">
-
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"></script>
     @include('admin.sidebar')
     @include('admin.topbar')
 

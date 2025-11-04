@@ -67,7 +67,8 @@
                     </a>
                 </div>
             </div>
-
+            <!-- Divider -->
+            <div class="border-t border-slate-700 my-6"></div>
             <!-- Tambah User -->
             <a href="{{ url('/users') }}"
                 class="sidebar-menu-item flex items-center px-4 py-3 
@@ -78,36 +79,15 @@
                 </div>
                 <span class="ml-4">Tambah User</span>
             </a>
-        </div>
-
-        <!-- Divider -->
-        <div class="border-t border-slate-700 my-6"></div>
-
-        <!-- Additional Menu -->
-        <div>
-            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 mb-3">Pengaturan</p>
-
-            <!-- Pengaturan -->
-            <a href="#"
-                class="sidebar-menu-item flex items-center px-4 py-3 
-                      {{ request()->is('pengaturan*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} 
-                      rounded-lg">
+            <!-- Contact Admin -->
+            <a href="{{ route('contactadmin') }}" {{-- Gunakan nama route yang didefinisikan di web.php --}}
+                class="sidebar-menu-item flex items-center px-4 py-3 {{ request()->is('contactadmin*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} rounded-lg">
                 <div class="sidebar-icon">
-                    <i class="fas fa-cog text-lg"></i>
+                    <i class="fas fa-phone text-lg"></i> {{-- Gunakan ikon yang sesuai --}}
                 </div>
-                <span class="ml-4">Pengaturan</span>
+                <span class="ml-4">Contact Admin</span>
             </a>
 
-            <!-- Laporan -->
-            <a href="#"
-                class="sidebar-menu-item flex items-center px-4 py-3 
-                      {{ request()->is('laporan*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700' }} 
-                      rounded-lg">
-                <div class="sidebar-icon">
-                    <i class="fas fa-chart-line text-lg"></i>
-                </div>
-                <span class="ml-4">Laporan</span>
-            </a>
         </div>
     </nav>
 

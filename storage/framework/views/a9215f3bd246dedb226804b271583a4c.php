@@ -120,4 +120,4 @@
             icon.classList.add('rotate-180');
         }
     });
-</script><?php /**PATH D:\laragon\www\indo_drilling_school\resources\views/admin/sidebar.blade.php ENDPATH**/ ?>
+</script><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/admin/sidebar.blade.php ENDPATH**/ ?>

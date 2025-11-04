@@ -25,4 +25,4 @@
 
 </body>
 
-</html><?php /**PATH D:\laragon\www\indo_drilling_school\resources\views/layouts/adminmain.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/layouts/adminmain.blade.php ENDPATH**/ ?>

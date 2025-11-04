@@ -1,7 +1,7 @@
 // Contact Form Handler
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('contactForm');
-    const submitBtn = form.querySelector('.submit-btn');
+    const submitBtn = form.querySelector('.contact-submit-btn'); // Sesuaikan selektor
     const modal = document.getElementById('successModal');
     
     // Form validation
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         phone: (value) => {
             if (!value.trim()) return 'Phone number is required';
-            const phoneRegex = /^[0-9+\-\s()]{10,}$/;
+            const phoneRegex = /^[0-9+\-\s()]{10,}$/; // Atau sesuaikan dengan format yang Anda inginkan
             if (!phoneRegex.test(value)) return 'Invalid phone number format';
             return '';
         },
@@ -36,20 +36,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show error message
     function showError(input, message) {
-        const formGroup = input.closest('.form-group');
-        const errorMessage = formGroup.querySelector('.error-message');
+        // Sesuaikan dengan kelas CSS di view
+        const formGroup = input.closest('.contact-form-group');
+        const errorMessage = formGroup.querySelector('.contact-error-message');
         
-        formGroup.classList.add('error');
-        errorMessage.textContent = message;
+        // Tidak ada kelas 'error' di view asli, bisa ditambahkan untuk styling jika perlu
+        // formGroup.classList.add('error');
+        if (errorMessage) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block'; // Pastikan pesan error ditampilkan
+        }
     }
     
     // Clear error message
     function clearError(input) {
-        const formGroup = input.closest('.form-group');
-        const errorMessage = formGroup.querySelector('.error-message');
+        // Sesuaikan dengan kelas CSS di view
+        const formGroup = input.closest('.contact-form-group');
+        const errorMessage = formGroup.querySelector('.contact-error-message');
         
-        formGroup.classList.remove('error');
-        errorMessage.textContent = '';
+        // formGroup.classList.remove('error');
+        if (errorMessage) {
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none'; // Sembunyikan pesan error
+        }
     }
     
     // Validate single field
@@ -92,13 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Clear error on input
         input.addEventListener('input', function() {
-            if (this.closest('.form-group').classList.contains('error')) {
-                clearError(this);
-            }
+            // Tidak perlu cek kelas error jika langsung clear
+            clearError(this);
         });
     });
     
-    // Phone number formatting
+    // Phone number formatting (Contoh format Indonesia, sesuaikan jika perlu)
     const phoneInput = document.getElementById('phone');
     phoneInput.addEventListener('input', function(e) {
         let value = e.target.value.replace(/[^\d]/g, '');
@@ -124,57 +132,102 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Form submission
-    form.addEventListener('submit', async function(e) {
+  // Form submission
+ form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
+
         // Validate form
         if (!validateForm()) {
-            // Scroll to first error
-            const firstError = form.querySelector('.form-group.error');
+            const firstError = form.querySelector('.contact-form-group .contact-error-message:not([style*="display: none"])');
             if (firstError) {
                 firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
             return;
         }
-        
+
         // Show loading state
         submitBtn.classList.add('loading');
-        
-        // Collect form data
+        const loader = submitBtn.querySelector('.contact-btn-loader');
+        if (loader) loader.style.display = 'inline-block';
+        const btnText = submitBtn.querySelector('.contact-btn-text');
+        if (btnText) btnText.textContent = 'Sending...';
+
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        
+        const csrfToken = document.querySelector('input[name="_token"]').value;
+        formData.append('_token', csrfToken);
+
         try {
-            // Simulate API call (replace with your actual endpoint)
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // Here you would typically send data to your backend
-            // const response = await fetch('/api/contact', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data)
-            // });
-            
-            console.log('Form data:', data);
-            
-            // Show success modal
-            showModal();
-            
-            // Reset form
-            form.reset();
-            
+            console.log("🚀 Starting form submission..."); // Log awal
+
+            const response = await fetch(window.Laravel.routes.contactStore, {
+                method: 'POST',
+                body: formData
+            });
+
+            console.log("✅ Response received. Status:", response.status); // Log status
+
+            let result;
+            try {
+                result = await response.json();
+                console.log("📄 Parsed JSON result:", result); // Log hasil parsing
+            } catch (parseError) {
+                console.error("❌ Failed to parse response as JSON:", parseError);
+                const text = await response.text();
+                console.log("📋 Response as text:", text);
+                alert('Server returned an unexpected response. Please check the console.');
+                return;
+            }
+
+            // --- Cek apakah sukses ---
+            if (result && result.success === true) {
+                console.log("🎉 Success! Server responded with success: true");
+
+                // Reset form
+                form.reset();
+                // Sembunyikan pesan error jika ada
+                form.querySelectorAll('.contact-error-message').forEach(el => {
+                     el.textContent = '';
+                     el.style.display = 'none';
+                 });
+
+                // --- Cari elemen pesan sukses ---
+                const successMessageEl = document.getElementById('successMessage');
+                console.log("🔍 Looking for #successMessage element:", successMessageEl);
+
+                if (successMessageEl) {
+                    console.log("✅ Found #successMessage element. Setting content and display.");
+                    successMessageEl.textContent = result.message || 'Pesan Anda telah berhasil dikirim.';
+                    successMessageEl.style.display = 'block';
+
+                    // Sembunyikan pesan setelah 5 detik
+                    setTimeout(() => {
+                        successMessageEl.style.display = 'none';
+                    }, 5000);
+
+                } else {
+                    console.error("❌ Element #successMessage not found in the DOM!");
+                    alert("Pesan sukses tidak dapat ditampilkan karena elemen tidak ditemukan. Silakan periksa HTML.");
+                }
+
+            } else {
+                console.error("❌ Server did not return success: true. Result:", result);
+                alert('An unexpected error occurred. Please try again.');
+            }
+
         } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('An error occurred. Please try again.');
+            console.error('💥 Network or other error:', error);
+            alert('An error occurred while submitting the form. Please check your connection and try again.');
         } finally {
             // Remove loading state
             submitBtn.classList.remove('loading');
+            const loader = submitBtn.querySelector('.contact-btn-loader');
+            if (loader) loader.style.display = 'none';
+            const btnText = submitBtn.querySelector('.contact-btn-text');
+            if (btnText) btnText.textContent = 'Send Message';
         }
     });
     
-    // Show modal
+    // Show modal (jika tetap ingin digunakan)
     function showModal() {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -200,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Smooth scroll for anchor links
+    // Smooth scroll for anchor links (jika ada)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -211,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Intersection Observer for animations
+    // Intersection Observer for animations (Contoh untuk card dan form-group)
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -235,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Observe form groups
-    document.querySelectorAll('.form-group').forEach((group, index) => {
+    document.querySelectorAll('.contact-form-group').forEach((group, index) => {
         group.style.opacity = '0';
         group.style.transform = 'translateY(20px)';
         group.style.transition = `all 0.5s ease ${index * 0.05}s`;
@@ -257,11 +310,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const formInputs = form.querySelectorAll('input, select, textarea');
     formInputs.forEach(input => {
         input.addEventListener('focus', function() {
-            this.closest('.form-group').style.transform = 'translateX(3px)';
+            // Sesuaikan dengan struktur CSS Anda jika perlu
+            // this.closest('.contact-form-group').style.transform = 'translateX(3px)';
         });
         
         input.addEventListener('blur', function() {
-            this.closest('.form-group').style.transform = 'translateX(0)';
+            // this.closest('.contact-form-group').style.transform = 'translateX(0)';
         });
     });
     
@@ -285,8 +339,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Add loading animation to map
-    const mapWrapper = document.querySelector('.map-wrapper');
+    // Add loading animation to map (jika iframe dianggap sebagai wrapper)
+    const mapWrapper = document.querySelector('.contact-map-wrapper'); // Sesuaikan kelas
     if (mapWrapper) {
         const iframe = mapWrapper.querySelector('iframe');
         iframe.addEventListener('load', function() {
@@ -298,4 +352,5 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Console log for debugging
     console.log('Contact form initialized successfully');
+    console.log('Contact form initialized successfully from Vite module');
 });

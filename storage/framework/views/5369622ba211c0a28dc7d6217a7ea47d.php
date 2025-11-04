@@ -15,7 +15,7 @@
                 Dashboard
             </span>
             <span class="mx-2">/</span>
-            <span class="font-medium text-gray-800">{{ $pageTitle ?? 'Overview' }}</span>
+            <span class="font-medium text-gray-800"><?php echo e($pageTitle ?? 'Overview'); ?></span>
         </nav>
     </div>
 
@@ -31,11 +31,12 @@
                 title="Pesan"
                 @click.away="open = false">
                 <i class="fas fa-envelope text-gray-600 text-lg"></i>
-                @if($unreadInquiries->count() > 0)
+                <?php if($unreadInquiries->count() > 0): ?>
                 <span class="absolute top-1 right-1 bg-blue-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                    {{ $unreadInquiries->count() }}
+                    <?php echo e($unreadInquiries->count()); ?>
+
                 </span>
-                @endif
+                <?php endif; ?>
             </button>
 
             <!-- Dropdown Content -->
@@ -55,11 +56,11 @@
                 </div>
 
                 <!-- Messages List -->
-                @if($unreadInquiries->count() > 0)
+                <?php if($unreadInquiries->count() > 0): ?>
                 <div class="max-h-80 overflow-y-auto">
-                    @foreach($unreadInquiries as $inq)
-                    <a href="{{ route('admin.contacts.show', $inq) }}"
-                        data-mark-read-url="{{ route('admin.contacts.mark-read', $inq) }}"
+                    <?php $__currentLoopData = $unreadInquiries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $inq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="<?php echo e(route('admin.contacts.show', $inq)); ?>"
+                        data-mark-read-url="<?php echo e(route('admin.contacts.mark-read', $inq)); ?>"
                         class="block p-3 hover:bg-blue-50 border-b border-gray-100 last:border-b-0">
                         <div class="flex items-start">
                             <div class="flex-shrink-0 mt-0.5">
@@ -69,29 +70,32 @@
                             </div>
                             <div class="ml-3 flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 truncate">
-                                    {{ $inq->full_name }}
+                                    <?php echo e($inq->full_name); ?>
+
                                 </p>
                                 <p class="text-xs text-gray-600 line-clamp-1">
-                                    {{ $inq->subject }}
+                                    <?php echo e($inq->subject); ?>
+
                                 </p>
                                 <p class="text-xs text-gray-500 mt-1">
-                                    {{ $inq->created_at->diffForHumans() }}
+                                    <?php echo e($inq->created_at->diffForHumans()); ?>
+
                                 </p>
                             </div>
                         </div>
                     </a>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
                 <div class="p-2 border-t border-gray-100 bg-gray-50 text-center">
-                    <a href="{{ route('contactadmin') }}" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                    <a href="<?php echo e(route('contactadmin')); ?>" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
                         Lihat Semua Pesan
                     </a>
                 </div>
-                @else
+                <?php else: ?>
                 <div class="p-4 text-center text-sm text-gray-500">
                     Tidak ada pesan baru.
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
 
@@ -111,13 +115,14 @@
                 class="profile-dropdown flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors duration-200"
                 @click.away="open = false">
                 <img
-                    src="{{ user_avatar_url()}}"
+                    src="<?php echo e(user_avatar_url()); ?>"
                     alt="Profile"
                     class="w-9 h-9 rounded-full object-cover ring-2 ring-purple-100">
                 <div class="hidden md:block text-left">
-                    <p class="text-sm font-semibold text-gray-800">{{ current_user()->username }}</p>
+                    <p class="text-sm font-semibold text-gray-800"><?php echo e(current_user()->username); ?></p>
                     <p class="text-xs text-gray-500">
-                        {{ current_user()->role === 'superAdmin' ? 'Super Administrator' : 'Administrator' }}
+                        <?php echo e(current_user()->role === 'superAdmin' ? 'Super Administrator' : 'Administrator'); ?>
+
                     </p>
                 </div>
                 <i class="fas fa-chevron-down text-xs text-gray-400 transition-transform duration-200"
@@ -140,13 +145,14 @@
                 <div class="p-4 border-b border-gray-100">
                     <div class="flex items-center space-x-3">
                         <img
-                            src="{{ user_avatar_url() }}"
+                            src="<?php echo e(user_avatar_url()); ?>"
                             alt="Profile"
                             class="w-12 h-12 rounded-full object-cover ring-2 ring-purple-200">
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-gray-800 truncate">{{ current_user()->username }}</p>
-                            <p class="text-xs text-gray-500 truncate">{{ current_user()->email }}</p>
-                            {!! user_role_badge() !!}
+                            <p class="font-semibold text-gray-800 truncate"><?php echo e(current_user()->username); ?></p>
+                            <p class="text-xs text-gray-500 truncate"><?php echo e(current_user()->email); ?></p>
+                            <?php echo user_role_badge(); ?>
+
                         </div>
                     </div>
                 </div>
@@ -164,8 +170,8 @@
 
                 <!-- Logout -->
                 <div class="p-2">
-                    <form id="logoutForm" method="POST" action="{{ route('logout') }}">
-                        @csrf
+                    <form id="logoutForm" method="POST" action="<?php echo e(route('logout')); ?>">
+                        <?php echo csrf_field(); ?>
                         <button type="submit" class="dropdown-item flex items-center px-4 py-3 text-red-600 hover:bg-red-50 w-full rounded-lg transition-colors duration-150">
                             <i class="fas fa-sign-out-alt w-5 mr-3"></i>
                             <span class="text-sm font-medium">Keluar</span>
@@ -325,4 +331,4 @@
     `;
         document.head.appendChild(style);
     });
-</script>
+</script><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/admin/topbar.blade.php ENDPATH**/ ?>

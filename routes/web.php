@@ -5,6 +5,9 @@ use App\Http\Controllers\ArticleAdminController;
 use App\Http\Controllers\ArticleWebController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\ProgramWebController;
+use App\Http\Controllers\ContactInquiryController;
+use App\Http\Controllers\DashboardAdminController;
+
 
 // Public routes
 Route::get('/', function () {
@@ -70,18 +73,33 @@ Route::middleware(['check.auth'])->group(function () {
 
     // Article Admin (untuk admin dan superAdmin)
     Route::middleware(['role:admin,superAdmin'])->group(function () {
+
+        Route::get('/dashboard', [DashboardAdminController::class, 'index'])
+            ->name('dashboard');
         Route::get('/articleadmin', [ArticleAdminController::class, 'index'])->name('articleadmin.index');
+        //contact admin routes
+        Route::get('/contactadmin', [ContactInquiryController::class, 'index'])
+            ->name('contactadmin');
+        Route::get('/contacts/{contact}', [ContactInquiryController::class, 'show'])
+            ->name('admin.contacts.show');
+        Route::put('/contacts/{contact}', [ContactInquiryController::class, 'update'])
+            ->name('admin.contacts.update');
+        Route::delete('/contacts/{contact}', [ContactInquiryController::class, 'destroy'])
+            ->name('admin.contacts.destroy');
+        Route::post('/contacts/bulk-update', [ContactInquiryController::class, 'bulkUpdateStatus'])
+            ->name('admin.contacts.bulk-update');
+        Route::post('/contacts/{contact}/mark-read', [ContactInquiryController::class, 'markAsRead'])
+            ->name('admin.contacts.mark-read');
+        Route::post('/contacts/{contact}/mark-unread', [ContactInquiryController::class, 'markAsUnread'])
+            ->name('admin.contacts.mark-unread');
+        Route::get('/contacts-stats', [ContactInquiryController::class, 'getStats'])
+            ->name('admin.contacts.stats');
+        Route::get('/api/contact-inquiries/unread-count', [ContactInquiryController::class, 'unreadCount']);
+        Route::post('/contact-inquiries/{contact}/mark-as-read', [ContactInquiryController::class, 'markAsRead'])
+            ->name('contact-inquiries.mark-as-read');
     });
 
-    // User Management (hanya untuk superAdmin)
-    Route::middleware(['role:superAdmin'])->group(function () {
-        Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');
-    });
-});
-
-// Protected Admin Routes
-Route::middleware(['check.auth', 'role:admin,superAdmin'])->group(function () {
-    // Training Management Routes
+     // Training Management Routes
     Route::prefix('training')->name('training.')->group(function () {
         Route::get('/', [TrainingController::class, 'index'])->name('index');
         Route::post('/', [TrainingController::class, 'store'])->name('store');
@@ -107,4 +125,19 @@ Route::middleware(['check.auth', 'role:admin,superAdmin'])->prefix('categories')
     Route::delete('/{id}', [CategoriesController::class, 'destroy'])->name('destroy');
     Route::post('/reorder', [CategoriesController::class, 'reorder'])->name('reorder');
 });
+
+    // User Management (hanya untuk superAdmin)
+    Route::middleware(['role:superAdmin'])->group(function () {
+        Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');
+    });
 });
+
+
+use App\Http\Controllers\ContactController;
+
+// Route untuk menampilkan halaman contact
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+
+// Route untuk menyimpan data dari formulir contact
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
