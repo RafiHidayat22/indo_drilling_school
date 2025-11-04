@@ -2,123 +2,223 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\TrainingCategory;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of categories
+     */
+    public function index(Request $request)
     {
-        // Data dummy untuk preview
-        $categoriesData = collect([
-            [
-                'id' => 1,
-                'name' => 'Keselamatan Kerja',
-                'slug' => 'keselamatan-kerja',
-                'description' => 'Program pelatihan yang berfokus pada keselamatan dan kesehatan kerja (K3) di lingkungan industri',
-                'icon' => '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>',
-                'status' => 'active',
-                'created_at' => Carbon::now()->subDays(30),
-            ],
-            [
-                'id' => 2,
-                'name' => 'Teknik & Operasional',
-                'slug' => 'teknik-operasional',
-                'description' => 'Pelatihan teknis dan operasional untuk meningkatkan kompetensi di bidang teknik dan maintenance',
-                'icon' => '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>',
-                'status' => 'active',
-                'created_at' => Carbon::now()->subDays(25),
-            ],
-            [
-                'id' => 3,
-                'name' => 'Manajemen & Leadership',
-                'slug' => 'manajemen-leadership',
-                'description' => 'Program pengembangan kemampuan manajemen dan kepemimpinan untuk supervisor dan manager',
-                'icon' => '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>',
-                'status' => 'active',
-                'created_at' => Carbon::now()->subDays(20),
-            ],
-            [
-                'id' => 4,
-                'name' => 'Sertifikasi Profesional',
-                'slug' => 'sertifikasi-profesional',
-                'description' => 'Program sertifikasi untuk memperoleh lisensi dan kompetensi profesional yang diakui',
-                'icon' => '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>',
-                'status' => 'active',
-                'created_at' => Carbon::now()->subDays(15),
-            ],
-            [
-                'id' => 5,
-                'name' => 'Teknologi Informasi',
-                'slug' => 'teknologi-informasi',
-                'description' => 'Pelatihan di bidang IT, programming, dan sistem informasi',
-                'icon' => '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>',
-                'status' => 'inactive',
-                'created_at' => Carbon::now()->subDays(10),
-            ],
-        ]);
+        $query = TrainingCategory::query()->orderBy('order', 'asc')->orderBy('created_at', 'desc');
 
-        // Pagination manual untuk dummy data
-        $perPage = 10;
-        $currentPage = request()->get('page', 1);
-        $categories = new \Illuminate\Pagination\LengthAwarePaginator(
-            $categoriesData->forPage($currentPage, $perPage),
-            $categoriesData->count(),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url(), 'query' => request()->query()]
-        );
+        // Filter berdasarkan search
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter berdasarkan status
+        if ($request->has('status') && $request->status) {
+            $query->where('status', $request->status);
+        }
+
+        // Pagination
+        $categories = $query->paginate(10)->withQueryString();
+
+        // Hitung total program terkait
+        foreach ($categories as $category) {
+            $category->programs_count = $category->subcategories()
+                ->withCount('trainings')
+                ->get()
+                ->sum('trainings_count');
+        }
 
         return view('categories', compact('categories'));
     }
 
+    /**
+     * Store a newly created category
+     */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'icon' => 'required|string',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|in:Active,Inactive',
+        ], [
+            'name.required' => 'Nama kategori wajib diisi',
+            'name.max' => 'Nama kategori maksimal 255 karakter',
+            'icon.required' => 'Icon wajib dipilih',
+            'status.required' => 'Status wajib dipilih',
+            'status.in' => 'Status harus Active atau Inactive',
         ]);
 
-        // Generate slug
-        $validated['slug'] = \Str::slug($validated['name']);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('error', 'Validasi gagal. Periksa kembali input Anda.');
+        }
 
-        // Logic untuk menyimpan ke database
-        // Category::create($validated);
+        try {
+            // Generate slug
+            $slug = Str::slug($request->name);
+            
+            // Cek apakah slug sudah ada
+            $count = TrainingCategory::where('slug', $slug)->count();
+            if ($count > 0) {
+                $slug = $slug . '-' . ($count + 1);
+            }
 
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil ditambahkan!');
+            // Get max order untuk urutan baru
+            $maxOrder = TrainingCategory::max('order') ?? 0;
+
+            TrainingCategory::create([
+                'title' => $request->name,
+                'slug' => $slug,
+                'description' => $request->description,
+                'icon' => $request->icon,
+                'status' => $request->status,
+                'order' => $maxOrder + 1,
+            ]);
+
+            return redirect()->route('categories.index')
+                ->with('success', 'Kategori berhasil ditambahkan!');
+                
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
+    /**
+     * Update the specified category
+     */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
+        $category = TrainingCategory::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'icon' => 'required|string',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|in:Active,Inactive',
+        ], [
+            'name.required' => 'Nama kategori wajib diisi',
+            'name.max' => 'Nama kategori maksimal 255 karakter',
+            'icon.required' => 'Icon wajib dipilih',
+            'status.required' => 'Status wajib dipilih',
+            'status.in' => 'Status harus Active atau Inactive',
         ]);
 
-        // Generate slug
-        $validated['slug'] = \Str::slug($validated['name']);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->with('error', 'Validasi gagal. Periksa kembali input Anda.');
+        }
 
-        // Logic untuk update ke database
-        // $category = Category::findOrFail($id);
-        // $category->update($validated);
+        try {
+            // Generate slug baru jika nama berubah
+            $slug = $category->slug;
+            if ($request->name !== $category->title) {
+                $slug = Str::slug($request->name);
+                
+                // Cek apakah slug sudah ada (kecuali milik sendiri)
+                $count = TrainingCategory::where('slug', $slug)
+                    ->where('id', '!=', $id)
+                    ->count();
+                    
+                if ($count > 0) {
+                    $slug = $slug . '-' . ($count + 1);
+                }
+            }
 
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil diperbarui!');
+            $category->update([
+                'title' => $request->name,
+                'slug' => $slug,
+                'description' => $request->description,
+                'icon' => $request->icon,
+                'status' => $request->status,
+            ]);
+
+            return redirect()->route('categories.index')
+                ->with('success', 'Kategori berhasil diperbarui!');
+                
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
+    /**
+     * Remove the specified category
+     */
     public function destroy($id)
     {
-        // Logic untuk hapus dari database
-        // $category = Category::findOrFail($id);
-        // $category->delete();
+        try {
+            $category = TrainingCategory::findOrFail($id);
+            
+            // Cek apakah kategori memiliki subcategories
+            $subcategoriesCount = $category->subcategories()->count();
+            
+            if ($subcategoriesCount > 0) {
+                return redirect()->back()
+                    ->with('error', 'Kategori tidak dapat dihapus karena masih memiliki ' . $subcategoriesCount . ' sub-kategori. Hapus sub-kategori terlebih dahulu.');
+            }
 
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil dihapus!');
+            $category->delete();
+
+            return redirect()->route('categories.index')
+                ->with('success', 'Kategori berhasil dihapus!');
+                
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Reorder categories
+     */
+    public function reorder(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'orders' => 'required|array',
+            'orders.*' => 'required|integer|exists:training_categories,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal'
+            ], 422);
+        }
+
+        try {
+            foreach ($request->orders as $order => $id) {
+                TrainingCategory::where('id', $id)->update(['order' => $order + 1]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Urutan kategori berhasil diperbarui'
+            ]);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -78,3 +78,33 @@ Route::middleware(['check.auth'])->group(function () {
         Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');
     });
 });
+
+// Protected Admin Routes
+Route::middleware(['check.auth', 'role:admin,superAdmin'])->group(function () {
+    // Training Management Routes
+    Route::prefix('training')->name('training.')->group(function () {
+        Route::get('/', [TrainingController::class, 'index'])->name('index');
+        Route::post('/', [TrainingController::class, 'store'])->name('store');
+        Route::put('/{id}', [TrainingController::class, 'update'])->name('update');
+        Route::delete('/{id}', [TrainingController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::middleware(['role:admin,superAdmin'])->prefix('articleadmin')->name('articleadmin.')->group(function () {
+        Route::get('/', [ArticleAdminController::class, 'index'])->name('index');
+        Route::post('/', [ArticleAdminController::class, 'store'])->name('store');
+        Route::get('/{id}', [ArticleAdminController::class, 'show'])->name('show');
+        Route::post('/{id}', [ArticleAdminController::class, 'update'])->name('update'); // Using POST for file upload
+        Route::delete('/{id}', [ArticleAdminController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [ArticleAdminController::class, 'bulkDelete'])->name('bulkDelete');
+        Route::post('/{id}/restore', [ArticleAdminController::class, 'restore'])->name('restore');
+    });
+
+     // Categories Management Routes (untuk admin dan superAdmin)
+Route::middleware(['check.auth', 'role:admin,superAdmin'])->prefix('categories')->name('categories.')->group(function () {
+    Route::get('/', [CategoriesController::class, 'index'])->name('index');
+    Route::post('/', [CategoriesController::class, 'store'])->name('store');
+    Route::put('/{id}', [CategoriesController::class, 'update'])->name('update');
+    Route::delete('/{id}', [CategoriesController::class, 'destroy'])->name('destroy');
+    Route::post('/reorder', [CategoriesController::class, 'reorder'])->name('reorder');
+});
+});

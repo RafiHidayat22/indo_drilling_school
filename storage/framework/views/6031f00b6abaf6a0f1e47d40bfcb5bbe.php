@@ -1,5 +1,4 @@
-@extends('layouts.adminmain')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <!-- Quill CSS -->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -28,7 +27,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-slate-600">Total Articles</p>
-                        <p class="text-3xl font-bold text-slate-800 mt-2">{{ $stats['total'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800 mt-2"><?php echo e($stats['total']); ?></p>
                     </div>
                     <div class="p-3 bg-purple-100 rounded-full">
                         <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,7 +40,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-slate-600">Published</p>
-                        <p class="text-3xl font-bold text-slate-800 mt-2">{{ $stats['published'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800 mt-2"><?php echo e($stats['published']); ?></p>
                     </div>
                     <div class="p-3 bg-green-100 rounded-full">
                         <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,7 +53,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-slate-600">Draft</p>
-                        <p class="text-3xl font-bold text-slate-800 mt-2">{{ $stats['draft'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800 mt-2"><?php echo e($stats['draft']); ?></p>
                     </div>
                     <div class="p-3 bg-amber-100 rounded-full">
                         <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +66,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-slate-600">Categories</p>
-                        <p class="text-3xl font-bold text-slate-800 mt-2">{{ $stats['categories'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800 mt-2"><?php echo e($stats['categories']); ?></p>
                     </div>
                     <div class="p-3 bg-blue-100 rounded-full">
                         <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,10 +79,10 @@
 
         <!-- Filter Section -->
         <div class="bg-white rounded-xl shadow-md p-4 mb-6">
-            <form method="GET" action="{{ route('articleadmin.index') }}" class="flex flex-wrap items-center gap-4">
+            <form method="GET" action="<?php echo e(route('articleadmin.index')); ?>" class="flex flex-wrap items-center gap-4">
                 <div class="flex-1 min-w-[250px]">
                     <div class="relative">
-                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari artikel..." class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
+                        <input type="text" name="search" value="<?php echo e(request('search')); ?>" placeholder="Cari artikel..." class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
                         <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -91,25 +90,26 @@
                 </div>
                 <select name="category" class="px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm" onchange="this.form.submit()">
                     <option value="">Semua Kategori</option>
-                    @foreach($categories as $cat)
-                        <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>
-                            {{ $cat->name }}
+                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($cat->slug); ?>" <?php echo e(request('category') == $cat->slug ? 'selected' : ''); ?>>
+                            <?php echo e($cat->name); ?>
+
                         </option>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
                 <select name="status" class="px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm" onchange="this.form.submit()">
                     <option value="">Semua Status</option>
-                    <option value="published" {{ request('status') == 'published' ? 'selected' : '' }}>Published</option>
-                    <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                    <option value="published" <?php echo e(request('status') == 'published' ? 'selected' : ''); ?>>Published</option>
+                    <option value="draft" <?php echo e(request('status') == 'draft' ? 'selected' : ''); ?>>Draft</option>
                 </select>
                 <button type="submit" class="px-4 py-2.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-sm font-medium">
                     Filter
                 </button>
-                @if(request()->hasAny(['search', 'category', 'status']))
-                    <a href="{{ route('articleadmin.index') }}" class="px-4 py-2.5 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition text-sm font-medium">
+                <?php if(request()->hasAny(['search', 'category', 'status'])): ?>
+                    <a href="<?php echo e(route('articleadmin.index')); ?>" class="px-4 py-2.5 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition text-sm font-medium">
                         Reset
                     </a>
-                @endif
+                <?php endif; ?>
             </form>
         </div>
 
@@ -132,49 +132,53 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-slate-200">
-                        @forelse($articles as $index => $article)
+                        <?php $__empty_1 = true; $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr class="hover:bg-slate-50 transition">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
-                                {{ ($articles->currentPage() - 1) * $articles->perPage() + $index + 1 }}
+                                <?php echo e(($articles->currentPage() - 1) * $articles->perPage() + $index + 1); ?>
+
                             </td>
                             <td class="px-6 py-4">
-                                <div class="text-sm font-medium text-slate-900 max-w-xs truncate">{{ $article->title }}</div>
+                                <div class="text-sm font-medium text-slate-900 max-w-xs truncate"><?php echo e($article->title); ?></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full category-badge-{{ strtolower($article->category->slug) }}">
-                                    {{ $article->category->name }}
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full category-badge-<?php echo e(strtolower($article->category->slug)); ?>">
+                                    <?php echo e($article->category->name); ?>
+
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{{ $article->author->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700"><?php echo e($article->author->name); ?></td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    {{ $article->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800' }}">
-                                    {{ ucfirst($article->status) }}
+                                    <?php echo e($article->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'); ?>">
+                                    <?php echo e(ucfirst($article->status)); ?>
+
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
-                                {{ $article->formatted_date }}
+                                <?php echo e($article->formatted_date); ?>
+
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                <button onclick="articleAdmin_viewArticle({{ $article->id }})" class="text-slate-600 hover:text-slate-900 mr-3 transition" title="View">
+                                <button onclick="articleAdmin_viewArticle(<?php echo e($article->id); ?>)" class="text-slate-600 hover:text-slate-900 mr-3 transition" title="View">
                                     <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </button>
-                                <button onclick="articleAdmin_editArticle({{ $article->id }})" class="text-blue-600 hover:text-blue-900 mr-3 transition" title="Edit">
+                                <button onclick="articleAdmin_editArticle(<?php echo e($article->id); ?>)" class="text-blue-600 hover:text-blue-900 mr-3 transition" title="Edit">
                                     <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </button>
-                                <button onclick="articleAdmin_deleteArticle({{ $article->id }})" class="text-red-600 hover:text-red-900 transition" title="Delete">
+                                <button onclick="articleAdmin_deleteArticle(<?php echo e($article->id); ?>)" class="text-red-600 hover:text-red-900 transition" title="Delete">
                                     <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
                                 </button>
                             </td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="7" class="px-6 py-8 text-center">
                                 <div class="flex flex-col items-center justify-center">
@@ -186,16 +190,17 @@
                                 </div>
                             </td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
             
             <!-- Pagination -->
             <div class="bg-white px-6 py-4 border-t border-slate-200">
-                @if($articles->hasPages())
-                    {{ $articles->withQueryString()->links('pagination.custom') }}
-                @endif
+                <?php if($articles->hasPages()): ?>
+                    <?php echo e($articles->withQueryString()->links('pagination.custom')); ?>
+
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -215,7 +220,7 @@
             </div>
         </div>
         <form id="addArticleForm" class="p-6 space-y-6">
-            @csrf
+            <?php echo csrf_field(); ?>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Judul Artikel *</label>
@@ -226,9 +231,9 @@
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Kategori *</label>
                     <select name="category_id" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
                         <option value="">Pilih Kategori</option>
-                        @foreach($categories as $cat)
-                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                        @endforeach
+                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->name); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
 
@@ -295,8 +300,8 @@
             </div>
         </div>
         <form id="editArticleForm" class="p-6">
-            @csrf
-            @method('PUT')
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('PUT'); ?>
             <input type="hidden" id="editArticleId" name="article_id">
             <div class="space-y-6">
                 <div>
@@ -309,9 +314,9 @@
                         <label class="block text-sm font-semibold text-slate-700 mb-2">Kategori <span class="text-red-500">*</span></label>
                         <select id="editCategory" name="category_id" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
                             <option value="">Pilih Kategori</option>
-                            @foreach($categories as $cat)
-                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
 
@@ -522,7 +527,7 @@ document.getElementById('addArticleForm').addEventListener('submit', async funct
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
     try {
-        const response = await fetch('{{ route("articleadmin.store") }}', {
+        const response = await fetch('<?php echo e(route("articleadmin.store")); ?>', {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': csrfToken,
@@ -765,4 +770,5 @@ style.textContent = `
 document.head.appendChild(style);
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminmain', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\indo_drilling_school\resources\views/articleadmin.blade.php ENDPATH**/ ?>

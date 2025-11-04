@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-// Model Training (Simplified)
 class Training extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'subcategory_id',
         'title',
@@ -18,11 +18,18 @@ class Training extends Model
     ];
 
     protected $casts = [
-        'subcategory_id' => 'integer'
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    public function subcategory(): BelongsTo
+    public function subcategory()
     {
         return $this->belongsTo(TrainingSubcategory::class, 'subcategory_id');
+    }
+
+    // Accessor untuk mendapatkan category melalui subcategory
+    public function category()
+    {
+        return $this->subcategory()->category();
     }
 }

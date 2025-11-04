@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-// Model TrainingSubcategory
 class TrainingSubcategory extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'category_id',
         'title',
@@ -19,22 +19,17 @@ class TrainingSubcategory extends Model
     ];
 
     protected $casts = [
-        'category_id' => 'integer',
-        'order' => 'integer'
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    public function category(): BelongsTo
+    public function category()
     {
         return $this->belongsTo(TrainingCategory::class, 'category_id');
     }
 
-    public function trainings(): HasMany
+    public function trainings()
     {
         return $this->hasMany(Training::class, 'subcategory_id');
-    }
-
-    public function activeTrainings(): HasMany
-    {
-        return $this->trainings()->where('status', 'Active');
     }
 }

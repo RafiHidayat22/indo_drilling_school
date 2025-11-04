@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-// Model TrainingCategory
 class TrainingCategory extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'slug',
@@ -19,16 +19,31 @@ class TrainingCategory extends Model
     ];
 
     protected $casts = [
-        'order' => 'integer'
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    public function subcategories(): HasMany
+    public function subcategories()
     {
         return $this->hasMany(TrainingSubcategory::class, 'category_id');
     }
 
-    public function activeSubcategories(): HasMany
+    // Fix: hasManyThrough relationship
+    public function trainings()
     {
-        return $this->subcategories()->where('status', 'Active')->orderBy('order');
+        return $this->hasManyThrough(
+            Training::class,
+            TrainingSubcategory::class,
+            'category_id',    // Foreign key on training_subcategories table
+            'subcategory_id', // Foreign key on trainings table
+            'id',             // Local key on training_categories table
+            'id'              // Local key on training_subcategories table
+        );
+    }
+
+    // Helper method untuk menghitung jumlah training
+    public function getTrainingsCountAttribute()
+    {
+        return $this->trainings()->count();
     }
 }
