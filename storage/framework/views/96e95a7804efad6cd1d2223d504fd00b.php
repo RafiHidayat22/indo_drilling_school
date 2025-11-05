@@ -18,7 +18,7 @@
                 </svg>
                 <div>
                     <h3 class="font-semibold">Address</h3>
-                    <p>Jl. Lintas Sumatra Duri - Dumai no.KM 6,
+                    <p>Jl. Lintas Sumatra Duri - Dumai No.KM 6,
                         Balai Makam, Kec. Mandau, Kab.
                         Bengkalis, Riau 28983
                     </p>
@@ -70,17 +70,17 @@
             <div>
                 <h3 class="font-semibold mb-3 text-white">Follow Us</h3>
                 <div class="flex space-x-4">
-                    <a href="https://www.linkedin.com/" target="_blank" class="hover:text-red-500 transition">
+                    <a href="https://www.linkedin.com/company/indonesia-drilling-school" target="_blank" class="hover:text-red-500 transition">
                         <i class="fa-brands fa-linkedin text-xl"></i>
                     </a>
                     <a href="https://www.instagram.com/" target="_blank" class="hover:text-red-500 transition">
                         <i class="fa-brands fa-instagram text-xl"></i>
                     </a>
-                    <a href="https://www.tiktok.com/" target="_blank" class="hover:text-red-500 transition">
+                    <a href="https://www.tiktok.com/@indonesia.drillin?is_from_webapp=1&sender_device=pc" target="_blank" class="hover:text-red-500 transition">
                         <i class="fa-brands fa-tiktok text-xl"></i>
                     </a>
                     <a href="https://www.twitter.com/" target="_blank" class="hover:text-red-500 transition">
-                        <i class="fa-brands fa-x-twitter text-xl"></i>
+                        <i class="fa-brands fa-facebook text-xl"></i>
                     </a>
                 </div>
             </div>
