@@ -33,7 +33,6 @@
                     <i class="fas fa-newspaper text-lg"></i>
                 </div>
                 <span class="ml-4">Artikel</span>
-                <span class="ml-auto bg-red-500 text-white px-2 py-0.5 rounded-full text-xs font-bold">12</span>
             </a>
 
             <!-- Pelatihan dengan Dropdown -->

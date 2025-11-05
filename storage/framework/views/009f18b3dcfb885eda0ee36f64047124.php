@@ -60,12 +60,12 @@
                 <!-- Search Bar -->
                 <div class="lg:col-span-3" data-aos="fade-right">
                     <div class="relative">
-                        <input type="text" 
-                               id="searchArticles" 
-                               name="search"
-                               value="<?php echo e(request('search')); ?>"
-                               placeholder="Search articles, topics, keywords..."
-                               class="w-full px-6 py-4 pl-14 bg-white border-2 border-gray-200 rounded-2xl focus:border-red-500 focus:ring-4 focus:ring-red-100 transition duration-300 text-lg shadow-lg">
+                        <input type="text"
+                            id="searchArticles"
+                            name="search"
+                            value="<?php echo e(request('search')); ?>"
+                            placeholder="Search articles, topics, keywords..."
+                            class="w-full px-6 py-4 pl-14 bg-white border-2 border-gray-200 rounded-2xl focus:border-red-500 focus:ring-4 focus:ring-red-100 transition duration-300 text-lg shadow-lg">
                         <i class="fa-solid fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></i>
                         <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 bg-red-700 text-white px-6 py-2 rounded-xl hover:bg-red-800 hover:shadow-lg transition duration-300 font-semibold">
                             Search
@@ -75,16 +75,16 @@
 
                 <!-- Quick Filter -->
                 <div class="lg:col-span-1" data-aos="fade-left">
-                    <select name="category" 
-                            id="categoryFilter" 
-                            onchange="this.form.submit()"
-                            class="w-full px-6 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-red-500 focus:ring-4 focus:ring-red-100 transition duration-300 text-lg shadow-lg appearance-none cursor-pointer">
+                    <select name="category"
+                        id="categoryFilter"
+                        onchange="this.form.submit()"
+                        class="w-full px-6 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-red-500 focus:ring-4 focus:ring-red-100 transition duration-300 text-lg shadow-lg appearance-none cursor-pointer">
                         <option value="all" <?php echo e(request('category') == 'all' ? 'selected' : ''); ?>>All Categories</option>
                         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($cat->slug); ?>" <?php echo e(request('category') == $cat->slug ? 'selected' : ''); ?>>
-                                <?php echo e($cat->name); ?>
+                        <option value="<?php echo e($cat->slug); ?>" <?php echo e(request('category') == $cat->slug ? 'selected' : ''); ?>>
+                            <?php echo e($cat->name); ?>
 
-                            </option>
+                        </option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
@@ -103,9 +103,9 @@
                 <div class="grid md:grid-cols-2 gap-8" id="articlesGrid">
 
                     <?php $__empty_1 = true; $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <article class="article-card group bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100" 
-                             data-aos="fade-up" 
-                             data-category="<?php echo e($article->category->slug); ?>">
+                    <article class="article-card group bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100"
+                        data-aos="fade-up"
+                        data-category="<?php echo e($article->category->slug); ?>">
                         <div class="relative overflow-hidden aspect-video">
                             <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>"
                                 alt="<?php echo e($article->title); ?>"
@@ -136,12 +136,12 @@
                                 <?php echo e($article->title); ?>
 
                             </h3>
-                            <p class="text-gray-600 mb-4 line-clamp-3">
-                                <?php echo e($article->excerpt); ?>
+                            <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                                <?php echo strip_tags($article->excerpt); ?>
 
                             </p>
-                            <a href="<?php echo e(route('articles.show', $article->slug)); ?>" 
-                               class="inline-flex items-center gap-2 text-red-600 font-semibold hover:gap-3 transition-all duration-300">
+                            <a href="<?php echo e(route('articles.show', $article->slug)); ?>"
+                                class="inline-flex items-center gap-2 text-red-600 font-semibold hover:gap-3 transition-all duration-300">
                                 Read More
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
@@ -168,39 +168,39 @@
                     <div class="flex items-center gap-2">
                         
                         <?php if($articles->onFirstPage()): ?>
-                            <button disabled class="w-10 h-10 rounded-lg border-2 border-gray-200 flex items-center justify-center text-gray-300 cursor-not-allowed">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </button>
+                        <button disabled class="w-10 h-10 rounded-lg border-2 border-gray-200 flex items-center justify-center text-gray-300 cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
                         <?php else: ?>
-                            <a href="<?php echo e($articles->previousPageUrl()); ?>" class="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-red-600 hover:text-red-600 transition duration-300">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </a>
+                        <a href="<?php echo e($articles->previousPageUrl()); ?>" class="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-red-600 hover:text-red-600 transition duration-300">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
                         <?php endif; ?>
 
                         
                         <?php $__currentLoopData = range(1, $articles->lastPage()); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($page == $articles->currentPage()): ?>
-                                <button class="w-10 h-10 rounded-lg bg-red-600 text-white font-bold"><?php echo e($page); ?></button>
-                            <?php elseif($page == 1 || $page == $articles->lastPage() || abs($page - $articles->currentPage()) <= 2): ?>
-                                <a href="<?php echo e($articles->url($page)); ?>" class="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-red-600 hover:text-red-600 transition duration-300">
-                                    <?php echo e($page); ?>
+                        <?php if($page == $articles->currentPage()): ?>
+                        <button class="w-10 h-10 rounded-lg bg-red-600 text-white font-bold"><?php echo e($page); ?></button>
+                        <?php elseif($page == 1 || $page == $articles->lastPage() || abs($page - $articles->currentPage()) <= 2): ?>
+                            <a href="<?php echo e($articles->url($page)); ?>" class="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-red-600 hover:text-red-600 transition duration-300">
+                            <?php echo e($page); ?>
 
-                                </a>
+                            </a>
                             <?php elseif(abs($page - $articles->currentPage()) == 3): ?>
-                                <span class="px-2 text-gray-500">...</span>
+                            <span class="px-2 text-gray-500">...</span>
                             <?php endif; ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        
-                        <?php if($articles->hasMorePages()): ?>
+                            
+                            <?php if($articles->hasMorePages()): ?>
                             <a href="<?php echo e($articles->nextPageUrl()); ?>" class="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-red-600 hover:text-red-600 transition duration-300">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </a>
-                        <?php else: ?>
+                            <?php else: ?>
                             <button disabled class="w-10 h-10 rounded-lg border-2 border-gray-200 flex items-center justify-center text-gray-300 cursor-not-allowed">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
-                        <?php endif; ?>
+                            <?php endif; ?>
                     </div>
                 </div>
                 <?php endif; ?>
@@ -220,42 +220,42 @@
                             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li>
                                 <?php
-                                    $isActive = request('category') == $category->slug;
-                                    $bgClass = match($category->color) {
-                                        'red' => $isActive ? 'bg-red-50' : 'hover:bg-red-50',
-                                        'orange' => $isActive ? 'bg-orange-50' : 'hover:bg-orange-50',
-                                        'blue' => $isActive ? 'bg-blue-50' : 'hover:bg-blue-50',
-                                        'green' => $isActive ? 'bg-green-50' : 'hover:bg-green-50',
-                                        'purple' => $isActive ? 'bg-purple-50' : 'hover:bg-purple-50',
-                                        default => 'hover:bg-gray-50'
-                                    };
-                                    $textClass = match($category->color) {
-                                        'red' => 'group-hover:text-red-600',
-                                        'orange' => 'group-hover:text-orange-600',
-                                        'blue' => 'group-hover:text-blue-600',
-                                        'green' => 'group-hover:text-green-600',
-                                        'purple' => 'group-hover:text-purple-600',
-                                        default => 'group-hover:text-gray-600'
-                                    };
-                                    $badgeBgClass = match($category->color) {
-                                        'red' => 'bg-red-100',
-                                        'orange' => 'bg-orange-100',
-                                        'blue' => 'bg-blue-100',
-                                        'green' => 'bg-green-100',
-                                        'purple' => 'bg-purple-100',
-                                        default => 'bg-gray-100'
-                                    };
-                                    $badgeTextClass = match($category->color) {
-                                        'red' => 'text-red-600',
-                                        'orange' => 'text-orange-600',
-                                        'blue' => 'text-blue-600',
-                                        'green' => 'text-green-600',
-                                        'purple' => 'text-purple-600',
-                                        default => 'text-gray-600'
-                                    };
+                                $isActive = request('category') == $category->slug;
+                                $bgClass = match($category->color) {
+                                'red' => $isActive ? 'bg-red-50' : 'hover:bg-red-50',
+                                'orange' => $isActive ? 'bg-orange-50' : 'hover:bg-orange-50',
+                                'blue' => $isActive ? 'bg-blue-50' : 'hover:bg-blue-50',
+                                'green' => $isActive ? 'bg-green-50' : 'hover:bg-green-50',
+                                'purple' => $isActive ? 'bg-purple-50' : 'hover:bg-purple-50',
+                                default => 'hover:bg-gray-50'
+                                };
+                                $textClass = match($category->color) {
+                                'red' => 'group-hover:text-red-600',
+                                'orange' => 'group-hover:text-orange-600',
+                                'blue' => 'group-hover:text-blue-600',
+                                'green' => 'group-hover:text-green-600',
+                                'purple' => 'group-hover:text-purple-600',
+                                default => 'group-hover:text-gray-600'
+                                };
+                                $badgeBgClass = match($category->color) {
+                                'red' => 'bg-red-100',
+                                'orange' => 'bg-orange-100',
+                                'blue' => 'bg-blue-100',
+                                'green' => 'bg-green-100',
+                                'purple' => 'bg-purple-100',
+                                default => 'bg-gray-100'
+                                };
+                                $badgeTextClass = match($category->color) {
+                                'red' => 'text-red-600',
+                                'orange' => 'text-orange-600',
+                                'blue' => 'text-blue-600',
+                                'green' => 'text-green-600',
+                                'purple' => 'text-purple-600',
+                                default => 'text-gray-600'
+                                };
                                 ?>
-                                <a href="<?php echo e(route('articles.index', ['category' => $category->slug])); ?>" 
-                                   class="flex items-center justify-between p-3 rounded-xl <?php echo e($bgClass); ?> transition duration-300 group">
+                                <a href="<?php echo e(route('articles.index', ['category' => $category->slug])); ?>"
+                                    class="flex items-center justify-between p-3 rounded-xl <?php echo e($bgClass); ?> transition duration-300 group">
                                     <span class="flex items-center gap-2 text-gray-700 <?php echo e($textClass); ?> font-medium">
                                         <i class="<?php echo e('fa-solid fa-folder'); ?>"></i>
                                         <?php echo e($category->name); ?>
@@ -333,38 +333,40 @@
 
 <!-- Counter Animation Script -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const counters = document.querySelectorAll('.counter-number');
-    
-    const animateCounter = (counter) => {
-        const target = parseInt(counter.getAttribute('data-count'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                counter.textContent = target;
-                clearInterval(timer);
-            } else {
-                counter.textContent = Math.floor(current);
-            }
-        }, 16);
-    };
-    
-    // Intersection Observer for counter animation
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                observer.unobserve(entry.target);
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        const counters = document.querySelectorAll('.counter-number');
+
+        const animateCounter = (counter) => {
+            const target = parseInt(counter.getAttribute('data-count'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    counter.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    counter.textContent = Math.floor(current);
+                }
+            }, 16);
+        };
+
+        // Intersection Observer for counter animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5
         });
-    }, { threshold: 0.5 });
-    
-    counters.forEach(counter => observer.observe(counter));
-});
+
+        counters.forEach(counter => observer.observe(counter));
+    });
 </script>
 
 <?php $__env->stopSection(); ?>
