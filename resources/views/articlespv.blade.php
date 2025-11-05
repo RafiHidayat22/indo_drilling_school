@@ -12,7 +12,7 @@
 <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center">
     <div class="absolute inset-0 opacity-10">
         @if($article->featured_image)
-            <div class="absolute inset-0" style="background-image: url('{{ asset('storage/' . $article->featured_image) }}'); background-size: cover; background-position: center;"></div>
+        <div class="absolute inset-0" style="background-image: url('{{ asset('storage/' . $article->featured_image) }}'); background-size: cover; background-position: center;"></div>
         @endif
     </div>
     <div class="particles-container"></div>
@@ -36,14 +36,14 @@
                 <!-- Category Badge -->
                 <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
                     @php
-                        $categoryBgClass = match($article->category->color) {
-                            'red' => 'bg-red-600 hover:bg-red-700',
-                            'orange' => 'bg-orange-600 hover:bg-orange-700',
-                            'blue' => 'bg-blue-600 hover:bg-blue-700',
-                            'green' => 'bg-green-600 hover:bg-green-700',
-                            'purple' => 'bg-purple-600 hover:bg-purple-700',
-                            default => 'bg-gray-600 hover:bg-gray-700'
-                        };
+                    $categoryBgClass = match($article->category->color) {
+                    'red' => 'bg-red-600 hover:bg-red-700',
+                    'orange' => 'bg-orange-600 hover:bg-orange-700',
+                    'blue' => 'bg-blue-600 hover:bg-blue-700',
+                    'green' => 'bg-green-600 hover:bg-green-700',
+                    'purple' => 'bg-purple-600 hover:bg-purple-700',
+                    default => 'bg-gray-600 hover:bg-gray-700'
+                    };
                     @endphp
                     <a href="{{ route('articles.index', ['category' => $article->category->slug]) }}" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white {{ $categoryBgClass }} backdrop-blur-sm rounded-full shadow-lg transition">
                         <i class="{{ 'fa-solid fa-folder' }}"></i>
@@ -58,9 +58,9 @@
 
                 <!-- Meta Information -->
                 <div class="flex flex-wrap items-center gap-6 lg:gap-8 text-gray-300 animate-fade-in-up" style="animation-delay: 0.3s;">
-                    
+
                     <div class="hidden md:block h-12 w-px bg-gray-700"></div>
-                    
+
                     <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-sm md:text-base">
                         <span class="flex items-center gap-2">
                             <i class="fa-solid fa-calendar"></i>
@@ -106,7 +106,7 @@
 
 
             <!-- Article Body -->
-            <div class="prose prose-lg max-w-none pb-12">
+            <div class="prose prose-lg max-w-prose pb-12 mx-auto">
                 {!! $article->content !!}
             </div>
 
@@ -114,41 +114,41 @@
             <!-- Navigation to Previous/Next Articles -->
             <div class="my-12 grid md:grid-cols-2 gap-6">
                 @php
-                    $prevArticle = \App\Models\Article::published()
-                        ->where('published_at', '<', $article->published_at)
-                        ->orderBy('published_at', 'desc')
-                        ->first();
+                $prevArticle = \App\Models\Article::published()
+                ->where('published_at', '<', $article->published_at)
+                    ->orderBy('published_at', 'desc')
+                    ->first();
                     $nextArticle = \App\Models\Article::published()
-                        ->where('published_at', '>', $article->published_at)
-                        ->orderBy('published_at', 'asc')
-                        ->first();
-                @endphp
+                    ->where('published_at', '>', $article->published_at)
+                    ->orderBy('published_at', 'asc')
+                    ->first();
+                    @endphp
 
-                @if($prevArticle)
-                <a href="{{ route('articles.show', $prevArticle->slug) }}" class="group p-6 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition">
-                    <div class="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        <span>Previous Article</span>
-                    </div>
-                    <h4 class="font-bold text-gray-900 group-hover:text-red-600 transition line-clamp-2">
-                        {{ $prevArticle->title }}
-                    </h4>
-                </a>
-                @else
-                <div></div>
-                @endif
+                    @if($prevArticle)
+                    <a href="{{ route('articles.show', $prevArticle->slug) }}" class="group p-6 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition">
+                        <div class="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Previous Article</span>
+                        </div>
+                        <h4 class="font-bold text-gray-900 group-hover:text-red-600 transition line-clamp-2">
+                            {{ $prevArticle->title }}
+                        </h4>
+                    </a>
+                    @else
+                    <div></div>
+                    @endif
 
-                @if($nextArticle)
-                <a href="{{ route('articles.show', $nextArticle->slug) }}" class="group p-6 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition text-right">
-                    <div class="flex items-center justify-end gap-2 text-sm text-gray-500 mb-2">
-                        <span>Next Article</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
-                    <h4 class="font-bold text-gray-900 group-hover:text-red-600 transition line-clamp-2">
-                        {{ $nextArticle->title }}
-                    </h4>
-                </a>
-                @endif
+                    @if($nextArticle)
+                    <a href="{{ route('articles.show', $nextArticle->slug) }}" class="group p-6 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition text-right">
+                        <div class="flex items-center justify-end gap-2 text-sm text-gray-500 mb-2">
+                            <span>Next Article</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 group-hover:text-red-600 transition line-clamp-2">
+                            {{ $nextArticle->title }}
+                        </h4>
+                    </a>
+                    @endif
             </div>
 
         </div>
@@ -170,13 +170,13 @@
                 <article class="article-card group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-48">
                         @if($related->featured_image)
-                            <img src="{{ asset('storage/' . $related->featured_image) }}"
-                                alt="{{ $related->title }}"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="{{ asset('storage/' . $related->featured_image) }}"
+                            alt="{{ $related->title }}"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         @else
-                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                                <i class="fa-solid fa-image text-gray-400 text-4xl"></i>
-                            </div>
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <i class="fa-solid fa-image text-gray-400 text-4xl"></i>
+                        </div>
                         @endif
                         <div class="absolute top-3 left-3">
                             <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-white bg-{{ $related->category->color }}-600 rounded-full shadow-lg">
@@ -251,7 +251,8 @@
         color: #1f2937;
     }
 
-    .prose ul, .prose ol {
+    .prose ul,
+    .prose ol {
         margin: 1.25rem 0;
         padding-left: 1.75rem;
     }
@@ -364,7 +365,7 @@
             notification.className = 'fixed bottom-8 right-8 bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl z-50 animate-fade-in-up';
             notification.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Link copied to clipboard!';
             document.body.appendChild(notification);
-            
+
             setTimeout(() => {
                 notification.remove();
             }, 3000);
@@ -384,9 +385,9 @@
             notification.className = 'fixed bottom-8 right-8 bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl z-50 animate-fade-in-up';
             notification.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Thank you for subscribing!';
             document.body.appendChild(notification);
-            
+
             event.target.reset();
-            
+
             setTimeout(() => {
                 notification.remove();
             }, 3000);

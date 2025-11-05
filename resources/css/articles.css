@@ -157,12 +157,6 @@
     overflow: hidden;
 }
 
-.line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
 
 /* Sidebar sticky behavior */
 .sticky {
@@ -508,4 +502,169 @@
         animation: none !important;
         transition: none !important;
     }
+}
+/* Prose styling - Diperbarui untuk menghindari overflow */
+.prose {
+    color: #374151;
+    line-height: 1.75;
+    max-width: 100%; /* Pastikan tidak melebihi container */
+    word-wrap: break-word; /* Pecah kata panjang */
+    overflow-wrap: break-word; /* Alternatif modern */
+}
+
+.prose h2 {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    word-break: break-word;
+}
+
+.prose h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    word-break: break-word;
+}
+
+.prose p {
+    margin-bottom: 1.25rem;
+    word-break: break-word;
+}
+
+.prose strong {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.prose ul, .prose ol {
+    margin: 1.25rem 0;
+    padding-left: 1.75rem;
+    word-break: break-word;
+}
+
+.prose li {
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+}
+
+.prose a {
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.prose a:hover {
+    text-decoration: underline;
+}
+
+.prose img {
+    border-radius: 0.5rem;
+    max-width: 100%;
+    height: auto;
+    margin: 2rem 0;
+    display: block;
+    object-fit: cover;
+}
+
+.prose blockquote {
+    border-left: 4px solid #dc2626;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #6b7280;
+    word-break: break-word;
+}
+
+.prose code {
+    background-color: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    color: #dc2626;
+    word-break: break-all;
+    white-space: pre-wrap; /* Agar kode tetap rapi */
+}
+
+/* Tambahkan class untuk handle overflow pada elemen inline */
+.prose * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Jika ada tabel atau elemen lain dari Quill yang lebar */
+.prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    display: block;
+}
+
+.prose th, .prose td {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+/* Untuk elemen button atau div yang mungkin dipaste dari Quill */
+.prose .ql-align-center {
+    text-align: center;
+}
+.prose .ql-align-right {
+    text-align: right;
+}
+.prose .ql-align-justify {
+    text-align: justify;
+}
+
+/* Handle overflow pada elemen inline seperti span, div */
+.prose .ql-video,
+.prose .ql-image,
+.prose .ql-embed {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Line clamp utility (tetap sama) */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Reading progress bar (tetap sama) */
+#reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(to right, #dc2626, #f97316);
+    z-index: 9999;
+    transition: width 0.1s ease;
+}
+
+/* Smooth scroll (tetap sama) */
+
+/* Focus styles for accessibility (tetap sama) */
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #dc2626;
+    outline-offset: 2px;
+}
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
 }
