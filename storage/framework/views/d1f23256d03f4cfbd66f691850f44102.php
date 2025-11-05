@@ -152,7 +152,7 @@
                                 </div>
                                 <span class="text-sm font-semibold text-slate-800">Tambah Artikel</span>
                             </a>
-                            <a href="#" class="flex items-center p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition group">
+                            <a href="<?php echo e(route('categories.index')); ?>" class="flex items-center p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition group">
                                 <div class="p-2 bg-blue-500 rounded-lg mr-3 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -160,7 +160,7 @@
                                 </div>
                                 <span class="text-sm font-semibold text-slate-800">Tambah Program</span>
                             </a>
-                            <a href="#" class="flex items-center p-3 bg-green-50 hover:bg-green-100 rounded-lg transition group">
+                            <a href="<?php echo e(route('users.index')); ?>" class="flex items-center p-3 bg-green-50 hover:bg-green-100 rounded-lg transition group">
                                 <div class="p-2 bg-green-500 rounded-lg mr-3 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
