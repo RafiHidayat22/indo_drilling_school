@@ -5,7 +5,7 @@
         <p class="text-gray-300 mb-6">
             Register now for nationally and internationally certified training and take the next step in your professional journey.
         </p>
-        <a href="#register"
+        <a href="/program"
             class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-md transition">
             Register Now
         </a>
@@ -62,7 +62,7 @@
                 <ul class="space-y-2">
                     <li><a href="/" class="hover:text-red-500 transition">Home</a></li>
                     <li><a href="/about" class="hover:text-red-500 transition">About Us</a></li>
-                    <li><a href="/programs" class="hover:text-red-500 transition">Programs</a></li>
+                    <li><a href="/program" class="hover:text-red-500 transition">Programs</a></li>
                     <li><a href="/contact" class="hover:text-red-500 transition">Contact</a></li>
                 </ul>
             </div>

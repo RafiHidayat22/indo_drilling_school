@@ -273,7 +273,8 @@
                         <div class="space-y-4">
                             @foreach($recentArticles as $recent)
                             <a href="{{ route('articles.show', $recent->slug) }}" class="flex gap-4 group">
-                                <img src="{{ asset('storage/' . $article->featured_image) }}" alt="{{ $article->title }}"
+                                <img src="{{ asset('storage/' . $article->featured_image) }}"
+                                    alt="{{ $recent->title }}"
                                     class="w-20 h-20 object-cover rounded-xl group-hover:scale-110 transition duration-300">
                                 <div class="flex-1">
                                     <h4 class="text-white font-semibold mb-1 line-clamp-2 group-hover:text-red-400 transition duration-300">

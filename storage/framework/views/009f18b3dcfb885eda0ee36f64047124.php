@@ -280,7 +280,8 @@
                         <div class="space-y-4">
                             <?php $__currentLoopData = $recentArticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $recent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <a href="<?php echo e(route('articles.show', $recent->slug)); ?>" class="flex gap-4 group">
-                                <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>" alt="<?php echo e($article->title); ?>"
+                                <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>"
+                                    alt="<?php echo e($recent->title); ?>"
                                     class="w-20 h-20 object-cover rounded-xl group-hover:scale-110 transition duration-300">
                                 <div class="flex-1">
                                     <h4 class="text-white font-semibold mb-1 line-clamp-2 group-hover:text-red-400 transition duration-300">

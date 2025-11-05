@@ -7,12 +7,14 @@ use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\ProgramWebController;
 use App\Http\Controllers\ContactInquiryController;
 use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\HomeController;
 
 
 // Public routes
-Route::get('/', function () {
-    return view('home');
-});
+// routes/web.php
+// Impor controller
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about', function () {
     return view('about');
@@ -53,7 +55,6 @@ Route::get('/program/{categorySlug}/{subcategorySlug}', [ProgramWebController::c
 Route::get('/program/{categorySlug}/{subcategorySlug}/{trainingSlug}', [ProgramWebController::class, 'showTraining'])->name('program.training');
 
 Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');
-Route::get('/training', [TrainingController::class, 'index'])->name('training.index');
 Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
 
 use App\Http\Controllers\ProgramController;
@@ -97,15 +98,14 @@ Route::middleware(['check.auth'])->group(function () {
         Route::get('/api/contact-inquiries/unread-count', [ContactInquiryController::class, 'unreadCount']);
         Route::post('/contact-inquiries/{contact}/mark-as-read', [ContactInquiryController::class, 'markAsRead'])
             ->name('contact-inquiries.mark-as-read');
+        Route::get('/training', [TrainingController::class, 'index'])->name('training.index');
+        Route::post('/training', [TrainingController::class, 'store'])->name('training.store');
+        Route::put('/training/{id}', [TrainingController::class, 'update'])->name('training.update');
+        Route::delete('/training/{id}', [TrainingController::class, 'destroy'])->name('training.destroy');
     });
 
-     // Training Management Routes
-    Route::prefix('training')->name('training.')->group(function () {
-        Route::get('/', [TrainingController::class, 'index'])->name('index');
-        Route::post('/', [TrainingController::class, 'store'])->name('store');
-        Route::put('/{id}', [TrainingController::class, 'update'])->name('update');
-        Route::delete('/{id}', [TrainingController::class, 'destroy'])->name('destroy');
-    });
+    // Training Management Routes
+
 
     Route::middleware(['role:admin,superAdmin'])->prefix('articleadmin')->name('articleadmin.')->group(function () {
         Route::get('/', [ArticleAdminController::class, 'index'])->name('index');
@@ -117,19 +117,26 @@ Route::middleware(['check.auth'])->group(function () {
         Route::post('/{id}/restore', [ArticleAdminController::class, 'restore'])->name('restore');
     });
 
-     // Categories Management Routes (untuk admin dan superAdmin)
-Route::middleware(['check.auth', 'role:admin,superAdmin'])->prefix('categories')->name('categories.')->group(function () {
-    Route::get('/', [CategoriesController::class, 'index'])->name('index');
-    Route::post('/', [CategoriesController::class, 'store'])->name('store');
-    Route::put('/{id}', [CategoriesController::class, 'update'])->name('update');
-    Route::delete('/{id}', [CategoriesController::class, 'destroy'])->name('destroy');
-    Route::post('/reorder', [CategoriesController::class, 'reorder'])->name('reorder');
-});
+    // Categories Management Routes (untuk admin dan superAdmin)
+    Route::middleware(['check.auth', 'role:admin,superAdmin'])->prefix('categories')->name('categories.')->group(function () {
+        Route::get('/', [CategoriesController::class, 'index'])->name('index');
+        Route::post('/', [CategoriesController::class, 'store'])->name('store');
+        Route::put('/{id}', [CategoriesController::class, 'update'])->name('update');
+        Route::delete('/{id}', [CategoriesController::class, 'destroy'])->name('destroy');
+        Route::post('/reorder', [CategoriesController::class, 'reorder'])->name('reorder');
+    });
 
     // User Management (hanya untuk superAdmin)
     Route::middleware(['role:superAdmin'])->group(function () {
         Route::get('/users', [UserAdminController::class, 'index'])->name('users.index');
     });
+    // Dashboard Admin Route
+    Route::middleware(['auth', 'checkRole:admin,superAdmin'])->group(function () {
+    Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])
+        ->name('dashboardadmin');
+    });
+
+    
 });
 
 
@@ -140,4 +147,3 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 
 // Route untuk menyimpan data dari formulir contact
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-

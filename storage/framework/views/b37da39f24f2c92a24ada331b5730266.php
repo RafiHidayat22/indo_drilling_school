@@ -1,34 +1,33 @@
-@extends('layouts.adminmain')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4 sm:px-6 lg:px-8">
     <!-- Flash Messages -->
-    @if(session('success'))
+    <?php if(session('success')): ?>
     <div class="max-w-7xl mx-auto mb-4">
         <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg shadow-sm">
             <div class="flex items-center">
                 <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                 </svg>
-                <p class="text-sm font-medium text-green-800">{{ session('success') }}</p>
+                <p class="text-sm font-medium text-green-800"><?php echo e(session('success')); ?></p>
             </div>
         </div>
     </div>
-    @endif
+    <?php endif; ?>
 
-    @if(session('error'))
+    <?php if(session('error')): ?>
     <div class="max-w-7xl mx-auto mb-4">
         <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg shadow-sm">
             <div class="flex items-center">
                 <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                 </svg>
-                <p class="text-sm font-medium text-red-800">{{ session('error') }}</p>
+                <p class="text-sm font-medium text-red-800"><?php echo e(session('error')); ?></p>
             </div>
         </div>
     </div>
-    @endif
+    <?php endif; ?>
 
-    @if($errors->any())
+    <?php if($errors->any()): ?>
     <div class="max-w-7xl mx-auto mb-4">
         <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg shadow-sm">
             <div class="flex">
@@ -38,15 +37,15 @@
                 <div>
                     <p class="text-sm font-medium text-red-800 mb-1">Terdapat kesalahan:</p>
                     <ul class="list-disc list-inside text-sm text-red-700">
-                        @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    @endif
+    <?php endif; ?>
 
     <div class="max-w-7xl mx-auto">
         <!-- Header Section -->
@@ -72,7 +71,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total Kategori</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ count($categories) }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e(count($categories)); ?></p>
                         <p class="text-xs text-slate-500 mt-1">Kategori aktif</p>
                     </div>
                     <div class="p-3 bg-indigo-100 rounded-lg">
@@ -88,10 +87,10 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Kategori Aktif</p>
-                        @php
+                        <?php
                         $activeCategories = \App\Models\TrainingCategory::where('status', 'Active')->count();
-                        @endphp
-                        <p class="text-3xl font-bold text-green-600">{{ $activeCategories }}</p>
+                        ?>
+                        <p class="text-3xl font-bold text-green-600"><?php echo e($activeCategories); ?></p>
                         <p class="text-xs text-slate-500 mt-1">Sedang digunakan</p>
                     </div>
                     <div class="p-3 bg-green-100 rounded-lg">
@@ -107,10 +106,10 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Kategori Tidak Aktif</p>
-                        @php
+                        <?php
                         $inactiveCategories = \App\Models\TrainingCategory::where('status', 'Inactive')->count();
-                        @endphp
-                        <p class="text-3xl font-bold text-red-600">{{ $inactiveCategories }}</p>
+                        ?>
+                        <p class="text-3xl font-bold text-red-600"><?php echo e($inactiveCategories); ?></p>
                         <p class="text-xs text-slate-500 mt-1">Tidak digunakan</p>
                     </div>
                     <div class="p-3 bg-red-100 rounded-lg">
@@ -126,10 +125,10 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Program Terkait</p>
-                        @php
+                        <?php
                         $totalPrograms = $categories->sum('programs_count');
-                        @endphp
-                        <p class="text-3xl font-bold text-slate-800">{{ $totalPrograms }}</p>
+                        ?>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($totalPrograms); ?></p>
                         <p class="text-xs text-slate-500 mt-1">Total program</p>
                     </div>
                     <div class="p-3 bg-purple-100 rounded-lg">
@@ -143,7 +142,7 @@
 
         <!-- Filter Section -->
         <div class="bg-white rounded-xl shadow-md p-4 mb-6">
-            <form method="GET" action="{{ route('categories.index') }}" class="flex flex-wrap items-center gap-4">
+            <form method="GET" action="<?php echo e(route('categories.index')); ?>" class="flex flex-wrap items-center gap-4">
                 <!-- Pencarian -->
                 <div class="flex-1 min-w-[250px]">
                     <div class="relative">
@@ -151,7 +150,7 @@
                             type="text"
                             name="search"
                             id="categoriesSearchInput"
-                            value="{{ request('search') }}"
+                            value="<?php echo e(request('search')); ?>"
                             placeholder="Cari kategori..."
                             class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm">
                         <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,8 +166,8 @@
                         id="categoriesStatusFilter"
                         class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm">
                         <option value="">Semua Status</option>
-                        <option value="Active" {{ request('status') == 'Active' ? 'selected' : '' }}>Active</option>
-                        <option value="Inactive" {{ request('status') == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                        <option value="Active" <?php echo e(request('status') == 'Active' ? 'selected' : ''); ?>>Active</option>
+                        <option value="Inactive" <?php echo e(request('status') == 'Inactive' ? 'selected' : ''); ?>>Inactive</option>
                     </select>
                 </div>
 
@@ -177,11 +176,11 @@
                     Filter
                 </button>
 
-                @if(request('search') || request('status'))
-                <a href="{{ route('categories.index') }}" class="px-6 py-2.5 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition text-sm font-medium">
+                <?php if(request('search') || request('status')): ?>
+                <a href="<?php echo e(route('categories.index')); ?>" class="px-6 py-2.5 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition text-sm font-medium">
                     Reset
                 </a>
-                @endif
+                <?php endif; ?>
             </form>
         </div>
 
@@ -205,57 +204,60 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-slate-200">
-                        @forelse($categories as $index => $category)
+                        <?php $__empty_1 = true; $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr class="hover:bg-slate-50 transition">
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-slate-700 font-medium">
-                                {{ ($categories->currentPage() - 1) * $categories->perPage() + $index + 1 }}
+                                <?php echo e(($categories->currentPage() - 1) * $categories->perPage() + $index + 1); ?>
+
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap">
                                 <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 shadow-sm">
-                                    {!! $category['icon'] !!}
+                                    <?php echo $category['icon']; ?>
+
                                 </div>
                             </td>
                             <td class="px-4 py-4">
-                                <div class="text-sm font-semibold text-slate-900">{{ $category->title }}</div>
-                                <div class="text-xs text-slate-500">{{ $category['slug'] ?? '-' }}</div>
+                                <div class="text-sm font-semibold text-slate-900"><?php echo e($category->title); ?></div>
+                                <div class="text-xs text-slate-500"><?php echo e($category['slug'] ?? '-'); ?></div>
                             </td>
                             <!-- Setelah Perbaikan -->
                             <td class="px-4 py-4 max-w-[300px]">
                                 <p class="text-sm text-slate-600 line-clamp-2 break-words">
-                                    {{ $category['description'] ?? '-' }}
+                                    <?php echo e($category['description'] ?? '-'); ?>
+
                                 </p>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap">
-                                @if($category->image)
-                                <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->title }}" class="h-10 w-10 object-cover rounded-lg border border-slate-200">
-                                @else
+                                <?php if($category->image): ?>
+                                <img src="<?php echo e(asset('storage/' . $category->image)); ?>" alt="<?php echo e($category->title); ?>" class="h-10 w-10 object-cover rounded-lg border border-slate-200">
+                                <?php else: ?>
                                 <span class="text-xs text-slate-400">Tidak ada</span>
-                                @endif
+                                <?php endif; ?>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-center">
-                                @if($category->status === 'Active')
+                                <?php if($category->status === 'Active'): ?>
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
                                     Active
                                 </span>
-                                @else
+                                <?php else: ?>
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
                                     Inactive
                                 </span>
-                                @endif
+                                <?php endif; ?>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap">
-                                <div class="text-sm text-slate-900">{{ \Carbon\Carbon::parse($category['created_at'])->format('d M Y') }}</div>
-                                <div class="text-xs text-slate-500">{{ \Carbon\Carbon::parse($category['created_at'])->format('H:i') }}</div>
+                                <div class="text-sm text-slate-900"><?php echo e(\Carbon\Carbon::parse($category['created_at'])->format('d M Y')); ?></div>
+                                <div class="text-xs text-slate-500"><?php echo e(\Carbon\Carbon::parse($category['created_at'])->format('H:i')); ?></div>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap">
                                 <div class="flex items-center justify-center gap-1">
-                                    <button onclick='categoriesOpenEditModal(@json($category))'
+                                    <button onclick='categoriesOpenEditModal(<?php echo json_encode($category, 15, 512) ?>)'
                                         class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Edit">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
                                     </button>
-                                    <button onclick='categoriesOpenDeleteModal(@json($category))'
+                                    <button onclick='categoriesOpenDeleteModal(<?php echo json_encode($category, 15, 512) ?>)'
                                         class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition" title="Hapus">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -264,7 +266,7 @@
                                 </div>
                             </td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="7" class="px-6 py-12 text-center">
                                 <svg class="mx-auto h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -273,20 +275,21 @@
                                 <p class="mt-2 text-sm text-slate-500">Tidak ada data kategori.</p>
                             </td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
             <div class="bg-white px-6 py-4 border-t border-slate-200">
-                @if($categories->hasPages())
-                {{ $categories->withQueryString()->links('pagination.custom') }}
-                @else
+                <?php if($categories->hasPages()): ?>
+                <?php echo e($categories->withQueryString()->links('pagination.custom')); ?>
+
+                <?php else: ?>
                 <div class="flex items-center justify-between">
                     <div class="text-sm text-slate-600">
-                        Menampilkan <span class="font-semibold">{{ $categories->count() }}</span> dari <span class="font-semibold">{{ $categories->total() }}</span> data
+                        Menampilkan <span class="font-semibold"><?php echo e($categories->count()); ?></span> dari <span class="font-semibold"><?php echo e($categories->total()); ?></span> data
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
     </div> <!-- End max-w-7xl mx-auto -->
@@ -304,8 +307,8 @@
                     </button>
                 </div>
             </div>
-            <form class="p-6 space-y-6 overflow-y-auto flex-1" method="POST" action="{{ route('categories.store') }}" enctype="multipart/form-data">
-                @csrf
+            <form class="p-6 space-y-6 overflow-y-auto flex-1" method="POST" action="<?php echo e(route('categories.store')); ?>" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <!-- Nama Kategori -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Nama Kategori *</label>
@@ -313,7 +316,7 @@
                         type="text"
                         name="name"
                         required
-                        value="{{ old('name') }}"
+                        value="<?php echo e(old('name')); ?>"
                         placeholder="Contoh: Keselamatan Kerja, Teknik & Operasional"
                         class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     <p class="mt-1 text-xs text-slate-500">Masukkan nama kategori yang jelas dan deskriptif</p>
@@ -325,7 +328,7 @@
                         name="description"
                         rows="3"
                         placeholder="Deskripsi singkat tentang kategori ini"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none">{{ old('description') }}</textarea>
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"><?php echo e(old('description')); ?></textarea>
                     <p class="mt-1 text-xs text-slate-500">Opsional. Jelaskan jenis program yang termasuk dalam kategori ini</p>
                 </div>
                 <!-- Icon Selection -->
@@ -363,8 +366,8 @@
                         name="status"
                         required
                         class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        <option value="Active" {{ old('status') == 'Active' ? 'selected' : '' }}>Active</option>
-                        <option value="Inactive" {{ old('status') == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                        <option value="Active" <?php echo e(old('status') == 'Active' ? 'selected' : ''); ?>>Active</option>
+                        <option value="Inactive" <?php echo e(old('status') == 'Inactive' ? 'selected' : ''); ?>>Inactive</option>
                     </select>
                     <p class="mt-1 text-xs text-slate-500">Kategori aktif akan ditampilkan dalam pilihan program</p>
                 </div>
@@ -393,9 +396,9 @@
                     </button>
                 </div>
             </div>
-            <form id="categoriesEditForm" class="p-6 space-y-6 overflow-y-auto flex-1" method="POST" action="{{ route('categories.update', ':id') }}" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+            <form id="categoriesEditForm" class="p-6 space-y-6 overflow-y-auto flex-1" method="POST" action="<?php echo e(route('categories.update', ':id')); ?>" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('PUT'); ?>
                 <input type="hidden" id="categoriesEditId" name="id">
                 <!-- Nama Kategori -->
                 <div>
@@ -500,9 +503,9 @@
                     <button type="button" onclick="categoriesCloseDeleteModal()" class="flex-1 px-4 py-3 bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300 transition">
                         Batal
                     </button>
-                    <form id="categoriesDeleteForm" method="POST" style="flex: 1;" action="{{ route('categories.destroy', ':id') }}">
-                        @csrf
-                        @method('DELETE')
+                    <form id="categoriesDeleteForm" method="POST" style="flex: 1;" action="<?php echo e(route('categories.destroy', ':id')); ?>">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('DELETE'); ?>
                         <input type="hidden" id="categoriesDeleteId" name="id">
                         <button type="submit" class="w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition shadow-lg">
                             Hapus
@@ -916,4 +919,5 @@
 
     })();
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminmain', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/categories.blade.php ENDPATH**/ ?>

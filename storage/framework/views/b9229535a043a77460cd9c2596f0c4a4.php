@@ -93,4 +93,4 @@
             &copy; <?php echo e(date('Y')); ?> Indonesia Drilling School. All Rights Reserved.
         </p>
     </div>
-</footer><?php /**PATH D:\laragon\www\indo_drilling_school\resources\views/partials/footer.blade.php ENDPATH**/ ?>
+</footer><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/partials/footer.blade.php ENDPATH**/ ?>

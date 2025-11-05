@@ -91,10 +91,10 @@
                 <select name="category" class="px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm" onchange="this.form.submit()">
                     <option value="">Semua Kategori</option>
                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($cat->slug); ?>" <?php echo e(request('category') == $cat->slug ? 'selected' : ''); ?>>
-                            <?php echo e($cat->name); ?>
+                    <option value="<?php echo e($cat->slug); ?>" <?php echo e(request('category') == $cat->slug ? 'selected' : ''); ?>>
+                        <?php echo e($cat->name); ?>
 
-                        </option>
+                    </option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
                 <select name="status" class="px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm" onchange="this.form.submit()">
@@ -106,9 +106,9 @@
                     Filter
                 </button>
                 <?php if(request()->hasAny(['search', 'category', 'status'])): ?>
-                    <a href="<?php echo e(route('articleadmin.index')); ?>" class="px-4 py-2.5 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition text-sm font-medium">
-                        Reset
-                    </a>
+                <a href="<?php echo e(route('articleadmin.index')); ?>" class="px-4 py-2.5 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition text-sm font-medium">
+                    Reset
+                </a>
                 <?php endif; ?>
             </form>
         </div>
@@ -194,11 +194,11 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Pagination -->
             <div class="bg-white px-6 py-4 border-t border-slate-200">
                 <?php if($articles->hasPages()): ?>
-                    <?php echo e($articles->withQueryString()->links('pagination.custom')); ?>
+                <?php echo e($articles->withQueryString()->links('pagination.custom')); ?>
 
                 <?php endif; ?>
             </div>
@@ -207,7 +207,7 @@
 </div>
 
 <!-- Modal Tambah Artikel -->
-<div id="addModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4 overflow-y-auto">
+<div id="addModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto my-8">
         <div class="bg-gradient-to-r from-purple-600 to-purple-700 px-6 py-4 rounded-t-2xl">
             <div class="flex items-center justify-between">
@@ -232,7 +232,7 @@
                     <select name="category_id" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
                         <option value="">Pilih Kategori</option>
                         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->name); ?></option>
+                        <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->name); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
@@ -273,7 +273,7 @@
                     <p class="mt-1.5 text-xs text-slate-500">Minimal 100 karakter</p>
                 </div>
             </div>
-            
+
             <div class="flex space-x-3 pt-4 border-t border-slate-200">
                 <button type="button" onclick="articleAdmin_closeAddModal()" class="flex-1 px-6 py-3 bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300 transition duration-200">
                     Batal
@@ -287,7 +287,7 @@
 </div>
 
 <!-- Modal Edit Artikel -->
-<div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4 overflow-y-auto">
+<div id="editModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto my-8">
         <div class="bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-4 rounded-t-2xl">
             <div class="flex items-center justify-between">
@@ -315,7 +315,7 @@
                         <select id="editCategory" name="category_id" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
                             <option value="">Pilih Kategori</option>
                             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->name); ?></option>
+                            <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
@@ -369,7 +369,7 @@
 </div>
 
 <!-- Modal Konfirmasi Hapus -->
-<div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+<div id="deleteModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full">
         <div class="p-6">
             <div class="flex items-center justify-center w-16 h-16 mx-auto bg-red-100 rounded-full mb-4">
@@ -391,99 +391,148 @@
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 <script>
-// CSRF Token
-const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-// Quill Editors
-let quillAdd, quillEdit;
+    // CSRF Token
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    // Quill Editors
+    let quillAdd, quillEdit;
 
-// Initialize Quill for Add Modal
-function articleAdmin_initQuillAdd() {
-    if (!quillAdd) {
-        quillAdd = new Quill('#editorAdd', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                    [{ 'font': [] }],
-                    [{ 'size': ['small', false, 'large', 'huge'] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'color': [] }, { 'background': [] }],
-                    [{ 'script': 'sub'}, { 'script': 'super' }],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    [{ 'indent': '-1'}, { 'indent': '+1' }],
-                    [{ 'align': [] }],
-                    ['blockquote', 'code-block'],
-                    ['link', 'image', 'video'],
-                    ['clean']
-                ]
-            },
-            placeholder: 'Tulis konten artikel di sini...',
-        });
+    // Initialize Quill for Add Modal
+    function articleAdmin_initQuillAdd() {
+        if (!quillAdd) {
+            quillAdd = new Quill('#editorAdd', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{
+                            'header': [1, 2, 3, 4, 5, 6, false]
+                        }],
+                        [{
+                            'font': []
+                        }],
+                        [{
+                            'size': ['small', false, 'large', 'huge']
+                        }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{
+                            'color': []
+                        }, {
+                            'background': []
+                        }],
+                        [{
+                            'script': 'sub'
+                        }, {
+                            'script': 'super'
+                        }],
+                        [{
+                            'list': 'ordered'
+                        }, {
+                            'list': 'bullet'
+                        }],
+                        [{
+                            'indent': '-1'
+                        }, {
+                            'indent': '+1'
+                        }],
+                        [{
+                            'align': []
+                        }],
+                        ['blockquote', 'code-block'],
+                        ['link', 'image', 'video'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Tulis konten artikel di sini...',
+            });
+        }
     }
-}
 
-// Initialize Quill for Edit Modal
-function articleAdmin_initQuillEdit() {
-    if (!quillEdit) {
-        quillEdit = new Quill('#editorEdit', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                    [{ 'font': [] }],
-                    [{ 'size': ['small', false, 'large', 'huge'] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'color': [] }, { 'background': [] }],
-                    [{ 'script': 'sub'}, { 'script': 'super' }],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    [{ 'indent': '-1'}, { 'indent': '+1' }],
-                    [{ 'align': [] }],
-                    ['blockquote', 'code-block'],
-                    ['link', 'image', 'video'],
-                    ['clean']
-                ]
-            },
-            placeholder: 'Tulis konten artikel di sini...',
-        });
+    // Initialize Quill for Edit Modal
+    function articleAdmin_initQuillEdit() {
+        if (!quillEdit) {
+            quillEdit = new Quill('#editorEdit', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{
+                            'header': [1, 2, 3, 4, 5, 6, false]
+                        }],
+                        [{
+                            'font': []
+                        }],
+                        [{
+                            'size': ['small', false, 'large', 'huge']
+                        }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{
+                            'color': []
+                        }, {
+                            'background': []
+                        }],
+                        [{
+                            'script': 'sub'
+                        }, {
+                            'script': 'super'
+                        }],
+                        [{
+                            'list': 'ordered'
+                        }, {
+                            'list': 'bullet'
+                        }],
+                        [{
+                            'indent': '-1'
+                        }, {
+                            'indent': '+1'
+                        }],
+                        [{
+                            'align': []
+                        }],
+                        ['blockquote', 'code-block'],
+                        ['link', 'image', 'video'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Tulis konten artikel di sini...',
+            });
+        }
     }
-}
 
-// Modal Functions
-function articleAdmin_openAddModal() {
-    document.getElementById('addModal').classList.remove('hidden');
-    document.getElementById('addArticleForm').reset();
-    articleAdmin_resetThumbnailPreview('Add');
-    setTimeout(() => {
-        articleAdmin_initQuillAdd();
+    // Modal Functions
+    function articleAdmin_openAddModal() {
+        document.getElementById('addModal').classList.remove('hidden');
+        document.getElementById('addArticleForm').reset();
+        articleAdmin_resetThumbnailPreview('Add');
+        setTimeout(() => {
+            articleAdmin_initQuillAdd();
+            if (quillAdd) {
+                quillAdd.setText('');
+            }
+        }, 100);
+    }
+
+    function articleAdmin_closeAddModal() {
+        document.getElementById('addModal').classList.add('hidden');
+        document.getElementById('addArticleForm').reset();
+        articleAdmin_resetThumbnailPreview('Add');
         if (quillAdd) {
             quillAdd.setText('');
         }
-    }, 100);
-}
-
-function articleAdmin_closeAddModal() {
-    document.getElementById('addModal').classList.add('hidden');
-    document.getElementById('addArticleForm').reset();
-    articleAdmin_resetThumbnailPreview('Add');
-    if (quillAdd) {
-        quillAdd.setText('');
     }
-}
 
-function articleAdmin_closeEditModal() {
-    document.getElementById('editModal').classList.add('hidden');
-    document.getElementById('editArticleForm').reset();
-    articleAdmin_resetThumbnailPreview('Edit');
-    if (quillEdit) {
-        quillEdit.setText('');
+    function articleAdmin_closeEditModal() {
+        document.getElementById('editModal').classList.add('hidden');
+        document.getElementById('editArticleForm').reset();
+        articleAdmin_resetThumbnailPreview('Edit');
+        if (quillEdit) {
+            quillEdit.setText('');
+        }
     }
-}
 
-function articleAdmin_closeDeleteModal() {
-    document.getElementById('deleteModal').classList.add('hidden');
-}
+    function articleAdmin_closeDeleteModal() {
+        document.getElementById('deleteModal').classList.add('hidden');
+    }
 
 // Thumbnail Preview
+// Perbaikan fungsi preview thumbnail
 // Perbaikan fungsi preview thumbnail
 function previewThumbnail(modalType) {
     const fileInput = document.getElementById('thumbnail' + modalType);
@@ -518,85 +567,105 @@ function articleAdmin_resetThumbnailPreview(modalType) {
     if (placeholder) placeholder.classList.remove('hidden');
 }
 
-// Add Article
-document.getElementById('addArticleForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const content = quillAdd.root.innerHTML;
-    document.getElementById('contentAddInput').value = content;
-    const textLength = quillAdd.getText().trim().length;
-    if (textLength < 100) {
-        articleAdmin_showNotification('error', 'Konten artikel minimal 100 karakter');
-        return;
-    }
-    const formData = new FormData(this);
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
-    try {
-        const response = await fetch('<?php echo e(route("articleadmin.store")); ?>', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'Accept': 'application/json',
-            },
-            body: formData
-        });
-        const data = await response.json();
-        if (response.ok) {
-            articleAdmin_showNotification('success', data.message || 'Artikel berhasil ditambahkan');
-            articleAdmin_closeAddModal();
-            setTimeout(() => location.reload(), 1500);
-        } else {
-            throw new Error(data.message || 'Terjadi kesalahan');
+    // Add Article
+    document.getElementById('addArticleForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const content = quillAdd.root.innerHTML;
+        document.getElementById('contentAddInput').value = content;
+        const textLength = quillAdd.getText().trim().length;
+        if (textLength < 100) {
+            articleAdmin_showNotification('error', 'Konten artikel minimal 100 karakter');
+            return;
         }
-    } catch (error) {
-        articleAdmin_showNotification('error', error.message);
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-    }
-});
+        const formData = new FormData(this);
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+        try {
+            const response = await fetch('<?php echo e(route("articleadmin.store")); ?>', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                },
+                body: formData
+            });
+            const data = await response.json();
+            if (response.ok) {
+                articleAdmin_showNotification('success', data.message || 'Artikel berhasil ditambahkan');
+                articleAdmin_closeAddModal();
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                throw new Error(data.message || 'Terjadi kesalahan');
+            }
+        } catch (error) {
+            articleAdmin_showNotification('error', error.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+    });
 
-// Edit Article
-async function articleAdmin_editArticle(id) {
-    try {
-        const response = await fetch(`/articleadmin/${id}`, {
-            headers: {
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            }
-        });
-        const result = await response.json();
-        if (response.ok) {
-            const article = result.data;
-            document.getElementById('editArticleId').value = article.id;
-            document.getElementById('editTitle').value = article.title;
-            document.getElementById('editCategory').value = article.category_id;
-            document.getElementById('editStatus').value = article.status;
-            setTimeout(() => {
-                articleAdmin_initQuillEdit();
-                if (quillEdit && article.content) {
-                    quillEdit.root.innerHTML = article.content;
+    // Edit Article
+    async function articleAdmin_editArticle(id) {
+        try {
+            const response = await fetch(`/articleadmin/${id}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
                 }
-            }, 100);
-            if (article.featured_image) {
-                const preview = document.getElementById('thumbnailPreviewEdit');
-                const placeholder = document.getElementById('thumbnailPlaceholderEdit');
-                preview.src = `/storage/${article.featured_image}`;
-                preview.classList.remove('hidden');
-                placeholder.classList.add('hidden');
+            });
+            const result = await response.json();
+            if (response.ok) {
+                const article = result.data;
+                document.getElementById('editArticleId').value = article.id;
+                document.getElementById('editTitle').value = article.title;
+                document.getElementById('editCategory').value = article.category_id;
+                document.getElementById('editStatus').value = article.status;
+                setTimeout(() => {
+                    articleAdmin_initQuillEdit();
+                    if (quillEdit && article.content) {
+                        quillEdit.root.innerHTML = article.content;
+                    }
+                }, 100);
+                if (article.featured_image) {
+                    const preview = document.getElementById('thumbnailPreviewEdit');
+                    const placeholder = document.getElementById('thumbnailPlaceholderEdit');
+                    preview.src = `/storage/${article.featured_image}`;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                document.getElementById('editModal').classList.remove('hidden');
+            } else {
+                throw new Error(result.message || 'Gagal memuat data artikel');
             }
-            document.getElementById('editModal').classList.remove('hidden');
-        } else {
-            throw new Error(result.message || 'Gagal memuat data artikel');
+        } catch (error) {
+            articleAdmin_showNotification('error', error.message);
         }
-    } catch (error) {
-        articleAdmin_showNotification('error', error.message);
     }
+    // Perbaikan View Article - gunakan slug bukan id
+function articleAdmin_viewArticle(id) {
+    // Fetch article data dulu untuk mendapat slug
+    fetch(`/articleadmin/${id}`, {
+        headers: {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success && result.data.slug) {
+            window.open(`/articles/${result.data.slug}`, '_blank');
+        } else {
+            articleAdmin_showNotification('error', 'Gagal membuka artikel');
+        }
+    })
+    .catch(error => {
+        articleAdmin_showNotification('error', 'Gagal membuka artikel');
+    });
 }
 
-// Perbaikan Edit Article Form Submit
 document.getElementById('editArticleForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const content = quillEdit.root.innerHTML;
@@ -641,89 +710,68 @@ document.getElementById('editArticleForm').addEventListener('submit', async func
     }
 });
 
+    // Delete Article
+    let articleToDelete = null;
 
-// Delete Article
-let articleToDelete = null;
-function articleAdmin_deleteArticle(id) {
-    articleToDelete = id;
-    document.getElementById('deleteModal').classList.remove('hidden');
-}
-
-document.getElementById('confirmDeleteBtn').addEventListener('click', async function() {
-    if (!articleToDelete) return;
-    const btn = this;
-    const originalText = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
-    try {
-        const response = await fetch(`/articleadmin/${articleToDelete}`, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'Accept': 'application/json',
-            }
-        });
-        const data = await response.json();
-        if (response.ok) {
-            articleAdmin_showNotification('success', data.message || 'Artikel berhasil dihapus');
-            articleAdmin_closeDeleteModal();
-            setTimeout(() => location.reload(), 1500);
-        } else {
-            throw new Error(data.message || 'Terjadi kesalahan');
-        }
-    } catch (error) {
-        articleAdmin_showNotification('error', error.message);
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-        articleToDelete = null;
+    function articleAdmin_deleteArticle(id) {
+        articleToDelete = id;
+        document.getElementById('deleteModal').classList.remove('hidden');
     }
-});
 
-// View Article
-function articleAdmin_viewArticle(id) {
-    // Fetch article data dulu untuk mendapat slug
-    fetch(`/articleadmin/${id}`, {
-        headers: {
-            'Accept': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
+    document.getElementById('confirmDeleteBtn').addEventListener('click', async function() {
+        if (!articleToDelete) return;
+        const btn = this;
+        const originalText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+        try {
+            const response = await fetch(`/articleadmin/${articleToDelete}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                }
+            });
+            const data = await response.json();
+            if (response.ok) {
+                articleAdmin_showNotification('success', data.message || 'Artikel berhasil dihapus');
+                articleAdmin_closeDeleteModal();
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                throw new Error(data.message || 'Terjadi kesalahan');
+            }
+        } catch (error) {
+            articleAdmin_showNotification('error', error.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            articleToDelete = null;
         }
-    })
-    .then(response => response.json())
-    .then(result => {
-        if (result.success && result.data.slug) {
-            window.open(`/articles/${result.data.slug}`, '_blank');
-        } else {
-            articleAdmin_showNotification('error', 'Gagal membuka artikel');
-        }
-    })
-    .catch(error => {
-        articleAdmin_showNotification('error', 'Gagal membuka artikel');
     });
-}
 
-// Notification Function
-function articleAdmin_showNotification(type, message) {
-    const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
-    const icon = type === 'success' 
-        ? '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'
-        : '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
-    const notification = document.createElement('div');
-    notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3 z-[9999] animate-slide-in`;
-    notification.innerHTML = `
+
+    // Notification Function
+    function articleAdmin_showNotification(type, message) {
+        const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+        const icon = type === 'success' ?
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>' :
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3 z-[9999] animate-slide-in`;
+        notification.innerHTML = `
         ${icon}
         <span class="font-medium">${message}</span>
     `;
-    document.body.appendChild(notification);
-    setTimeout(() => {
-        notification.style.animation = 'slide-out 0.3s ease-out';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.style.animation = 'slide-out 0.3s ease-out';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
 
-// Add CSS for animations and category badges
-const style = document.createElement('style');
-style.textContent = `
+    // Add CSS for animations and category badges
+    const style = document.createElement('style');
+    style.textContent = `
     @keyframes slide-in {
         from {
             transform: translateX(100%);
@@ -797,7 +845,7 @@ style.textContent = `
         border-color: #cbd5e1;
     }
 `;
-document.head.appendChild(style);
+    document.head.appendChild(style);
 </script>
 
 <?php $__env->stopSection(); ?>

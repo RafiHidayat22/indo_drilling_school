@@ -165,7 +165,7 @@
 </div>
 
 <!-- Modal Tambah User -->
-<div id="addModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+<div id="addModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all">
         <div class="bg-gradient-to-r from-purple-600 to-purple-700 px-6 py-4 rounded-t-2xl">
             <div class="flex items-center justify-between">
@@ -206,7 +206,7 @@
 </div>
 
 <!-- Modal Edit User -->
-<div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+<div id="editModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all">
         <div class="bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-4 rounded-t-2xl">
             <div class="flex items-center justify-between">
@@ -255,7 +255,7 @@
 </div>
 
 <!-- Modal Konfirmasi Hapus -->
-<div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+<div id="deleteModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all">
         <div class="p-6">
             <div class="flex items-center justify-center w-16 h-16 mx-auto bg-red-100 rounded-full mb-4">
@@ -277,7 +277,7 @@
 <script>
     const API_BASE_URL = '/api';
     const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-    
+
     // GLOBAL VARIABLE untuk store user yang akan dihapus
     let userToDelete = null;
 
@@ -286,7 +286,7 @@
         const alertDiv = document.getElementById('alertMessage');
         const bgColor = type === 'success' ? 'bg-green-100 border-green-500 text-green-700' : 'bg-red-100 border-red-500 text-red-700';
         const icon = type === 'success' ? 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' : 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z';
-        
+
         alertDiv.className = `${bgColor} border-l-4 p-4 rounded-lg mb-6`;
         alertDiv.innerHTML = `
             <div class="flex items-center">
@@ -297,7 +297,7 @@
             </div>
         `;
         alertDiv.classList.remove('hidden');
-        
+
         setTimeout(() => {
             alertDiv.classList.add('hidden');
         }, 5000);
@@ -314,28 +314,28 @@
 
     function openEditUserModal(id) {
         fetch(`${API_BASE_URL}/users/${id}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': CSRF_TOKEN
-            },
-            credentials: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('edit_user_id').value = data.data.id;
-                document.getElementById('edit_username').value = data.data.username;
-                document.getElementById('edit_email').value = data.data.email;
-                document.getElementById('edit_role').value = data.data.role;
-                document.getElementById('edit_status').value = data.data.status;
-                document.getElementById('editModal').classList.remove('hidden');
-            }
-        })
-        .catch(error => {
-            showAlert('Gagal memuat data user', 'error');
-            console.error('Error:', error);
-        });
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('edit_user_id').value = data.data.id;
+                    document.getElementById('edit_username').value = data.data.username;
+                    document.getElementById('edit_email').value = data.data.email;
+                    document.getElementById('edit_role').value = data.data.role;
+                    document.getElementById('edit_status').value = data.data.status;
+                    document.getElementById('editModal').classList.remove('hidden');
+                }
+            })
+            .catch(error => {
+                showAlert('Gagal memuat data user', 'error');
+                console.error('Error:', error);
+            });
     }
 
     function closeEditUserModal() {
@@ -346,15 +346,15 @@
     function confirmUserDelete(id, username) {
         console.log('=== CONFIRM DELETE ===');
         console.log('ID:', id, 'Username:', username);
-        
+
         // Store ke global variable
         userToDelete = {
             id: String(id),
             username: username
         };
-        
+
         console.log('User to delete stored:', userToDelete);
-        
+
         // Update UI
         document.getElementById('delete_username').textContent = username;
         document.getElementById('deleteModal').classList.remove('hidden');
@@ -368,20 +368,20 @@
     async function deleteUser() {
         console.log('=== DELETE USER ===');
         console.log('Global userToDelete:', userToDelete);
-        
+
         if (!userToDelete || !userToDelete.id) {
             console.error('❌ User data not found!');
             showAlert('User ID tidak valid. Silakan coba lagi.', 'error');
             closeDeleteModal();
             return;
         }
-        
+
         const userId = userToDelete.id;
         const url = `${API_BASE_URL}/users/${userId}`;
-        
+
         console.log('DELETE URL:', url);
         console.log('User ID:', userId);
-        
+
         try {
             const response = await fetch(url, {
                 method: 'DELETE',
@@ -393,12 +393,12 @@
                 },
                 credentials: 'same-origin'
             });
-            
+
             console.log('Response status:', response.status);
-            
+
             const result = await response.json();
             console.log('Response data:', result);
-            
+
             if (response.ok && result.success) {
                 showAlert('User berhasil dihapus!', 'success');
                 closeDeleteModal();
@@ -415,10 +415,10 @@
     // Add User
     document.getElementById('addUserForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        
+
         const formData = new FormData(this);
         const data = Object.fromEntries(formData);
-        
+
         try {
             const response = await fetch(`${API_BASE_URL}/users`, {
                 method: 'POST',
@@ -430,9 +430,9 @@
                 credentials: 'same-origin',
                 body: JSON.stringify(data)
             });
-            
+
             const result = await response.json();
-            
+
             if (result.success) {
                 showAlert('User berhasil ditambahkan!', 'success');
                 closeAddModal();
@@ -450,16 +450,16 @@
     // Update User
     document.getElementById('editUserForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        
+
         const userId = document.getElementById('edit_user_id').value;
         const formData = new FormData(this);
         const data = Object.fromEntries(formData);
         delete data.user_id;
-        
+
         if (!data.password) {
             delete data.password;
         }
-        
+
         try {
             const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
                 method: 'PUT',
@@ -471,9 +471,9 @@
                 credentials: 'same-origin',
                 body: JSON.stringify(data)
             });
-            
+
             const result = await response.json();
-            
+
             if (result.success) {
                 showAlert('User berhasil diupdate!', 'success');
                 closeEditModal();
@@ -488,18 +488,12 @@
         }
     });
 
-    // Close modal when clicking outside
-    document.querySelectorAll('[id$="Modal"]').forEach(modal => {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) this.classList.add('hidden');
-        });
-    });
 
     // Search functionality
     document.getElementById('searchInput').addEventListener('input', function(e) {
         const searchTerm = e.target.value.toLowerCase();
         const rows = document.querySelectorAll('tbody tr');
-        
+
         rows.forEach(row => {
             const text = row.textContent.toLowerCase();
             row.style.display = text.includes(searchTerm) ? '' : 'none';
