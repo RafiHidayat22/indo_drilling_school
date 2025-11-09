@@ -31,7 +31,7 @@
                 </svg>
                 <div>
                     <h3 class="font-semibold">Email</h3>
-                    <p>info.indo@stc-eg.com</p>
+                    <p>info@idrillingschool.com</p>
                 </div>
             </div>
 

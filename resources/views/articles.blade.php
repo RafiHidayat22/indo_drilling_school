@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- Hero Section with Dynamic Background -->
-<section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20 pb-16">
+<section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20 pb-16 z-10">
     <div class="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900">
         <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80"
             alt="Articles Background" class="w-full h-full object-cover mix-blend-overlay opacity-40">
@@ -55,12 +55,14 @@
 </section>
 
 <!-- Search & Filter Section -->
-<section class="py-12 bg-gradient-to-b from-gray-50 to-white px-4">
+<!-- Search & Filter Section -->
+<section class="py-12 bg-gradient-to-b from-gray-50 to-white px-4 relative z-20">
     <div class="max-w-7xl mx-auto">
         <form action="{{ route('articles.index') }}" method="GET">
             <div class="grid lg:grid-cols-4 gap-6">
                 <!-- Search Bar -->
-                <div class="lg:col-span-3" data-aos="fade-right">
+                <!-- Search Bar -->
+                <div class="lg:col-span-3 relative z-50" data-aos="fade-right">
                     <div class="relative">
                         <input type="text"
                             id="searchArticles"
@@ -68,15 +70,15 @@
                             value="{{ request('search') }}"
                             placeholder="Search articles, topics, keywords..."
                             class="w-full px-6 py-4 pl-14 bg-white border-2 border-gray-200 rounded-2xl focus:border-red-500 focus:ring-4 focus:ring-red-100 transition duration-300 text-lg shadow-lg">
-                        <i class="fa-solid fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></i>
-                        <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 bg-red-700 text-white px-6 py-2 rounded-xl hover:bg-red-800 hover:shadow-lg transition duration-300 font-semibold">
+                        <i class="fa-solid fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-xl pointer-events-none"></i>
+                        <button type="submit" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-red-700 text-white px-4 sm:px-6 py-2 rounded-xl hover:bg-red-800 hover:shadow-lg transition duration-300 font-semibold text-sm sm:text-base">
                             Search
                         </button>
                     </div>
                 </div>
 
                 <!-- Quick Filter -->
-                <div class="lg:col-span-1" data-aos="fade-left">
+                <div class="lg:col-span-1 relative z-40" data-aos="fade-left">
                     <select name="category"
                         id="categoryFilter"
                         onchange="this.form.submit()"
@@ -100,6 +102,7 @@
         <div class="grid lg:grid-cols-3 gap-12">
 
             <!-- Articles Grid (Main Content) -->
+            <!-- Articles Grid (Main Content) -->
             <div class="lg:col-span-2">
                 <div class="grid md:grid-cols-2 gap-8" id="articlesGrid">
 
@@ -107,41 +110,43 @@
                     <article class="article-card group bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100"
                         data-aos="fade-up"
                         data-category="{{ $article->category->slug }}">
-                        <div class="relative overflow-hidden aspect-video">
-                            <img src="{{ asset('storage/' . $article->featured_image) }}"
-                                alt="{{ $article->title }}"
-                                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                            <div class="absolute top-4 left-4">
-                                <span class="inline-flex items-center gap-2 px-3 py-1 bg-{{ $article->category->color }}-600 text-white text-xs font-bold rounded-full uppercase tracking-wide">
-                                    <i class="{{'fa-solid fa-folder' }}"></i>
-                                    {{ $article->category->name }}
+                        <a href="{{ route('articles.show', $article->slug) }}" class="block" style="text-decoration: none;">
+                            <div class="relative overflow-hidden aspect-video pointer-events-none">
+                                <img src="{{ asset('storage/' . $article->featured_image) }}"
+                                    alt="{{ $article->title }}"
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 pointer-events-none"
+                                    draggable="false">
+                                <div class="absolute top-4 left-4 pointer-events-none">
+                                    <span class="inline-flex items-center gap-2 px-3 py-1 bg-{{ $article->category->color }}-600 text-white text-xs font-bold rounded-full uppercase tracking-wide">
+                                        <i class="fa-solid fa-folder"></i>
+                                        {{ $article->category->name }}
+                                    </span>
+                                </div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
+                            </div>
+                            <div class="p-6 pointer-events-none">
+                                <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                                    <span class="flex items-center gap-1">
+                                        <i class="fa-regular fa-calendar"></i>
+                                        {{ $article->formatted_date }}
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i class="fa-regular fa-clock"></i>
+                                        {{ $article->reading_time }}
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-600 transition duration-300 line-clamp-2">
+                                    {{ $article->title }}
+                                </h3>
+                                <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                                    {!! strip_tags($article->excerpt) !!}
+                                </p>
+                                <span class="inline-flex items-center gap-2 text-red-600 font-semibold group-hover:gap-3 transition-all duration-300">
+                                    Read More
+                                    <i class="fa-solid fa-arrow-right"></i>
                                 </span>
                             </div>
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                                <span class="flex items-center gap-1">
-                                    <i class="fa-regular fa-calendar"></i>
-                                    {{ $article->formatted_date }}
-                                </span>
-                                <span class="flex items-center gap-1">
-                                    <i class="fa-regular fa-clock"></i>
-                                    {{ $article->reading_time }}
-                                </span>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-600 transition duration-300 line-clamp-2">
-                                {{ $article->title }}
-                            </h3>
-                            <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
-                                {!! strip_tags($article->excerpt) !!}
-                            </p>
-                            <a href="{{ route('articles.show', $article->slug) }}"
-                                class="inline-flex items-center gap-2 text-red-600 font-semibold hover:gap-3 transition-all duration-300">
-                                Read More
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
+                        </a>
                     </article>
                     @empty
                     <div class="col-span-2 text-center py-12">
@@ -202,7 +207,7 @@
             </div>
 
             <!-- Sidebar -->
-            <aside class="lg:col-span-1">
+            <aside class="lg:col-span-1 relative z-20">
                 <div class="sticky top-36 space-y-8">
 
                     <!-- Categories Widget -->
@@ -322,7 +327,6 @@
         </div>
     </div>
 </section>
-
 <!-- Counter Animation Script -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {

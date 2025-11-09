@@ -23,7 +23,7 @@
       <a href="<?php echo e(url('/articles')); ?>" class="text-gray-700 hover:text-red-700 font-medium transition">Articles</a>
       <a href="<?php echo e(url('/contact')); ?>" class="text-gray-700 hover:text-red-700 font-medium transition">Contact</a>
 
-      <a href="<?php echo e(url('/join')); ?>"
+      <a href="<?php echo e(url('/contact')); ?>"
         class="bg-red-700 text-white px-4 py-2 rounded-md hover:bg-red-800 transition font-semibold">
         Join Now
       </a>
@@ -37,7 +37,7 @@
       <a href="<?php echo e(url('/program')); ?>" class="block text-gray-700 hover:text-red-700 font-medium py-2">Programs</a>
       <a href="<?php echo e(url('/articles')); ?>" class="block text-gray-700 hover:text-red-700 font-medium py-2">Articles</a>
       <a href="<?php echo e(url('/contact')); ?>" class="block text-gray-700 hover:text-red-700 font-medium py-2">Contact</a>
-      <a href="<?php echo e(url('/join')); ?>"
+      <a href="<?php echo e(url('/contact')); ?>"
         class="block text-center bg-red-700 text-white py-2 rounded-md hover:bg-red-800 transition font-semibold mt-2">
         Join Now
       </a>
