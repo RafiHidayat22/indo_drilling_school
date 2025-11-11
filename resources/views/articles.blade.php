@@ -62,7 +62,7 @@
             <div class="grid lg:grid-cols-4 gap-6">
                 <!-- Search Bar -->
                 <!-- Search Bar -->
-                <div class="lg:col-span-3 relative z-50" data-aos="fade-right">
+                <div class="lg:col-span-3 relative z-[100]" data-aos="fade-right">
                     <div class="relative">
                         <input type="text"
                             id="searchArticles"
@@ -78,7 +78,7 @@
                 </div>
 
                 <!-- Quick Filter -->
-                <div class="lg:col-span-1 relative z-40" data-aos="fade-left">
+                <div class="lg:col-span-1 relative z-50" data-aos="fade-left">
                     <select name="category"
                         id="categoryFilter"
                         onchange="this.form.submit()"
@@ -207,7 +207,7 @@
             </div>
 
             <!-- Sidebar -->
-            <aside class="lg:col-span-1 relative z-20">
+            <aside class="lg:col-span-1 relative z-10">
                 <div class="sticky top-36 space-y-8">
 
                     <!-- Categories Widget -->
