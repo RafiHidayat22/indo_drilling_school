@@ -37,12 +37,12 @@ if (!function_exists('user_role_badge')) {
     function user_role_badge($role = null)
     {
         $role = $role ?? auth()->user()?->role;
-        
+
         $badges = [
             'superAdmin' => '<span class="px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-700">Super Admin</span>',
             'admin' => '<span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">Admin</span>',
         ];
-        
+
         return $badges[$role] ?? '<span class="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700">User</span>';
     }
 }

@@ -19,19 +19,19 @@ class DashboardAdminController extends Controller
     public function index()
     {
         $pageTitle = 'Dashboard Admin';
-        
+
         // Get statistics
         $stats = $this->getStatistics();
-        
+
         // Get recent articles (5 latest)
         $recentArticles = $this->getRecentArticles();
-        
+
         // Get recent inquiries (5 latest)
         $recentInquiries = $this->getRecentInquiries();
-        
+
         // Get articles by category for chart
         $articlesByCategory = $this->getArticlesByCategory();
-        
+
         // Get system activity
         $systemActivity = $this->getSystemActivity();
 
@@ -58,15 +58,15 @@ class DashboardAdminController extends Controller
             // Articles
             'totalArticles' => Article::count(),
             'newArticlesThisMonth' => Article::where('created_at', '>=', $startOfMonth)->count(),
-            
+
             // Programs (Training Categories)
             'totalPrograms' => TrainingCategory::count(),
             'activePrograms' => TrainingCategory::where('status', 'Active')->count(),
-            
+
             // Users
             'totalUsers' => User::count(),
             'newUsersThisWeek' => User::where('created_at', '>=', $startOfWeek)->count(),
-            
+
             // Inquiries
             'pendingInquiries' => ContactInquiry::whereNull('read_at')->count(),
             'unreadInquiries' => ContactInquiry::unread()->count(),
@@ -91,7 +91,7 @@ class DashboardAdminController extends Controller
             'from-indigo-500 to-purple-500',
         ];
 
-        return $articles->map(function($article, $index) use ($colorClasses) {
+        return $articles->map(function ($article, $index) use ($colorClasses) {
             return [
                 'id' => $article->id,
                 'title' => $article->title,
@@ -110,7 +110,7 @@ class DashboardAdminController extends Controller
      */
     private function getStatusClass($status)
     {
-        return match($status) {
+        return match ($status) {
             'published' => 'bg-green-100 text-green-800',
             'draft' => 'bg-yellow-100 text-yellow-800',
             'archived' => 'bg-gray-100 text-gray-800',
@@ -127,7 +127,7 @@ class DashboardAdminController extends Controller
             ->take(5)
             ->get();
 
-        return $inquiries->map(function($inquiry) {
+        return $inquiries->map(function ($inquiry) {
             return [
                 'id' => $inquiry->id,
                 'name' => $inquiry->full_name,
@@ -143,7 +143,7 @@ class DashboardAdminController extends Controller
      */
     private function getSubjectLabel($subject)
     {
-        return match($subject) {
+        return match ($subject) {
             'training' => 'Pelatihan',
             'partnership' => 'Kemitraan',
             'certification' => 'Sertifikasi',
@@ -175,9 +175,9 @@ class DashboardAdminController extends Controller
             'bg-indigo-500',
         ];
 
-        return $categories->map(function($category, $index) use ($totalArticles, $colorClasses) {
+        return $categories->map(function ($category, $index) use ($totalArticles, $colorClasses) {
             $percentage = $totalArticles > 0 ? ($category->articles_count / $totalArticles) * 100 : 0;
-            
+
             return [
                 'name' => $category->name,
                 'count' => $category->articles_count,
@@ -198,7 +198,7 @@ class DashboardAdminController extends Controller
         $recentArticle = Article::with('author')
             ->latest('created_at')
             ->first();
-        
+
         if ($recentArticle) {
             $activities[] = [
                 'icon' => '<svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>',
@@ -210,7 +210,7 @@ class DashboardAdminController extends Controller
 
         // Recent inquiries
         $recentInquiry = ContactInquiry::latest('created_at')->first();
-        
+
         if ($recentInquiry) {
             $activities[] = [
                 'icon' => '<svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>',
@@ -224,7 +224,7 @@ class DashboardAdminController extends Controller
         $recentUser = User::latest('created_at')
             ->where('id', '!=', auth()->id())
             ->first();
-        
+
         if ($recentUser) {
             $activities[] = [
                 'icon' => '<svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/></svg>',
@@ -239,7 +239,7 @@ class DashboardAdminController extends Controller
             ->where('status', 'published')
             ->latest('published_at')
             ->first();
-        
+
         if ($recentPublished && $recentPublished->id !== ($recentArticle->id ?? null)) {
             $activities[] = [
                 'icon' => '<svg class="w-4 h-4 text-indigo-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>',

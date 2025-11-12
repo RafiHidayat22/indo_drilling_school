@@ -7,10 +7,10 @@
 <!-- Hero Section with Overlay -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
     <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-red-900">
-            <img src="{{ asset('images/imgHeroAbout.jpg') }}"
-                alt="Oil Rig Background"
-                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
-            <div class="absolute inset-0 bg-black/60"></div>
+        <img src="{{ asset('images/imgHeroAbout.jpg') }}"
+            alt="Oil Rig Background"
+            class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+        <div class="absolute inset-0 bg-black/60"></div>
     </div>
     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
 
@@ -357,11 +357,11 @@
 </section>
 
 <!-- Facilities Showcase -->
-<section class="py-20 bg-slate-900 text-white relative overflow-hidden">
+<!-- <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
     <div class="absolute inset-0 opacity-10">
-            <img src="{{ asset('images/imgHeroAbout2.jpg') }}"
-                alt="Oil Rig Background"
-                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+        <img src="{{ asset('images/imgHeroAbout2.jpg') }}"
+            alt="Oil Rig Background"
+            class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
     </div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -400,7 +400,194 @@
             @endforeach
         </div>
     </div>
+</section>-->
+
+<!-- Photo Documentation Gallery -->
+<!-- Photo Documentation Gallery -->
+<section class="py-20 bg-white px-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-16" data-aos="fade-up">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-4">
+                <i class="fa-solid fa-camera text-blue-600"></i>
+                <span class="text-blue-900 font-semibold text-sm">GALLERY</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Training in Action</h2>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                Witness the real-world training experience at Indonesia Drilling School through our comprehensive documentation
+            </p>
+        </div>
+
+        <!-- Main Featured Image with Auto Scrolling Gallery -->
+        <div class="mb-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl group">
+                <!-- Scrolling Images Container -->
+                <div class="gallery-slider w-full h-[500px]">
+                    <div class="gallery-track flex">
+                        <!-- Image 1 -->
+                        <div class="gallery-slide min-w-full h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1600&q=80"
+                                alt="Main Training Facility"
+                                class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Image 2 -->
+                        <div class="gallery-slide min-w-full h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80"
+                                alt="Drilling Equipment Training"
+                                class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Image 3 -->
+                        <div class="gallery-slide min-w-full h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1600&q=80"
+                                alt="Classroom Learning"
+                                class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Image 4 -->
+                        <div class="gallery-slide min-w-full h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1600&q=80"
+                                alt="Safety Training"
+                                class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Image 5 -->
+                        <div class="gallery-slide min-w-full h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?auto=format&fit=crop&w=1600&q=80"
+                                alt="Field Practice"
+                                class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Image 6 -->
+                        <div class="gallery-slide min-w-full h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1600&q=80"
+                                alt="Simulation Lab"
+                                class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overlay Gradient -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none"></div>
+
+                <!-- Content Overlay -->
+                <div class="absolute bottom-0 left-0 right-0 p-8 pointer-events-none">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="px-3 py-1 bg-red-600 text-white text-sm font-semibold rounded-full">Featured</span>
+                        <span class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm font-semibold rounded-full">2025</span>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-bold text-white mb-2">State-of-the-Art Training Complex</h3>
+                    <p class="text-gray-200 text-lg">Our main drilling simulation facility equipped with industry-standard technology</p>
+                </div>
+
+                <!-- Navigation Dots -->
+                <div class="absolute bottom-24 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="0"></button>
+                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="1"></button>
+                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="2"></button>
+                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="3"></button>
+                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="4"></button>
+                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="5"></button>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="gallery-prev absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 z-10">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button class="gallery-next absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 z-10">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
+
+<!-- CSS untuk gallery slider -->
+<style>
+    .gallery-track {
+        transition: transform 0.8s ease-in-out;
+    }
+
+    .gallery-dot.active {
+        background-color: white;
+        width: 2rem;
+    }
+</style>
+
+<!-- JavaScript untuk kontrol slider -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const track = document.querySelector('.gallery-track');
+        const slides = document.querySelectorAll('.gallery-slide');
+        const dots = document.querySelectorAll('.gallery-dot');
+        const prevBtn = document.querySelector('.gallery-prev');
+        const nextBtn = document.querySelector('.gallery-next');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let autoSlideInterval;
+
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(currentSlide);
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 4000); // Ganti gambar setiap 4 detik
+        }
+
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        // Event listeners untuk dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+                stopAutoSlide();
+                startAutoSlide(); // Restart auto slide setelah manual navigation
+            });
+        });
+
+        // Event listeners untuk arrows
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            stopAutoSlide();
+            startAutoSlide();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            stopAutoSlide();
+            startAutoSlide();
+        });
+
+        // Pause on hover
+        const galleryContainer = document.querySelector('.gallery-slider');
+        galleryContainer.addEventListener('mouseenter', stopAutoSlide);
+        galleryContainer.addEventListener('mouseleave', startAutoSlide);
+
+        // Initialize
+        goToSlide(0);
+        startAutoSlide();
+    });
+</script>
 
 <!-- Why Choose IDS - Feature Grid -->
 <section class="py-20 bg-gradient-to-b from-white to-gray-50 px-6">
