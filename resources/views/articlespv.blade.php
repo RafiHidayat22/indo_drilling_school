@@ -21,16 +21,14 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-5xl mx-auto">
                 <!-- Breadcrumb -->
-                <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.05s;">
-                    <nav class="flex items-center gap-2 text-sm text-gray-300">
-                        <a href="/" class="hover:text-red-400 transition">Home</a>
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                        <a href="{{ route('articles.index') }}" class="hover:text-red-400 transition">Articles</a>
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                        <a href="{{ route('articles.index', ['category' => $article->category->slug]) }}" class="hover:text-red-400 transition">{{ $article->category->name }}</a>
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                        <span class="text-gray-400">Current Article</span>
-                    </nav>
+                <div class="pd-breadcrumb" data-aos="fade-down">
+                    <a href="/">Home</a>
+                    <span class="pd-breadcrumb-separator">/</span>
+                    <a href="{{ route('articles.index') }}">Articles</a>
+                    <span class="pd-breadcrumb-separator">/</span>
+                    <a href="{{ route('articles.index', ['category' => $article->category->slug]) }}">{{ $article->category->name }}</a>
+                    <span class="pd-breadcrumb-separator">/</span>
+                    <span>Current Article</span>
                 </div>
 
                 <!-- Category Badge -->

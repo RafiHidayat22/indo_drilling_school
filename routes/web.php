@@ -8,6 +8,7 @@ use App\Http\Controllers\ProgramWebController;
 use App\Http\Controllers\ContactInquiryController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProjectController;
 
 
 // Public routes
@@ -147,3 +148,6 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 
 // Route untuk menyimpan data dari formulir contact
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');

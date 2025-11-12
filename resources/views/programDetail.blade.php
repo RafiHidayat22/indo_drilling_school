@@ -11,9 +11,9 @@
             <div class="pd-container">
                 <div class="pd-breadcrumb" data-aos="fade-down">
                     <a href="/">Home</a>
-                    <span>/</span>
+                    <span class="pd-breadcrumb-separator">/</span>
                     <a href="/program">Training Programs</a>
-                    <span>/</span>
+                    <span class="pd-breadcrumb-separator">/</span>
                     <span>{{ $programTitle }}</span>
                 </div>
                 <div class="pd-hero-text" data-aos="fade-up">
@@ -61,7 +61,7 @@
                                 <div class="pd-training-item">
                                     <h4 class="pd-training-title">{{ $training->title }}</h4>
                                     <p class="pd-training-description">{{ $training->description }}</p>
-                                    <a href="{{ route('program.training', [$programSlug, $subcategory->slug, $training->slug]) }}"
+                                    <a href="/contact"
                                         class="pd-enroll-button">
                                         <span>Enroll Now</span>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

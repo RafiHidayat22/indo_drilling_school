@@ -31,7 +31,7 @@
                 </svg>
                 <div>
                     <h3 class="font-semibold">Email</h3>
-                    <p>info.indo@stc-eg.com</p>
+                    <p>info@idrillingschool.com</p>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
                     <a href="https://www.tiktok.com/@indonesia.drillin?is_from_webapp=1&sender_device=pc" target="_blank" class="hover:text-red-500 transition">
                         <i class="fa-brands fa-tiktok text-xl"></i>
                     </a>
-                    <a href="https://www.twitter.com/" target="_blank" class="hover:text-red-500 transition">
+                    <a href="https://www.facebook.com/profile.php?id=61582434299116" target="_blank" class="hover:text-red-500 transition">
                         <i class="fa-brands fa-facebook text-xl"></i>
                     </a>
                 </div>
