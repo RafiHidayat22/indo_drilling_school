@@ -222,6 +222,7 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    stroke:white
 }
 
 .sidebar-menu-item:hover .sidebar-icon {
