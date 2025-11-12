@@ -203,10 +203,8 @@
         </div>
 
         @if($latestArticles->count() > 0)
-        <div class="swiper insightSwiper home-animate-fadeInUp delay-200">
-            <div class="swiper-wrapper pb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 home-animate-fadeInUp delay-200">
                 @foreach ($latestArticles as $article)
-                <div class="swiper-slide h-auto">
                     <div class="group bg-white border border-gray-200 rounded-3xl overflow-hidden text-left hover:shadow-2xl hover:border-blue-200 transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full">
                         <div class="relative h-56 overflow-hidden flex-shrink-0">
                             @if($article->featured_image)
@@ -249,9 +247,8 @@
                             </a>
                         </div>
                     </div>
-                </div>
+
                 @endforeach
-            </div>
             <div class="swiper-pagination"></div>
         </div>
 
