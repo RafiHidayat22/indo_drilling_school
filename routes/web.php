@@ -9,6 +9,8 @@ use App\Http\Controllers\ContactInquiryController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\GalleryAdminController;
+use App\Http\Controllers\AboutController;
 
 
 // Public routes
@@ -17,10 +19,9 @@ use App\Http\Controllers\ProjectController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/about', function () {
-    return view('about');
-});
-
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+// routes/web.php
+Route::post('/galleryadmin/reorder', [GalleryAdminController::class, 'reorder'])->name('galleryadmin.reorder');
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -133,11 +134,9 @@ Route::middleware(['check.auth'])->group(function () {
     });
     // Dashboard Admin Route
     Route::middleware(['auth', 'checkRole:admin,superAdmin'])->group(function () {
-    Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])
-        ->name('dashboardadmin');
+        Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])
+            ->name('dashboardadmin');
     });
-
-    
 });
 
 
@@ -151,3 +150,16 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+
+Route::middleware(['role:admin,superAdmin'])->prefix('gallery')->name('galleryadmin.')->group(function () {
+    Route::get('/', [GalleryAdminController::class, 'index'])->name('index');
+    Route::post('/', [GalleryAdminController::class, 'store'])->name('store');
+    Route::get('/{gallery}', [GalleryAdminController::class, 'show'])->name('show');
+    Route::match(['put', 'patch'], '/{gallery}', [GalleryAdminController::class, 'update'])->name('update');
+    Route::delete('/{gallery}', [GalleryAdminController::class, 'destroy'])->name('destroy');
+
+    // Toggle actions (sesuai method yang sudah Anda buat)
+    Route::post('/{gallery}/toggle-featured', [GalleryAdminController::class, 'toggleFeatured'])->name('toggleFeatured');
+    Route::post('/{gallery}/toggle-active', [GalleryAdminController::class, 'toggleActive'])->name('toggleActive');
+    Route::post('/reorder', [GalleryAdminController::class, 'reorder'])->name('reorder');
+});

@@ -402,8 +402,7 @@
     </div>
 </section>-->
 
-<!-- Photo Documentation Gallery -->
-<!-- Photo Documentation Gallery -->
+<!-- Photo Documentation Gallery - Dynamic from Database -->
 <section class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
@@ -418,123 +417,139 @@
             </p>
         </div>
 
-        <!-- Main Featured Image with Auto Scrolling Gallery -->
+        @if($featuredImages->count() > 0)
+        <!-- Main Featured Slider -->
         <div class="mb-8" data-aos="fade-up" data-aos-delay="100">
             <div class="relative rounded-3xl overflow-hidden shadow-2xl group">
-                <!-- Scrolling Images Container -->
-                <div class="gallery-slider w-full h-[500px]">
+                <div class="gallery-slider w-full aspect-video max-h-[500px]">
                     <div class="gallery-track flex">
-                        <!-- Image 1 -->
+                        @foreach($featuredImages as $index => $image)
                         <div class="gallery-slide min-w-full h-[500px]">
-                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1600&q=80"
-                                alt="Main Training Facility"
+                            <img src="{{ asset('storage/' . $image->image_path) }}"
+                                alt="{{ $image->title }}"
+                                loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
                                 class="w-full h-full object-cover">
                         </div>
-
-                        <!-- Image 2 -->
-                        <div class="gallery-slide min-w-full h-[500px]">
-                            <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80"
-                                alt="Drilling Equipment Training"
-                                class="w-full h-full object-cover">
-                        </div>
-
-                        <!-- Image 3 -->
-                        <div class="gallery-slide min-w-full h-[500px]">
-                            <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1600&q=80"
-                                alt="Classroom Learning"
-                                class="w-full h-full object-cover">
-                        </div>
-
-                        <!-- Image 4 -->
-                        <div class="gallery-slide min-w-full h-[500px]">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1600&q=80"
-                                alt="Safety Training"
-                                class="w-full h-full object-cover">
-                        </div>
-
-                        <!-- Image 5 -->
-                        <div class="gallery-slide min-w-full h-[500px]">
-                            <img src="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?auto=format&fit=crop&w=1600&q=80"
-                                alt="Field Practice"
-                                class="w-full h-full object-cover">
-                        </div>
-
-                        <!-- Image 6 -->
-                        <div class="gallery-slide min-w-full h-[500px]">
-                            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1600&q=80"
-                                alt="Simulation Lab"
-                                class="w-full h-full object-cover">
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
                 <!-- Overlay Gradient -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
-                <!-- Content Overlay -->
-                <div class="absolute bottom-0 left-0 right-0 p-8 pointer-events-none">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="px-3 py-1 bg-red-600 text-white text-sm font-semibold rounded-full">Featured</span>
-                        <span class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm font-semibold rounded-full">2025</span>
+                <!-- Slide Info -->
+                <div class="absolute bottom-4 left-0 right-0 p-4 md:p-8">
+                    @foreach($featuredImages as $index => $image)
+                    <div class="gallery-content {{ $index === 0 ? '' : 'hidden' }}" data-slide="{{ $index }}">
+                        <div class="flex items-center gap-3 mb-3">
+                            @if($image->is_featured)
+                            <span class="px-3 py-1 bg-red-600 text-white text-sm font-semibold rounded-full">Featured</span>
+                            @endif
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm font-semibold rounded-full">{{ $image->year }}</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-2">{{ $image->title }}</h3>
+                        <p class="text-gray-200 text-lg">{{ Str::limit($image->description, 120) }}</p>
                     </div>
-                    <h3 class="text-3xl md:text-4xl font-bold text-white mb-2">State-of-the-Art Training Complex</h3>
-                    <p class="text-gray-200 text-lg">Our main drilling simulation facility equipped with industry-standard technology</p>
+                    @endforeach
                 </div>
 
                 <!-- Navigation Dots -->
-                <div class="absolute bottom-24 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="0"></button>
-                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="1"></button>
-                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="2"></button>
-                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="3"></button>
-                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="4"></button>
-                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="5"></button>
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10 hidden md:block">
+                    @foreach($featuredImages as $index => $image)
+                    <button class="gallery-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300 {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}"></button>
+                    @endforeach
                 </div>
 
-                <!-- Navigation Arrows -->
-                <button class="gallery-prev absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 z-10">
+                <!-- Arrows -->
+                <button class="gallery-prev absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 z-10 hidden md:block">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
-                <button class="gallery-next absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 z-10">
+                <button class="gallery-next absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 z-10 hidden md:block">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
         </div>
+
+        @else
+        <!-- Fallback -->
+        <div class="mb-8 text-center py-16 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
+            <div class="inline-block p-4 bg-slate-100 rounded-full mb-6">
+                <svg class="w-16 h-16 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-700 mb-2">Gallery Sedang Dipersiapkan</h3>
+            <p class="text-slate-500 max-w-md mx-auto">
+                Dokumentasi pelatihan akan segera tersedia.
+            </p>
+        </div>
+        @endif
     </div>
 </section>
 
-<!-- CSS untuk gallery slider -->
+<!-- Reuse CSS & JS from your existing gallery slider -->
 <style>
+    /* Slider Container */
+    .gallery-slider {
+        height: auto;
+        max-height: 500px;
+        /* ✅ Dari 500px jadi 500px */
+    }
+
+    /* Responsive untuk Mobile */
+    @media (max-width: 768px) {
+        .gallery-slider .bg-gradient-to-t {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+        }
+
+        .gallery-slider {
+            max-height: 300px;
+            /* Tetap 300px untuk mobile */
+        }
+    }
+
+    /* Track Animation */
     .gallery-track {
         transition: transform 0.8s ease-in-out;
+    }
+
+    /* Dot Navigation */
+    .gallery-dot {
+        transition: all 0.3s;
     }
 
     .gallery-dot.active {
         background-color: white;
         width: 2rem;
+        border-radius: 9999px;
+    }
+
+    /* Slide Content Transition */
+    .gallery-content {
+        transition: opacity 0.3s ease-in-out;
     }
 </style>
 
-<!-- JavaScript untuk kontrol slider -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const track = document.querySelector('.gallery-track');
-        const slides = document.querySelectorAll('.gallery-slide');
         const dots = document.querySelectorAll('.gallery-dot');
+        const contents = document.querySelectorAll('.gallery-content');
         const prevBtn = document.querySelector('.gallery-prev');
         const nextBtn = document.querySelector('.gallery-next');
 
+        if (!track || dots.length === 0) return;
+
         let currentSlide = 0;
-        const totalSlides = slides.length;
+        const totalSlides = dots.length;
         let autoSlideInterval;
 
         function goToSlide(index) {
             currentSlide = index;
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-            // Update dots
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+            contents.forEach((content, i) => {
+                content.classList.toggle('hidden', i !== currentSlide);
             });
         }
 
@@ -549,41 +564,36 @@
         }
 
         function startAutoSlide() {
-            autoSlideInterval = setInterval(nextSlide, 4000); // Ganti gambar setiap 4 detik
+            autoSlideInterval = setInterval(nextSlide, 4000);
         }
 
         function stopAutoSlide() {
             clearInterval(autoSlideInterval);
         }
 
-        // Event listeners untuk dots
-        dots.forEach((dot, index) => {
+        dots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
-                goToSlide(index);
+                goToSlide(i);
                 stopAutoSlide();
-                startAutoSlide(); // Restart auto slide setelah manual navigation
+                startAutoSlide();
             });
         });
 
-        // Event listeners untuk arrows
-        prevBtn.addEventListener('click', () => {
+        prevBtn?.addEventListener('click', () => {
             prevSlide();
             stopAutoSlide();
             startAutoSlide();
         });
-
-        nextBtn.addEventListener('click', () => {
+        nextBtn?.addEventListener('click', () => {
             nextSlide();
             stopAutoSlide();
             startAutoSlide();
         });
 
-        // Pause on hover
-        const galleryContainer = document.querySelector('.gallery-slider');
-        galleryContainer.addEventListener('mouseenter', stopAutoSlide);
-        galleryContainer.addEventListener('mouseleave', startAutoSlide);
+        const slider = document.querySelector('.gallery-slider');
+        slider?.addEventListener('mouseenter', stopAutoSlide);
+        slider?.addEventListener('mouseleave', startAutoSlide);
 
-        // Initialize
         goToSlide(0);
         startAutoSlide();
     });

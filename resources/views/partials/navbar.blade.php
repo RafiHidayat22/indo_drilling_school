@@ -20,7 +20,7 @@
       <a href="{{ url('/') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Home</a>
       <a href="{{ url('/about') }}" class="text-gray-700 hover:text-red-700 font-medium transition">About Us</a>
       <a href="{{ url('/program') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Programs</a>
-      <a href="{{ route('projects.index') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Projects</a>
+      <a href="{{ url('/projects') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Projects</a>
       <a href="{{ url('/articles') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Articles</a>
       <a href="{{ url('/contact') }}" class="text-gray-700 hover:text-red-700 font-medium transition">Contact</a>
 
@@ -37,7 +37,7 @@
       <a href="{{ url('/') }}" class="block text-gray-700 hover:text-red-700 hover:bg-white/50 font-medium py-2 px-3 rounded-lg transition">Home</a>
       <a href="{{ url('/about') }}" class="block text-gray-700 hover:text-red-700 hover:bg-white/50 font-medium py-2 px-3 rounded-lg transition">About Us</a>
       <a href="{{ url('/program') }}" class="block text-gray-700 hover:text-red-700 hover:bg-white/50 font-medium py-2 px-3 rounded-lg transition">Programs</a>
-      <a href="{{ route('projects.index') }}" class="block text-gray-700 hover:text-red-700 hover:bg-white/50 font-medium py-2 px-3 rounded-lg transition">Projects</a>
+      <a href="{{ url('/projects') }}" class="block text-gray-700 hover:text-red-700 hover:bg-white/50 font-medium py-2 px-3 rounded-lg transition">Projects</a>
       <a href="{{ url('/articles') }}" class="block text-gray-700 hover:text-red-700 hover:bg-white/50 font-medium py-2 px-3 rounded-lg transition">Articles</a>
       <a href="{{ url('/contact') }}" class="block text-gray-700 hover:text-red-700 hover:bg-white/50 font-medium py-2 px-3 rounded-lg transition">Contact</a>
       <a href="{{ url('/contact') }}"

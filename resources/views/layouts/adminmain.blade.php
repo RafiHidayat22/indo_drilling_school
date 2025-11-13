@@ -15,6 +15,8 @@
 
 <body class="bg-gray-50">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"></script>
+    <!-- Tambahkan di bagian akhir body atau head -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     @include('admin.sidebar')
     @include('admin.topbar')
 

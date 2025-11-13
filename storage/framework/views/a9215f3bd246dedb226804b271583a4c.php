@@ -65,6 +65,16 @@
                         <span>Input Kategori</span>
                     </a>
                 </div>
+                <!-- Gallery -->
+                <a href="<?php echo e(route('galleryadmin.index')); ?>"
+                    class="sidebar-menu-item flex items-center px-4 py-3 
+          <?php echo e(request()->routeIs('galleryadmin.*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700'); ?> 
+          rounded-lg">
+                    <div class="sidebar-icon">
+                        <i class="fas fa-images text-lg"></i>
+                    </div>
+                    <span class="ml-4">Gallery</span>
+                </a>
             </div>
             <!-- Divider -->
             <div class="border-t border-slate-700 my-6"></div>
