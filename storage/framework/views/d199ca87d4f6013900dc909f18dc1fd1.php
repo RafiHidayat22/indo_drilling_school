@@ -469,7 +469,7 @@ loginForm.addEventListener('submit', async function(e) {
         
         // Redirect ke dashboard setelah 1 detik
         setTimeout(() => {
-            window.location.href = '/users';
+            window.location.href = '/dashboardadmin';
         }, 1000);
 
     } catch (error) {
