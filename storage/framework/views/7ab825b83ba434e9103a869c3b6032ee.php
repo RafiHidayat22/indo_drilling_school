@@ -80,7 +80,18 @@
                         <?php endif; ?>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         
+                        <!-- Badges -->
+                        <div class="absolute top-4 left-4 flex gap-2">
+                            <span class="bg-red-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
+                                Featured
+                            </span>
+                            <?php if($project->category): ?>
+                            <span class="<?php echo e($project->category_badge_color); ?> px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
+                                <?php echo e(ucfirst($project->category)); ?>
 
+                            </span>
+                            <?php endif; ?>
+                        </div>
 
                         <!-- Status Badge -->
                         <div class="absolute bottom-4 right-4">
@@ -131,6 +142,17 @@
     <section class="py-12 bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <form method="GET" action="<?php echo e(route('projects.index')); ?>" class="flex flex-wrap gap-4 items-center justify-center">
+                <!-- Category Filter -->
+                <div class="flex items-center gap-3">
+                    <label class="text-gray-700 font-medium text-sm">Category:</label>
+                    <select name="category" onchange="this.form.submit()" 
+                        class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all">
+                        <option value="all" <?php echo e(request('category') == 'all' ? 'selected' : ''); ?>>All Categories</option>
+                        <option value="drilling" <?php echo e(request('category') == 'drilling' ? 'selected' : ''); ?>>Drilling</option>
+                        <option value="safety" <?php echo e(request('category') == 'safety' ? 'selected' : ''); ?>>Safety</option>
+                        <option value="certification" <?php echo e(request('category') == 'certification' ? 'selected' : ''); ?>>Certification</option>
+                    </select>
+                </div>
 
                 <!-- Status Filter -->
                 <div class="flex items-center gap-3">
@@ -174,6 +196,15 @@
                         <?php endif; ?>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                         
+                        <!-- Category Badge -->
+                        <?php if($project->category): ?>
+                        <div class="absolute top-4 left-4">
+                            <span class="<?php echo e($project->category_badge_color); ?> px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
+                                <?php echo e(ucfirst($project->category)); ?>
+
+                            </span>
+                        </div>
+                        <?php endif; ?>
 
                         <!-- Status Badge -->
                         <div class="absolute bottom-4 right-4">

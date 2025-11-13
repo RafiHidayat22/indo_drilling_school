@@ -11,10 +11,7 @@ class ProjectController extends Controller
     {
         $query = Project::published()->orderBy('order', 'desc')->orderBy('created_at', 'desc');
 
-        // Filter by category
-        if ($request->has('category') && $request->category !== 'all') {
-            $query->byCategory($request->category);
-        }
+
 
         // Filter by status
         if ($request->has('status') && $request->status !== 'all') {

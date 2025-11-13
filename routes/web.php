@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactInquiryController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Admin\AdminProjectController;
 
 
 // Public routes
@@ -135,6 +136,18 @@ Route::middleware(['check.auth'])->group(function () {
     Route::middleware(['auth', 'checkRole:admin,superAdmin'])->group(function () {
     Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])
         ->name('dashboardadmin');
+    });
+
+Route::middleware(['check.auth', 'role:admin,superAdmin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/projects', [AdminProjectController::class, 'index'])->name('projects.index');
+        Route::post('/projects', [AdminProjectController::class, 'store'])->name('projects.store');
+        Route::get('/projects/{id}', [AdminProjectController::class, 'show'])->name('projects.show');
+        Route::put('/projects/{id}', [AdminProjectController::class, 'update'])->name('projects.update');
+        Route::delete('/projects/{id}', [AdminProjectController::class, 'destroy'])->name('projects.destroy');
+        Route::post('/admin/projects/delete-gallery-image', [AdminProjectController::class, 'deleteGalleryImage'])->name('admin.projects.delete-gallery-image');
     });
 
     

@@ -7,19 +7,38 @@
 <div class="page-home">
     <!-- ================= HERO SECTION ================= -->
     <section class="relative min-h-screen bg-gray-900 text-white overflow-hidden">
-        <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-transparent to-red-900/30 z-[1]"></div>
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-transparent to-red-900/30 z-[1]"></div>
 
-        <!-- Background -->
-        <div class="absolute inset-0">
+    <!-- Background Images Container -->
+    <div class="absolute inset-0">
+        <!-- Image 1 -->
+        <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-100">
             <img src="{{ asset('images/imgHero.jpg') }}"
                 alt="Oil Rig Background"
                 class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
             <div class="absolute inset-0 bg-black/60"></div>
         </div>
+        
+        <!-- Image 2 -->
+        <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
+            <img src="{{ asset('images/imgHeroAbout.jpg') }}"
+                alt="Oil Rig Background 2"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+            <div class="absolute inset-0 bg-black/60"></div>
+        </div>
+        
+        <!-- Image 3 -->
+        <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
+            <img src="{{ asset('images/imgHeroProgram.jpg') }}"
+                alt="Oil Rig Background 3"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+            <div class="absolute inset-0 bg-black/60"></div>
+        </div>
+    </div>
 
-        <!-- Animated Particles Effect -->
-        <div class="absolute inset-0 z-[2]" style="background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.3;"></div>
+    <!-- Animated Particles Effect -->
+    <div class="absolute inset-0 z-[2]" style="background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.3;"></div>
 
         <!-- Content Container -->
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
@@ -548,5 +567,25 @@
             }
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.hero-bg-slide');
+    let currentSlide = 0;
+    const slideInterval = 5000; // Ganti setiap 5 detik
+
+    function nextSlide() {
+        // Fade out current slide
+        slides[currentSlide].style.opacity = '0';
+        
+        // Move to next slide
+        currentSlide = (currentSlide + 1) % slides.length;
+        
+        // Fade in next slide
+        slides[currentSlide].style.opacity = '1';
+    }
+
+    // Auto slide
+    setInterval(nextSlide, slideInterval);
+});
 </script>
 @endsection
