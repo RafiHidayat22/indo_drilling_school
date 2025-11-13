@@ -183,7 +183,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-slate-200">
                         @forelse($inquiries as $index => $inquiry)
-                        <tr class="hover:bg-slate-50 transition {{ !$inquiry->isRead() ? 'bg-blue-50/30' : '' }}">
+                        <tr class="hover:bg-slate-50 transition {{ !$inquiry->isRead() ? 'bg-blue-50/30' : '' }}" data-id="{{ $inquiry->id }}">
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-slate-700 font-medium">
                                 {{ ($inquiries->currentPage() - 1) * $inquiries->perPage() + $index + 1 }}
                             </td>
@@ -264,7 +264,7 @@
     </div>
 
     <!-- Modal Detail -->
-    <div id="detailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div id="detailModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8">
             <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-4 rounded-t-2xl">
                 <div class="flex items-center justify-between">
@@ -412,17 +412,73 @@
         // Mark as read when opening detail
         if (!data.read_at) {
             fetch(`/contacts/${data.id}/mark-read`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                }
-            }).then(() => {
-                // Refresh page to update status
-                setTimeout(() => location.reload(), 500);
-            });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        // ✅ Soft-update UI: ubah status & styling langsung
+                        updateInquiryStatusInTable(data.id, result.status, result.status_label);
+                        // ✅ Update badge & icon di modal jika perlu (opsional)
+                        document.querySelector('#detailContent .inline-flex.px-3.py-1').outerHTML =
+                            `<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getStatusClass(result.status)}">
+                        ${getStatusIcon(result.status)} ${result.status_label}
+                    </span>`;
+                    }
+                })
+                .catch(err => console.warn('Gagal menandai sebagai dibaca:', err));
         }
     };
+
+    function getStatusClass(status) {
+        switch (status) {
+            case 'new':
+                return 'bg-blue-100 text-blue-800';
+            case 'unread':
+                return 'bg-amber-100 text-amber-800';
+            case 'read':
+                return 'bg-green-100 text-green-800';
+            default:
+                return 'bg-slate-100 text-slate-800';
+        }
+    }
+
+    function getStatusIcon(status) {
+        const icons = {
+            'new': '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+            'unread': '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>',
+            'read': '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'
+        };
+        return icons[status] || '';
+    }
+
+    function updateInquiryStatusInTable(inquiryId, newStatus, newStatusLabel) {
+        // Cari baris inquiry berdasarkan ID
+        const row = document.querySelector(`tr[data-id="${inquiryId}"]`);
+        if (!row) return;
+
+        // ✅ Hilangkan efek highlight "unread" (bg-blue-50/30)
+        row.classList.remove('bg-blue-50/30');
+
+        // ✅ Update badge di kolom status
+        const badge = row.querySelector('.inline-flex.items-center.px-2\\.5.py-1.rounded-full');
+        if (badge) {
+            badge.className = `inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${getStatusClass(newStatus)}`;
+            badge.innerHTML = `${getStatusIcon(newStatus)} ${newStatusLabel}`;
+        }
+
+        // ✅ Optional: hilangkan dot pulse
+        const dot = row.querySelector('span.bg-blue-600');
+        if (dot) dot.remove();
+
+        // ✅ Optional: update counter badge di header (jika ada notif badge)
+        // Panggil API atau update via cached value
+        updateUnreadCount();
+    }
 
     window.closeDetailModal = function() {
         document.getElementById('detailModal').classList.add('hidden');

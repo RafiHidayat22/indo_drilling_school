@@ -30,16 +30,21 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) translateX(0);
                 opacity: 0;
             }
+
             10% {
                 opacity: 1;
             }
+
             90% {
                 opacity: 1;
             }
+
             100% {
                 transform: translateY(-100vh) translateX(100px);
                 opacity: 0;
@@ -140,6 +145,7 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -151,6 +157,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -166,6 +173,7 @@
                 opacity: 0;
                 transform: translateX(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -229,6 +237,23 @@
             background: linear-gradient(135deg, rgba(126, 34, 206, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
             border: 1px solid rgba(126, 34, 206, 0.2);
         }
+
+        /* Nonaktifkan toggle password bawaan browser */
+        input[type="password"]::-webkit-password-reveal-button {
+            display: none !important;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        /* Untuk IE/Edge lama */
+        input[type="password"]::-ms-reveal {
+            display: none;
+        }
+
+        /* Jika ada tombol clear otomatis */
+        input[type="password"]::-ms-clear {
+            display: none;
+        }
     </style>
 </head>
 
@@ -261,31 +286,31 @@
                 <p class="text-gray-500 text-xs sm:text-sm">Silakan masuk ke akun admin Anda</p>
             </div>
 
-<?php if(session('success')): ?>
-<div class="alert bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded-lg animate-slideInRight">
-    <div class="flex items-center">
-        <i class="fas fa-check-circle text-green-500 mr-3"></i>
-        <p class="text-green-700 text-sm font-medium"><?php echo e(session('success')); ?></p>
-    </div>
-</div>
-<?php endif; ?>
+            <?php if(session('success')): ?>
+            <div class="alert bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded-lg animate-slideInRight">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <p class="text-green-700 text-sm font-medium"><?php echo e(session('success')); ?></p>
+                </div>
+            </div>
+            <?php endif; ?>
 
-<!-- Alert Error -->
-<?php if(session('error')): ?>
-<div class="alert bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg animate-slideInRight">
-    <div class="flex items-center">
-        <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
-        <p class="text-red-700 text-sm font-medium"><?php echo e(session('error')); ?></p>
-    </div>
-</div>
-<?php endif; ?>
+            <!-- Alert Error -->
+            <?php if(session('error')): ?>
+            <div class="alert bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg animate-slideInRight">
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
+                    <p class="text-red-700 text-sm font-medium"><?php echo e(session('error')); ?></p>
+                </div>
+            </div>
+            <?php endif; ?>
 
-<div id="errorAlert" class="hidden alert bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg animate-slideInRight">
-    <div class="flex items-center">
-        <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
-        <p id="errorMessage" class="text-red-700 text-sm font-medium"></p>
-    </div>
-</div>
+            <div id="errorAlert" class="hidden alert bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg animate-slideInRight">
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
+                    <p id="errorMessage" class="text-red-700 text-sm font-medium"></p>
+                </div>
+            </div>
 
 
             <form id="loginForm">
@@ -315,13 +340,13 @@
                             type="password"
                             id="password"
                             name="password"
-                            class="input-field w-full px-4 py-3 sm:py-3.5 rounded-xl focus:outline-none pr-12 text-gray-700 text-sm sm:text-base"
+                            class="input-field w-full px-4 py-3 sm:py-3.5 rounded-xl focus:outline-none text-gray-700 text-sm sm:text-base"
                             placeholder="Masukkan password Anda"
                             required>
                         <button
                             type="button"
                             id="togglePassword"
-                            class="password-toggle absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg">
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg hover:text-purple-600 transition">
                             <i class="fas fa-eye" id="eyeIcon"></i>
                         </button>
                     </div>
@@ -403,107 +428,107 @@
 
         // Form Validation & Submit
         const loginForm = document.getElementById('loginForm');
-const errorAlert = document.getElementById('errorAlert');
-const errorMessage = document.getElementById('errorMessage');
+        const errorAlert = document.getElementById('errorAlert');
+        const errorMessage = document.getElementById('errorMessage');
 
-loginForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
 
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-    const remember = document.querySelector('input[name="remember"]').checked;
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const remember = document.querySelector('input[name="remember"]').checked;
 
-    // Clear previous errors
-    errorAlert.classList.add('hidden');
+            // Clear previous errors
+            errorAlert.classList.add('hidden');
 
-    // Validation
-    if (email === '') {
-        showError('Email tidak boleh kosong');
-        return false;
-    }
+            // Validation
+            if (email === '') {
+                showError('Email tidak boleh kosong');
+                return false;
+            }
 
-    if (password === '') {
-        showError('Password tidak boleh kosong');
-        return false;
-    }
+            if (password === '') {
+                showError('Password tidak boleh kosong');
+                return false;
+            }
 
-    if (password.length < 6) {
-        showError('Password minimal 6 karakter');
-        return false;
-    }
+            if (password.length < 6) {
+                showError('Password minimal 6 karakter');
+                return false;
+            }
 
-    // Disable button saat loading
-    const submitBtn = loginForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Memproses...';
+            // Disable button saat loading
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Memproses...';
 
-    try {
-        // Request ke API login
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-            },
-            credentials: 'same-origin', // Penting untuk cookies
-            body: JSON.stringify({ 
-                email, 
-                password,
-                remember 
-            })
+            try {
+                // Request ke API login
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    },
+                    credentials: 'same-origin', // Penting untuk cookies
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        remember
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    showError(data.message || 'Login gagal. Periksa email dan password Anda.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    return;
+                }
+
+                // Login berhasil
+                showSuccess('Login berhasil! Mengalihkan ke dashboard...');
+
+                // Redirect ke dashboard setelah 1 detik
+                setTimeout(() => {
+                    window.location.href = '/articleadmin';
+                }, 1000);
+
+            } catch (error) {
+                showError('Terjadi kesalahan koneksi. Silakan coba lagi.');
+                console.error('Login error:', error);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
 
-        const data = await response.json();
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorAlert.classList.remove('hidden');
+            errorAlert.classList.remove('bg-green-50', 'border-green-500');
+            errorAlert.classList.add('bg-red-50', 'border-red-500');
+            errorAlert.querySelector('i').classList.remove('fa-check-circle', 'text-green-500');
+            errorAlert.querySelector('i').classList.add('fa-exclamation-circle', 'text-red-500');
+            errorAlert.querySelector('p').classList.remove('text-green-700');
+            errorAlert.querySelector('p').classList.add('text-red-700');
 
-        if (!response.ok) {
-            showError(data.message || 'Login gagal. Periksa email dan password Anda.');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
-            return;
+            setTimeout(() => {
+                errorAlert.classList.add('hidden');
+            }, 5000);
         }
 
-        // Login berhasil
-        showSuccess('Login berhasil! Mengalihkan ke dashboard...');
-        
-        // Redirect ke dashboard setelah 1 detik
-        setTimeout(() => {
-            window.location.href = '/users';
-        }, 1000);
-
-    } catch (error) {
-        showError('Terjadi kesalahan koneksi. Silakan coba lagi.');
-        console.error('Login error:', error);
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-    }
-});
-
-function showError(message) {
-    errorMessage.textContent = message;
-    errorAlert.classList.remove('hidden');
-    errorAlert.classList.remove('bg-green-50', 'border-green-500');
-    errorAlert.classList.add('bg-red-50', 'border-red-500');
-    errorAlert.querySelector('i').classList.remove('fa-check-circle', 'text-green-500');
-    errorAlert.querySelector('i').classList.add('fa-exclamation-circle', 'text-red-500');
-    errorAlert.querySelector('p').classList.remove('text-green-700');
-    errorAlert.querySelector('p').classList.add('text-red-700');
-
-    setTimeout(() => {
-        errorAlert.classList.add('hidden');
-    }, 5000);
-}
-
-function showSuccess(message) {
-    errorMessage.textContent = message;
-    errorAlert.classList.remove('hidden', 'bg-red-50', 'border-red-500');
-    errorAlert.classList.add('bg-green-50', 'border-green-500');
-    errorAlert.querySelector('i').classList.remove('fa-exclamation-circle', 'text-red-500');
-    errorAlert.querySelector('i').classList.add('fa-check-circle', 'text-green-500');
-    errorAlert.querySelector('p').classList.remove('text-red-700');
-    errorAlert.querySelector('p').classList.add('text-green-700');
-}
+        function showSuccess(message) {
+            errorMessage.textContent = message;
+            errorAlert.classList.remove('hidden', 'bg-red-50', 'border-red-500');
+            errorAlert.classList.add('bg-green-50', 'border-green-500');
+            errorAlert.querySelector('i').classList.remove('fa-exclamation-circle', 'text-red-500');
+            errorAlert.querySelector('i').classList.add('fa-check-circle', 'text-green-500');
+            errorAlert.querySelector('p').classList.remove('text-red-700');
+            errorAlert.querySelector('p').classList.add('text-green-700');
+        }
 
         // Ripple effect
         const loginBtn = document.querySelector('.btn-login');
@@ -524,5 +549,5 @@ function showSuccess(message) {
         });
     </script>
 </body>
-</html>
-<?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/login.blade.php ENDPATH**/ ?>
+
+</html><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/login.blade.php ENDPATH**/ ?>

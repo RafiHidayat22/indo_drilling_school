@@ -155,7 +155,7 @@
                         <p class="text-sm font-medium text-slate-600 mb-1">Galeri Featured</p>
                         <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['featuredGalleryImages']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
-                            <span class="text-rose-600 font-semibold">Ditampilkan di beranda</span>
+                            <span class="text-rose-600 font-semibold">Ditampilkan Unggulan</span>
                         </p>
                     </div>
                     <div class="p-3 bg-rose-100 rounded-lg">

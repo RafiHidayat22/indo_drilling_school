@@ -265,6 +265,7 @@
 </div>
 
 <!-- Modal Tambah Project -->
+<!-- Modal Tambah Project -->
 <div id="addModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto my-8">
         <div class="bg-gradient-to-r from-red-600 to-red-700 px-6 py-4 rounded-t-2xl">
@@ -282,15 +283,15 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Judul Project *</label>
-                    <input type="text" name="title" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+                    <input type="text" name="title" required placeholder="Contoh: Deepwater Drilling Project – Offshore Java" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Client</label>
-                    <input type="text" name="client" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+                    <input type="text" name="client" placeholder="Nama klien, misalnya: PT Pertamina Hulu Energi" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Lokasi</label>
-                    <input type="text" name="location" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+                    <input type="text" name="location" placeholder="Contoh: Blok Masela, Laut Arafuru" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Tanggal Mulai</label>
@@ -303,7 +304,7 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Kategori</label>
                     <select name="category" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
-                        <option value="">Pilih Kategori</option>
+                        <option value="" disabled selected>Pilih kategori project</option>
                         <option value="drilling">Drilling</option>
                         <option value="safety">Safety</option>
                         <option value="certification">Certification</option>
@@ -312,29 +313,30 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Status *</label>
                     <select name="status" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+                        <option value="" disabled selected>Pilih status project</option>
                         <option value="ongoing">Ongoing</option>
                         <option value="completed">Completed</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Order</label>
-                    <input type="number" name="order" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
+                    <input type="number" name="order" placeholder="Urutan tampil (default: auto)" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition">
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Deskripsi Project *</label>
-                    <textarea name="description" required rows="4" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"></textarea>
+                    <textarea name="description" required rows="4" placeholder="Deskripsikan project secara singkat & jelas. Fokus pada scope, tujuan, dan konteks. Minimal 50 karakter." class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"></textarea>
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Challenges</label>
-                    <textarea name="challenges" rows="3" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"></textarea>
+                    <textarea name="challenges" rows="3" placeholder="Tantangan teknis/logistik/keamanan yang dihadapi (opsional)" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"></textarea>
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Solutions</label>
-                    <textarea name="solutions" rows="3" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"></textarea>
+                    <textarea name="solutions" rows="3" placeholder="Langkah atau inovasi yang diambil untuk mengatasi tantangan" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"></textarea>
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Results & Impact</label>
-                    <textarea name="results" rows="3" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"></textarea>
+                    <textarea name="results" rows="3" placeholder="Capaian kuantitatif/kualitatif (misal: zero incident, 15% efisiensi waktu)" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"></textarea>
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Featured Image</label>
