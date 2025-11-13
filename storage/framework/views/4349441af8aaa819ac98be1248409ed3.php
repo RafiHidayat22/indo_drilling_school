@@ -1,18 +1,16 @@
-@extends('layouts.adminmain')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <!-- Header Section -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-slate-800">{{ $pageTitle }}</h1>
-                    <p class="mt-2 text-sm text-slate-600">Selamat datang kembali, {{ Auth::user()->name ?? 'Admin' }}!</p>
+                    <h1 class="text-3xl font-bold text-slate-800"><?php echo e($pageTitle); ?></h1>
+                    <p class="mt-2 text-sm text-slate-600">Selamat datang kembali, <?php echo e(Auth::user()->name ?? 'Admin'); ?>!</p>
                 </div>
                 <div class="text-right">
-                    <p class="text-sm text-slate-600">{{ now()->isoFormat('dddd, D MMMM YYYY') }}</p>
-                    <p class="text-xs text-slate-500 mt-1">{{ now()->format('H:i') }} WIB</p>
+                    <p class="text-sm text-slate-600"><?php echo e(now()->isoFormat('dddd, D MMMM YYYY')); ?></p>
+                    <p class="text-xs text-slate-500 mt-1"><?php echo e(now()->format('H:i')); ?> WIB</p>
                 </div>
             </div>
         </div>
@@ -24,9 +22,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total Artikel</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $stats['totalArticles'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['totalArticles']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
-                            <span class="text-green-600 font-semibold">+{{ $stats['newArticlesThisMonth'] }}</span> bulan ini
+                            <span class="text-green-600 font-semibold">+<?php echo e($stats['newArticlesThisMonth']); ?></span> bulan ini
                         </p>
                     </div>
                     <div class="p-3 bg-purple-100 rounded-lg">
@@ -43,9 +41,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total Program</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $stats['totalPrograms'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['totalPrograms']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
-                            <span class="text-blue-600 font-semibold">{{ $stats['activePrograms'] }}</span> aktif
+                            <span class="text-blue-600 font-semibold"><?php echo e($stats['activePrograms']); ?></span> aktif
                         </p>
                     </div>
                     <div class="p-3 bg-blue-100 rounded-lg">
@@ -61,9 +59,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total User</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $stats['totalUsers'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['totalUsers']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
-                            <span class="text-green-600 font-semibold">+{{ $stats['newUsersThisWeek'] }}</span> minggu ini
+                            <span class="text-green-600 font-semibold">+<?php echo e($stats['newUsersThisWeek']); ?></span> minggu ini
                         </p>
                     </div>
                     <div class="p-3 bg-green-100 rounded-lg">
@@ -79,9 +77,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Inquiry Pending</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $stats['pendingInquiries'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['pendingInquiries']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
-                            <span class="text-amber-600 font-semibold">{{ $stats['unreadInquiries'] }}</span> belum dibaca
+                            <span class="text-amber-600 font-semibold"><?php echo e($stats['unreadInquiries']); ?></span> belum dibaca
                         </p>
                     </div>
                     <div class="p-3 bg-amber-100 rounded-lg">
@@ -101,9 +99,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total Project</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $stats['totalProjects'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['totalProjects']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
-                            <span class="text-cyan-600 font-semibold">{{ $stats['activeProjects'] }}</span> sedang berjalan
+                            <span class="text-cyan-600 font-semibold"><?php echo e($stats['activeProjects']); ?></span> sedang berjalan
                         </p>
                     </div>
                     <div class="p-3 bg-cyan-100 rounded-lg">
@@ -119,9 +117,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Project Selesai</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $stats['completedProjects'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['completedProjects']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
-                            <span class="text-green-600 font-semibold">{{ $stats['featuredProjects'] }}</span> ditampilkan
+                            <span class="text-green-600 font-semibold"><?php echo e($stats['featuredProjects']); ?></span> ditampilkan
                         </p>
                     </div>
                     <div class="p-3 bg-emerald-100 rounded-lg">
@@ -137,9 +135,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Total Galeri</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $stats['totalGalleryImages'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['totalGalleryImages']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
-                            <span class="text-pink-600 font-semibold">{{ $stats['activeGalleryImages'] }}</span> aktif
+                            <span class="text-pink-600 font-semibold"><?php echo e($stats['activeGalleryImages']); ?></span> aktif
                         </p>
                     </div>
                     <div class="p-3 bg-pink-100 rounded-lg">
@@ -155,7 +153,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-slate-600 mb-1">Galeri Featured</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $stats['featuredGalleryImages'] }}</p>
+                        <p class="text-3xl font-bold text-slate-800"><?php echo e($stats['featuredGalleryImages']); ?></p>
                         <p class="text-xs text-slate-500 mt-2">
                             <span class="text-rose-600 font-semibold">Ditampilkan di beranda</span>
                         </p>
@@ -175,42 +173,43 @@
             <div class="lg:col-span-2 bg-white rounded-xl shadow-md overflow-hidden">
                 <div class="px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between">
                     <h2 class="text-lg font-semibold text-slate-800">Artikel Terbaru</h2>
-                    <a href="{{ route('articleadmin.index') }}" class="text-sm text-indigo-600 hover:text-indigo-800 font-semibold">
+                    <a href="<?php echo e(route('articleadmin.index')); ?>" class="text-sm text-indigo-600 hover:text-indigo-800 font-semibold">
                         Lihat Semua →
                     </a>
                 </div>
                 <div class="p-6">
                     <div class="space-y-4">
-                        @forelse($recentArticles as $article)
+                        <?php $__empty_1 = true; $__currentLoopData = $recentArticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="flex items-start space-x-4 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
                             <div class="flex-shrink-0">
-                                <div class="w-16 h-16 bg-gradient-to-br {{ $article['colorClass'] }} rounded-lg flex items-center justify-center">
-                                    <span class="text-white font-bold text-lg">{{ substr($article['title'], 0, 1) }}</span>
+                                <div class="w-16 h-16 bg-gradient-to-br <?php echo e($article['colorClass']); ?> rounded-lg flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg"><?php echo e(substr($article['title'], 0, 1)); ?></span>
                                 </div>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between mb-1">
-                                    <h3 class="text-sm font-semibold text-slate-900 truncate">{{ $article['title'] }}</h3>
-                                    <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $article['statusClass'] }}">
-                                        {{ $article['status'] }}
+                                    <h3 class="text-sm font-semibold text-slate-900 truncate"><?php echo e($article['title']); ?></h3>
+                                    <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <?php echo e($article['statusClass']); ?>">
+                                        <?php echo e($article['status']); ?>
+
                                     </span>
                                 </div>
-                                <p class="text-xs text-slate-600 mb-2">{{ $article['category'] }}</p>
+                                <p class="text-xs text-slate-600 mb-2"><?php echo e($article['category']); ?></p>
                                 <div class="flex items-center text-xs text-slate-500">
                                     <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                     </svg>
-                                    <span>{{ $article['author'] }}</span>
+                                    <span><?php echo e($article['author']); ?></span>
                                     <span class="mx-2">•</span>
-                                    <span>{{ $article['date'] }}</span>
+                                    <span><?php echo e($article['date']); ?></span>
                                 </div>
                             </div>
                         </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="text-center py-8">
                             <p class="text-slate-500 text-sm">Belum ada artikel terbaru</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -224,7 +223,7 @@
                     </div>
                     <div class="p-6">
                         <div class="space-y-3">
-                            <a href="{{ route('articleadmin.index') }}" class="flex items-center p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition group">
+                            <a href="<?php echo e(route('articleadmin.index')); ?>" class="flex items-center p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition group">
                                 <div class="p-2 bg-purple-500 rounded-lg mr-3 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -232,7 +231,7 @@
                                 </div>
                                 <span class="text-sm font-semibold text-slate-800">Tambah Artikel</span>
                             </a>
-                            <a href="{{ route('categories.index') }}" class="flex items-center p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition group">
+                            <a href="<?php echo e(route('categories.index')); ?>" class="flex items-center p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition group">
                                 <div class="p-2 bg-blue-500 rounded-lg mr-3 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -240,7 +239,7 @@
                                 </div>
                                 <span class="text-sm font-semibold text-slate-800">Tambah Program</span>
                             </a>
-                            <a href="{{ route('users.index') }}" class="flex items-center p-3 bg-green-50 hover:bg-green-100 rounded-lg transition group">
+                            <a href="<?php echo e(route('users.index')); ?>" class="flex items-center p-3 bg-green-50 hover:bg-green-100 rounded-lg transition group">
                                 <div class="p-2 bg-green-500 rounded-lg mr-3 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
@@ -248,7 +247,7 @@
                                 </div>
                                 <span class="text-sm font-semibold text-slate-800">Tambah User</span>
                             </a>
-                            <a href="{{ route('contactadmin') }}" class="flex items-center p-3 bg-amber-50 hover:bg-amber-100 rounded-lg transition group">
+                            <a href="<?php echo e(route('contactadmin')); ?>" class="flex items-center p-3 bg-amber-50 hover:bg-amber-100 rounded-lg transition group">
                                 <div class="p-2 bg-amber-500 rounded-lg mr-3 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
@@ -264,28 +263,28 @@
                 <div class="bg-white rounded-xl shadow-md overflow-hidden">
                     <div class="px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between">
                         <h2 class="text-lg font-semibold text-slate-800">Inquiry Terbaru</h2>
-                        <a href="{{ route('contactadmin') }}" class="text-sm text-indigo-600 hover:text-indigo-800 font-semibold">
+                        <a href="<?php echo e(route('contactadmin')); ?>" class="text-sm text-indigo-600 hover:text-indigo-800 font-semibold">
                             Lihat Semua →
                         </a>
                     </div>
                     <div class="p-6">
                         <div class="space-y-3">
-                            @forelse($recentInquiries as $inquiry)
+                            <?php $__empty_1 = true; $__currentLoopData = $recentInquiries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $inquiry): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <div class="flex items-start space-x-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
-                                @if(!$inquiry['is_read'])
+                                <?php if(!$inquiry['is_read']): ?>
                                 <span class="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0 animate-pulse"></span>
-                                @endif
+                                <?php endif; ?>
                                 <div class="flex-1 min-w-0">
-                                    <h4 class="text-sm font-semibold text-slate-900 truncate">{{ $inquiry['name'] }}</h4>
-                                    <p class="text-xs text-slate-600 truncate">{{ $inquiry['subject'] }}</p>
-                                    <p class="text-xs text-slate-500 mt-1">{{ $inquiry['time'] }}</p>
+                                    <h4 class="text-sm font-semibold text-slate-900 truncate"><?php echo e($inquiry['name']); ?></h4>
+                                    <p class="text-xs text-slate-600 truncate"><?php echo e($inquiry['subject']); ?></p>
+                                    <p class="text-xs text-slate-500 mt-1"><?php echo e($inquiry['time']); ?></p>
                                 </div>
                             </div>
-                            @empty
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <div class="text-center py-4">
                                 <p class="text-slate-500 text-sm">Belum ada inquiry</p>
                             </div>
-                            @endforelse
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -301,38 +300,41 @@
                 </div>
                 <div class="p-6">
                     <div class="space-y-4">
-                        @forelse($recentProjects as $project)
+                        <?php $__empty_1 = true; $__currentLoopData = $recentProjects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
                             <div class="flex items-start justify-between mb-2">
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center gap-2 mb-1">
-                                        <h3 class="text-sm font-semibold text-slate-900 truncate">{{ $project['title'] }}</h3>
-                                        @if($project['is_featured'])
+                                        <h3 class="text-sm font-semibold text-slate-900 truncate"><?php echo e($project['title']); ?></h3>
+                                        <?php if($project['is_featured']): ?>
                                         <svg class="w-4 h-4 text-yellow-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                         </svg>
-                                        @endif
+                                        <?php endif; ?>
                                     </div>
                                     <p class="text-xs text-slate-600 mb-2">
-                                        <span class="font-medium">Client:</span> {{ $project['client'] }}
+                                        <span class="font-medium">Client:</span> <?php echo e($project['client']); ?>
+
                                     </p>
                                 </div>
-                                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $project['statusClass'] }} flex-shrink-0">
-                                    {{ $project['status'] }}
+                                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <?php echo e($project['statusClass']); ?> flex-shrink-0">
+                                    <?php echo e($project['status']); ?>
+
                                 </span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium {{ $project['categoryClass'] }}">
-                                    {{ $project['category'] }}
+                                <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium <?php echo e($project['categoryClass']); ?>">
+                                    <?php echo e($project['category']); ?>
+
                                 </span>
-                                <span class="text-xs text-slate-500">{{ $project['date'] }}</span>
+                                <span class="text-xs text-slate-500"><?php echo e($project['date']); ?></span>
                             </div>
                         </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="text-center py-8">
                             <p class="text-slate-500 text-sm">Belum ada project</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -344,24 +346,24 @@
                 </div>
                 <div class="p-6">
                     <div class="space-y-6">
-                        @forelse($projectsByStatus as $status)
+                        <?php $__empty_1 = true; $__currentLoopData = $projectsByStatus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div>
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm font-medium text-slate-700">{{ $status['status'] }}</span>
-                                <span class="text-sm font-semibold text-slate-900">{{ $status['count'] }} Project</span>
+                                <span class="text-sm font-medium text-slate-700"><?php echo e($status['status']); ?></span>
+                                <span class="text-sm font-semibold text-slate-900"><?php echo e($status['count']); ?> Project</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="flex-1 bg-slate-200 rounded-full h-3">
-                                    <div class="h-3 rounded-full {{ str_replace('text-', 'bg-', explode(' ', $status['colorClass'])[0]) }}" style="width: {{ ($status['count'] / $stats['totalProjects']) * 100 }}%"></div>
+                                    <div class="h-3 rounded-full <?php echo e(str_replace('text-', 'bg-', explode(' ', $status['colorClass'])[0])); ?>" style="width: <?php echo e(($status['count'] / $stats['totalProjects']) * 100); ?>%"></div>
                                 </div>
-                                <span class="text-xs text-slate-500 w-12 text-right">{{ round(($status['count'] / $stats['totalProjects']) * 100, 1) }}%</span>
+                                <span class="text-xs text-slate-500 w-12 text-right"><?php echo e(round(($status['count'] / $stats['totalProjects']) * 100, 1)); ?>%</span>
                             </div>
                         </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="text-center py-8">
                             <p class="text-slate-500 text-sm">Belum ada data status project</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -373,19 +375,19 @@
                 <h2 class="text-lg font-semibold text-slate-800">Galeri Terbaru</h2>
             </div>
             <div class="p-6">
-                @if(count($recentGalleryImages) > 0)
+                <?php if(count($recentGalleryImages) > 0): ?>
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                    @foreach($recentGalleryImages as $image)
+                    <?php $__currentLoopData = $recentGalleryImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="group relative">
                         <div class="aspect-square rounded-lg overflow-hidden bg-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
-                            <img src="{{ $image['image_url'] }}" alt="{{ $image['title'] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                            <img src="<?php echo e($image['image_url']); ?>" alt="<?php echo e($image['title']); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <div class="absolute bottom-0 left-0 right-0 p-3">
-                                    <h3 class="text-xs font-semibold text-white truncate">{{ $image['title'] }}</h3>
-                                    <p class="text-xs text-slate-200">{{ $image['year'] }}</p>
+                                    <h3 class="text-xs font-semibold text-white truncate"><?php echo e($image['title']); ?></h3>
+                                    <p class="text-xs text-slate-200"><?php echo e($image['year']); ?></p>
                                 </div>
                             </div>
-                            @if($image['is_featured'])
+                            <?php if($image['is_featured']): ?>
                             <div class="absolute top-2 right-2">
                                 <span class="inline-flex items-center justify-center w-6 h-6 bg-yellow-500 rounded-full shadow-lg">
                                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -393,19 +395,19 @@
                                     </svg>
                                 </span>
                             </div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-                @else
+                <?php else: ?>
                 <div class="text-center py-12">
                     <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
                     </svg>
                     <p class="text-slate-500 text-sm">Belum ada gambar di galeri</p>
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
 
@@ -417,25 +419,25 @@
                     <h2 class="text-lg font-semibold text-slate-800">Artikel per Kategori</h2>
                 </div>
                 <div class="p-6">
-                    @if(count($articlesByCategory) > 0)
+                    <?php if(count($articlesByCategory) > 0): ?>
                     <div class="space-y-4">
-                        @foreach($articlesByCategory as $category)
+                        <?php $__currentLoopData = $articlesByCategory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div>
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm font-medium text-slate-700">{{ $category['name'] }}</span>
-                                <span class="text-sm font-semibold text-slate-900">{{ $category['count'] }}</span>
+                                <span class="text-sm font-medium text-slate-700"><?php echo e($category['name']); ?></span>
+                                <span class="text-sm font-semibold text-slate-900"><?php echo e($category['count']); ?></span>
                             </div>
                             <div class="w-full bg-slate-200 rounded-full h-2">
-                                <div class="h-2 rounded-full {{ $category['colorClass'] }}" style="width: {{ $category['percentage'] }}%"></div>
+                                <div class="h-2 rounded-full <?php echo e($category['colorClass']); ?>" style="width: <?php echo e($category['percentage']); ?>%"></div>
                             </div>
                         </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                    @else
+                    <?php else: ?>
                     <div class="text-center py-8">
                         <p class="text-slate-500 text-sm">Belum ada artikel dalam kategori</p>
                     </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -445,30 +447,32 @@
                     <h2 class="text-lg font-semibold text-slate-800">Aktivitas Sistem</h2>
                 </div>
                 <div class="p-6">
-                    @if(count($systemActivity) > 0)
+                    <?php if(count($systemActivity) > 0): ?>
                     <div class="space-y-4">
-                        @foreach($systemActivity as $activity)
+                        <?php $__currentLoopData = $systemActivity; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $activity): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="flex items-start space-x-3">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 rounded-full {{ $activity['iconBg'] }} flex items-center justify-center">
-                                    {!! $activity['icon'] !!}
+                                <div class="w-8 h-8 rounded-full <?php echo e($activity['iconBg']); ?> flex items-center justify-center">
+                                    <?php echo $activity['icon']; ?>
+
                                 </div>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-sm text-slate-800">{!! $activity['description'] !!}</p>
-                                <p class="text-xs text-slate-500 mt-1">{{ $activity['time'] }}</p>
+                                <p class="text-sm text-slate-800"><?php echo $activity['description']; ?></p>
+                                <p class="text-xs text-slate-500 mt-1"><?php echo e($activity['time']); ?></p>
                             </div>
                         </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                    @else
+                    <?php else: ?>
                     <div class="text-center py-8">
                         <p class="text-slate-500 text-sm">Belum ada aktivitas sistem</p>
                     </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminmain', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\indo_drilling_school\resources\views/dashboardadmin.blade.php ENDPATH**/ ?>

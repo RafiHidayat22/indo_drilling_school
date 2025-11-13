@@ -11,6 +11,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\GalleryAdminController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\AdminProjectController;
+use Illuminate\Support\Facades\Auth;
 
 
 // Public routes
@@ -33,7 +35,7 @@ Route::get('/articles/{slug}', [ArticleWebController::class, 'show'])->name('art
 // Login route (hanya untuk guest)
 Route::get('/login', function () {
     if (auth()->check()) {
-        return redirect('/articleadmin');
+        return redirect('/');
     }
     return view('login');
 })->name('login');
@@ -137,6 +139,20 @@ Route::middleware(['check.auth'])->group(function () {
         Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])
             ->name('dashboardadmin');
     });
+
+
+
+    Route::middleware(['check.auth', 'role:admin,superAdmin'])
+        ->prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+            Route::get('/projects', [AdminProjectController::class, 'index'])->name('projects.index');
+            Route::post('/projects', [AdminProjectController::class, 'store'])->name('projects.store');
+            Route::get('/projects/{id}', [AdminProjectController::class, 'show'])->name('projects.show');
+            Route::put('/projects/{id}', [AdminProjectController::class, 'update'])->name('projects.update');
+            Route::delete('/projects/{id}', [AdminProjectController::class, 'destroy'])->name('projects.destroy');
+            Route::post('/admin/projects/delete-gallery-image', [AdminProjectController::class, 'deleteGalleryImage'])->name('admin.projects.delete-gallery-image');
+        });
 });
 
 

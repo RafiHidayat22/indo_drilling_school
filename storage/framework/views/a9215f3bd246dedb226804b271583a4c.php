@@ -34,6 +34,17 @@
                 </div>
                 <span class="ml-4">Artikel</span>
             </a>
+            <!-- Projects -->
+            <!-- Projects -->
+            <a href="<?php echo e(route('admin.projects.index')); ?>"
+                class="sidebar-menu-item flex items-center px-4 py-3 
+          <?php echo e(request()->is('admin/projects*') ? 'bg-slate-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-700'); ?> 
+          rounded-lg">
+                <div class="sidebar-icon">
+                    <i class="fas fa-project-diagram text-lg"></i> 
+                </div>
+                <span class="ml-4">Projects</span>
+            </a>
 
             <!-- Pelatihan dengan Dropdown -->
             <div class="relative">

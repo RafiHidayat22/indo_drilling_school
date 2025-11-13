@@ -1,44 +1,42 @@
-@extends('layouts.app')
-
-@section('title', 'Home | Indonesia Drilling School')
+<?php $__env->startSection('title', 'Home | Indonesia Drilling School'); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="page-home">
     <!-- ================= HERO SECTION ================= -->
     <section class="relative min-h-screen bg-gray-900 text-white overflow-hidden">
-        <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-transparent to-red-900/30 z-[1]"></div>
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-transparent to-red-900/30 z-[1]"></div>
 
-        <!-- Background Images Container -->
-        <div class="absolute inset-0">
-            <!-- Image 1 -->
-            <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-100">
-                <img src="{{ asset('images/imgHero.jpg') }}"
-                    alt="Oil Rig Background"
-                    class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
-                <div class="absolute inset-0 bg-black/60"></div>
-            </div>
-
-            <!-- Image 2 -->
-            <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
-                <img src="{{ asset('images/imgHeroAbout.jpg') }}"
-                    alt="Oil Rig Background 2"
-                    class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
-                <div class="absolute inset-0 bg-black/60"></div>
-            </div>
-
-            <!-- Image 3 -->
-            <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
-                <img src="{{ asset('images/imgHeroProgram.jpg') }}"
-                    alt="Oil Rig Background 3"
-                    class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
-                <div class="absolute inset-0 bg-black/60"></div>
-            </div>
+    <!-- Background Images Container -->
+    <div class="absolute inset-0">
+        <!-- Image 1 -->
+        <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-100">
+            <img src="<?php echo e(asset('images/imgHero.jpg')); ?>"
+                alt="Oil Rig Background"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+            <div class="absolute inset-0 bg-black/60"></div>
         </div>
+        
+        <!-- Image 2 -->
+        <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
+            <img src="<?php echo e(asset('images/imgHeroAbout.jpg')); ?>"
+                alt="Oil Rig Background 2"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+            <div class="absolute inset-0 bg-black/60"></div>
+        </div>
+        
+        <!-- Image 3 -->
+        <div class="hero-bg-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
+            <img src="<?php echo e(asset('images/imgHeroProgram.jpg')); ?>"
+                alt="Oil Rig Background 3"
+                class="w-full h-full object-cover opacity-60 home-animate-slow-zoom">
+            <div class="absolute inset-0 bg-black/60"></div>
+        </div>
+    </div>
 
-        <!-- Animated Particles Effect -->
-        <div class="absolute inset-0 z-[2]" style="background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.3;"></div>
+    <!-- Animated Particles Effect -->
+    <div class="absolute inset-0 z-[2]" style="background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.3;"></div>
 
         <!-- Content Container -->
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
@@ -100,14 +98,14 @@
                         <div class="relative w-full max-w-lg lg:max-w-none h-[450px] sm:h-[500px] lg:h-[650px] xl:h-[750px] 2xl:h-[820px] flex items-end justify-center lg:justify-end">
                             <!-- Engineer 1 - Female (Left) -->
                             <div class="relative w-[68%] sm:w-[66%] lg:w-[65%] xl:w-[63%] h-full flex items-end home-floating">
-                                <img src="{{ asset('images/EngineerHero.png') }}"
+                                <img src="<?php echo e(asset('images/EngineerHero.png')); ?>"
                                     alt="Female Engineer"
                                     class="w-full h-auto max-h-full object-contain object-bottom drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 filter brightness-110" />
                             </div>
 
                             <!-- Engineer 2 - Male (Right, Slightly Forward) -->
                             <div class="relative w-[68%] sm:w-[66%] lg:w-[65%] xl:w-[63%] h-full flex items-end z-10 home-floating home-hero-engineer -ml-[10%] sm:-ml-[8%] lg:-ml-[8%] xl:-ml-[6%]">
-                                <img src="{{ asset('images/cowokenginer1.png') }}"
+                                <img src="<?php echo e(asset('images/cowokenginer1.png')); ?>"
                                     alt="Male Engineer"
                                     class="w-full h-auto max-h-full object-contain object-bottom drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 filter brightness-110" />
                             </div>
@@ -154,7 +152,7 @@
                 </p>
 
                 <!-- Vision / Mission / Goals Cards -->
-                @foreach ([
+                <?php $__currentLoopData = [
                 ['Vision', 'To become an educational institution capable of producing human resources who are competent, responsive, resilient, skilled, independent, professional, and ready to compete in the global workforce.', 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'],
                 ['Mission', '<ol class="list-disc ml-5 space-y-2">
                     <li>Produce skilled and professional workers.</li>
@@ -170,28 +168,28 @@
                     <li>Develop excellent, educated, competent, and professional workers, creating human resources with integrity and expertise in their respective fields.</li>
                     <li>Support government initiatives in human resource development.</li>
                 </ol>', 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z']
-                ] as [$title, $content, $icon])
+                ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$title, $content, $icon]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="group bg-white border border-gray-200 rounded-2xl p-6 text-left mb-4 home-animate-fadeInUp hover:shadow-xl hover:border-red-200 transition-all duration-300 hover:-translate-y-1">
                     <div class="flex items-start gap-4">
                         <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="<?php echo e($icon); ?>" />
                             </svg>
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-bold text-xl text-gray-900 mb-3">{{ $title }}</h3>
-                            <div class="text-gray-600 leading-relaxed">{!! $content !!}</div>
+                            <h3 class="font-bold text-xl text-gray-900 mb-3"><?php echo e($title); ?></h3>
+                            <div class="text-gray-600 leading-relaxed"><?php echo $content; ?></div>
                         </div>
                     </div>
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
             <!-- Right Image Section -->
             <div class="flex justify-center home-animate-fadeInUp delay-500">
                 <div class="relative group">
                     <div class="absolute -inset-4 bg-gradient-to-r from-red-600 to-blue-600 rounded-3xl opacity-20 group-hover:opacity-30 blur-xl transition duration-500"></div>
-                    <img src="{{ asset('images/imgAbout.jpg') }}"
+                    <img src="<?php echo e(asset('images/imgAbout.jpg')); ?>"
                         alt="Engineer working on oil rig"
                         class="relative rounded-3xl shadow-2xl w-full max-w-md object-cover transform group-hover:scale-105 transition duration-500">
                 </div>
@@ -216,11 +214,11 @@
             <div class="relative">
                 <div class="overflow-x-auto overflow-y-hidden home-animate-fadeInUp delay-200 home-scrollbar-hide pb-4" id="programsContainer" style="scroll-behavior: smooth;">
                     <div class="flex gap-6 w-max" id="programsScroll">
-                        @forelse ($trainingCategories as $category)
+                        <?php $__empty_1 = true; $__currentLoopData = $trainingCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="flex-shrink-0 w-80">
                             <div class="group bg-white rounded-3xl shadow-lg overflow-hidden text-center hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 flex flex-col h-full">
                                 <div class="relative h-64 overflow-hidden flex-shrink-0">
-                                    <img src="{{ $category->image ? asset('storage/' . $category->image) : asset('images/default-program-img.jpg') }}" alt="{{ $category->title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                    <img src="<?php echo e($category->image ? asset('storage/' . $category->image) : asset('images/default-program-img.jpg')); ?>" alt="<?php echo e($category->title); ?>" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition"></div>
                                     <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-gray-900">
                                         Professional
@@ -228,12 +226,14 @@
                                 </div>
                                 <div class="p-8 flex flex-col flex-grow">
                                     <h3 class="text-2xl font-bold text-gray-900 mb-4 min-h-[4rem] flex items-center justify-center">
-                                        {{ $category->title }}
+                                        <?php echo e($category->title); ?>
+
                                     </h3>
                                     <p class="text-gray-600 mb-6 leading-relaxed flex-grow min-h-[6rem] line-clamp-3 break-words overflow-hidden">
-                                        {{ $category->description ?? '-' }}
+                                        <?php echo e($category->description ?? '-'); ?>
+
                                     </p>
-                                    <a href="{{ route('program.category', ['categorySlug' => $category->slug]) }}"
+                                    <a href="<?php echo e(route('program.category', ['categorySlug' => $category->slug])); ?>"
                                         class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-6 rounded-xl shadow-md hover:shadow-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 transform hover:-translate-y-1 font-semibold mt-auto">
                                         Learn More
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -243,19 +243,20 @@
                                 </div>
                             </div>
                         </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="w-full text-center py-12">
                             <p class="text-gray-500 text-lg">No training programs available at the moment.</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <!-- Navigation Dots - Hanya Tampil di Desktop -->
-                <div class="hidden md:flex justify-center gap-2 mt-8" id="programsDots"></div>
+                <!-- Navigation Dots (Optional) -->
+                <div class="flex justify-center gap-2 mt-8" id="programsDots"></div>
             </div>
         </div>
     </section>
+    <!-- ================= END INSIGHTS SECTION ================= -->
 
     <!-- ================= INSIGHTS SECTION ================= -->
     <section class="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
@@ -270,67 +271,66 @@
                 <p class="text-gray-600 text-lg max-w-2xl mx-auto">Stay informed with the latest trends and developments in the oil and gas industry</p>
             </div>
 
-            @if($latestArticles->count() > 0)
-            <!-- Scrollable Container -->
-            <div class="relative">
-                <div class="overflow-x-auto overflow-y-hidden home-animate-fadeInUp delay-200 home-scrollbar-hide pb-4" id="insightsContainer" style="scroll-behavior: smooth;">
-                    <div class="flex gap-6 w-max" id="insightsScroll">
-                        @foreach ($latestArticles as $article)
-                        <div class="flex-shrink-0 w-80">
-                            <div class="group bg-white border border-gray-200 rounded-3xl overflow-hidden text-left hover:shadow-2xl hover:border-blue-200 transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full">
-                                <div class="relative h-56 overflow-hidden flex-shrink-0">
-                                    @if($article->featured_image)
-                                    <img src="{{ asset('storage/' . $article->featured_image) }}"
-                                        alt="{{ $article->title }}"
-                                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                                    @else
-                                    <img src="{{ asset('images/default-article.jpg') }}"
-                                        alt="{{ $article->title }}"
-                                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                                    @endif
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                                    <div class="absolute bottom-4 left-4">
-                                        <span class="bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
-                                            {{ $article->category->name ?? 'Industry Insights' }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="p-6 flex flex-col flex-grow"> <!-- padding disesuaikan agar proporsional -->
-                                    <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight min-h-[3.5rem] line-clamp-2">
-                                        {{ $article->title }}
-                                    </h3>
-                                    <p class="text-gray-600 mb-4 leading-relaxed flex-grow min-h-[5rem] line-clamp-3">
-                                        {{ $article->excerpt ?? Str::limit(strip_tags($article->content), 120) }}
-                                    </p>
-                                    <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
-                                        <span class="flex items-center gap-1">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            {{ $article->published_at->format('M d, Y') }}
-                                        </span>
-                                    </div>
-                                    <a href="{{ route('articles.show', $article->slug) }}"
-                                        class="inline-flex items-center gap-1.5 text-blue-700 font-semibold hover:gap-2 transition-all group mt-auto">
-                                        Read More
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                        </svg>
-                                    </a>
+            <?php if($latestArticles->count() > 0): ?>
+            <div class="swiper insightSwiper home-animate-fadeInUp delay-200">
+                <div class="swiper-wrapper pb-12">
+                    <?php $__currentLoopData = $latestArticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="swiper-slide h-auto">
+                        <div class="group bg-white border border-gray-200 rounded-3xl overflow-hidden text-left hover:shadow-2xl hover:border-blue-200 transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full">
+                            <div class="relative h-56 overflow-hidden flex-shrink-0">
+                                <?php if($article->featured_image): ?>
+                                <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>"
+                                    alt="<?php echo e($article->title); ?>"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <?php else: ?>
+                                <img src="<?php echo e(asset('images/default-article.jpg')); ?>"
+                                    alt="<?php echo e($article->title); ?>"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <?php endif; ?>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                                <div class="absolute bottom-4 left-4">
+                                    <span class="bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
+                                        <?php echo e($article->category->name ?? 'Industry Insights'); ?>
+
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
+                            <div class="p-8 flex flex-col flex-grow">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4 leading-tight min-h-[4.5rem] flex items-center line-clamp-2">
+                                    <?php echo e($article->title); ?>
 
-                <!-- Navigation Dots - Hidden on mobile, centered on desktop -->
-                <div class="hidden md:flex justify-center gap-2 mt-8" id="insightsDots"></div>
+                                </h3>
+                                <p class="text-gray-600 mb-6 leading-relaxed flex-grow min-h-[6rem] line-clamp-3">
+                                    <?php echo e($article->excerpt ?? Str::limit(strip_tags($article->content), 150)); ?>
+
+                                </p>
+                                <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
+                                    <span class="flex items-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <?php echo e($article->published_at->format('M d, Y')); ?>
+
+                                    </span>
+                                </div>
+                                <a href="<?php echo e(route('articles.show', $article->slug)); ?>"
+                                    class="inline-flex items-center gap-2 text-blue-700 font-semibold hover:gap-3 transition-all group mt-auto">
+                                    Read More
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
 
             <!-- View All Articles Button -->
             <div class="text-center mt-12">
-                <a href="{{ route('articles.index') }}"
+                <a href="<?php echo e(route('articles.index')); ?>"
                     class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:-translate-y-1">
                     View All Articles
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -338,7 +338,7 @@
                     </svg>
                 </a>
             </div>
-            @else
+            <?php else: ?>
             <div class="text-center py-12">
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-4">
                     <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -348,7 +348,7 @@
                 <p class="text-gray-500 text-lg">No articles available at the moment.</p>
                 <p class="text-gray-400 text-sm mt-2">Check back soon for the latest insights and updates.</p>
             </div>
-            @endif
+            <?php endif; ?>
         </div>
     </section>
 
@@ -382,7 +382,7 @@
                 <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Complying with top global safety and quality standards.</p>
                 <div class="home-overflow-hidden">
                     <div class="flex items-center gap-8 home-animate-scroll-left">
-                        @php
+                        <?php
                         $internationalLogos = [
                         ['IWCF', 'accredited/iwcflogo.png'],
                         ['OPITO', 'accredited/OPITOlogo.png'],
@@ -399,19 +399,19 @@
                         ['PECB', 'accredited/pecblogo.png'],
                         ['IADC', 'accredited/iadcrigpass.jpg']
                         ];
-                        @endphp
+                        ?>
 
-                        @foreach ($internationalLogos as [$name, $logo])
+                        <?php $__currentLoopData = $internationalLogos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$name, $logo]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="flex-shrink-0 w-40 h-32 bg-white rounded-2xl shadow-md p-6 flex items-center justify-center hover:shadow-xl hover:border-2 hover:border-blue-400 transition-all duration-300">
-                            <img src="{{ asset($logo) }}" alt="{{ $name }}" class="max-w-full max-h-full object-contain hover:scale-110 transition-all duration-300">
+                            <img src="<?php echo e(asset($logo)); ?>" alt="<?php echo e($name); ?>" class="max-w-full max-h-full object-contain hover:scale-110 transition-all duration-300">
                         </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        @foreach ($internationalLogos as [$name, $logo])
+                        <?php $__currentLoopData = $internationalLogos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$name, $logo]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="flex-shrink-0 w-40 h-32 bg-white rounded-2xl shadow-md p-6 flex items-center justify-center hover:shadow-xl hover:border-2 hover:border-blue-400 transition-all duration-300">
-                            <img src="{{ asset($logo) }}" alt="{{ $name }}" class="max-w-full max-h-full object-contain hover:scale-110 transition-all duration-300">
+                            <img src="<?php echo e(asset($logo)); ?>" alt="<?php echo e($name); ?>" class="max-w-full max-h-full object-contain hover:scale-110 transition-all duration-300">
                         </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>
@@ -433,7 +433,7 @@
                 <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Certified by Indonesia's official training authorities.</p>
                 <div class="home-overflow-hidden">
                     <div class="flex items-center gap-8 home-animate-scroll-right">
-                        @php
+                        <?php
                         $nationalLogos = [
                         ['BNSP', 'accredited/bnsp.png'],
                         ['Kemnaker', 'accredited/kemenaker.png'],
@@ -450,19 +450,19 @@
                         ['K3 Nasional', 'accredited/k3nasional.png'],
                         ['EPS Aryndo', 'accredited/epsaryndo.png']
                         ];
-                        @endphp
+                        ?>
 
-                        @foreach ($nationalLogos as [$name, $logo])
+                        <?php $__currentLoopData = $nationalLogos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$name, $logo]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="flex-shrink-0 w-40 h-32 bg-white rounded-2xl shadow-md p-6 flex items-center justify-center hover:shadow-xl hover:border-2 hover:border-red-400 transition-all duration-300">
-                            <img src="{{ asset($logo) }}" alt="{{ $name }}" class="max-w-full max-h-full object-contain hover:scale-110 transition-all duration-300">
+                            <img src="<?php echo e(asset($logo)); ?>" alt="<?php echo e($name); ?>" class="max-w-full max-h-full object-contain hover:scale-110 transition-all duration-300">
                         </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        @foreach ($nationalLogos as [$name, $logo])
+                        <?php $__currentLoopData = $nationalLogos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$name, $logo]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="flex-shrink-0 w-40 h-32 bg-white rounded-2xl shadow-md p-6 flex items-center justify-center hover:shadow-xl hover:border-2 hover:border-red-400 transition-all duration-300">
-                            <img src="{{ asset($logo) }}" alt="{{ $name }}" class="max-w-full max-h-full object-contain hover:scale-110 transition-all duration-300">
+                            <img src="<?php echo e(asset($logo)); ?>" alt="<?php echo e($name); ?>" class="max-w-full max-h-full object-contain hover:scale-110 transition-all duration-300">
                         </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>
@@ -471,252 +471,126 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // =============== HERO SLIDER ===============
-        (function() {
-            const slides = document.querySelectorAll('.hero-bg-slide');
-            if (slides.length === 0) return;
+        const container = document.getElementById('programsContainer');
+        const scrollContent = document.getElementById('programsScroll');
+        const dotsContainer = document.getElementById('programsDots');
 
-            let currentSlide = 0;
-            const slideInterval = 5000;
+        if (!container || !scrollContent) return;
 
-            function nextSlide() {
-                slides[currentSlide].style.opacity = '0';
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].style.opacity = '1';
-            }
+        const cards = scrollContent.querySelectorAll('.flex-shrink-0');
+        const cardCount = cards.length;
 
-            setInterval(nextSlide, slideInterval);
-        })();
+        if (cardCount === 0) return;
 
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 24; // 6 * 4px (gap-6 in Tailwind)
+        const scrollAmount = cardWidth + gap;
 
-        // =============== PROGRAMS AUTO-SCROLL + DOTS ===============
-        (function() {
-            const container = document.getElementById('programsContainer');
-            const scrollContent = document.getElementById('programsScroll');
-            const dotsContainer = document.getElementById('programsDots');
+        let currentIndex = 0;
+        let autoScrollInterval;
+        let isHovering = false;
 
-            if (!container || !scrollContent) return;
+        // Create navigation dots
+        for (let i = 0; i < cardCount; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'w-2 h-2 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-red-600 w-8' : 'bg-gray-300');
+            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            dot.addEventListener('click', () => scrollToIndex(i));
+            dotsContainer.appendChild(dot);
+        }
 
-            const cards = scrollContent.querySelectorAll('.flex-shrink-0');
-            const cardCount = cards.length;
-            if (cardCount <= 1) return;
-
-            const cardWidth = cards[0].offsetWidth;
-            const gap = 24;
-            const scrollAmount = cardWidth + gap;
-
-            let currentIndex = 0;
-            let autoScrollInterval;
-            let isHovering = false;
-
-            // Hanya buat dots di desktop
-            if (window.matchMedia('(min-width: 768px)').matches) {
-                // Buat dots
-                for (let i = 0; i < cardCount; i++) {
-                    const dot = document.createElement('button');
-                    dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-red-600 w-8' : 'bg-gray-300'}`;
-                    dot.setAttribute('aria-label', `Go to program ${i + 1}`);
-                    dot.addEventListener('click', () => scrollToIndex(i));
-                    dotsContainer.appendChild(dot);
+        function updateDots() {
+            const dots = dotsContainer.querySelectorAll('button');
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.className = 'w-8 h-2 rounded-full bg-red-600 transition-all duration-300';
+                } else {
+                    dot.className = 'w-2 h-2 rounded-full bg-gray-300 transition-all duration-300';
                 }
+            });
+        }
 
-                function updateDots() {
-                    const dots = dotsContainer.querySelectorAll('button');
-                    dots.forEach((dot, index) => {
-                        dot.className = index === currentIndex ?
-                            'w-8 h-2 rounded-full bg-red-600 transition-all duration-300' :
-                            'w-2 h-2 rounded-full bg-gray-300 transition-all duration-300';
-                    });
-                }
+        function scrollToIndex(index) {
+            currentIndex = index;
+            container.scrollTo({
+                left: scrollAmount * index,
+                behavior: 'smooth'
+            });
+            updateDots();
+        }
 
-                function scrollToIndex(index) {
-                    currentIndex = index;
-                    container.scrollTo({
-                        left: scrollAmount * index,
-                        behavior: 'smooth'
-                    });
-                    updateDots();
-                }
+        function autoScroll() {
+            if (isHovering) return;
 
-                function autoScroll() {
-                    if (!isHovering) {
-                        currentIndex = (currentIndex + 1) % cardCount;
-                        scrollToIndex(currentIndex);
-                    }
-                }
+            currentIndex = (currentIndex + 1) % cardCount;
+            scrollToIndex(currentIndex);
+        }
 
-                function startAutoScroll() {
-                    stopAutoScroll();
-                    autoScrollInterval = setInterval(autoScroll, 3000);
-                }
+        // Start auto-scroll
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(autoScroll, 3000); // Scroll every 3 seconds
+        }
 
-                function stopAutoScroll() {
-                    if (autoScrollInterval) clearInterval(autoScrollInterval);
-                }
+        // Stop auto-scroll
+        function stopAutoScroll() {
+            clearInterval(autoScrollInterval);
+        }
 
-                // Event listeners
-                container.addEventListener('mouseenter', () => {
-                    isHovering = true;
-                    stopAutoScroll();
-                });
-                container.addEventListener('mouseleave', () => {
-                    isHovering = false;
+        // Pause on hover
+        container.addEventListener('mouseenter', () => {
+            isHovering = true;
+            stopAutoScroll();
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isHovering = false;
+            startAutoScroll();
+        });
+
+        // Pause on touch/scroll interaction
+        let scrollTimeout;
+        container.addEventListener('scroll', () => {
+            stopAutoScroll();
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (!isHovering) {
                     startAutoScroll();
-                });
+                }
+            }, 2000);
+        });
 
-                let scrollTimeout;
-                container.addEventListener('scroll', () => {
-                    stopAutoScroll();
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        if (!isHovering) startAutoScroll();
-                    }, 2000);
-                });
+        // Initialize
+        startAutoScroll();
 
-                // Init
+        // Handle visibility change (pause when tab is not active)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopAutoScroll();
+            } else if (!isHovering) {
                 startAutoScroll();
-
-                // Pause on tab blur
-                document.addEventListener('visibilitychange', () => {
-                    if (document.hidden) stopAutoScroll();
-                    else if (!isHovering) startAutoScroll();
-                });
-
-                // Re-init dots on resize (desktop only)
-                const handleResize = () => {
-                    if (window.matchMedia('(min-width: 768px)').matches && dotsContainer.children.length === 0) {
-                        dotsContainer.innerHTML = '';
-                        for (let i = 0; i < cardCount; i++) {
-                            const dot = document.createElement('button');
-                            dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-red-600 w-8' : 'bg-gray-300'}`;
-                            dot.setAttribute('aria-label', `Go to program ${i + 1}`);
-                            dot.addEventListener('click', () => scrollToIndex(i));
-                            dotsContainer.appendChild(dot);
-                        }
-                        updateDots();
-                    }
-                };
-                window.addEventListener('resize', handleResize);
-            } else {
-                // Mobile: sembunyikan dots
-                if (dotsContainer) dotsContainer.style.display = 'none';
             }
-        })();
-
-
-        // =============== INSIGHTS AUTO-SCROLL + DOTS ===============
-        (function() {
-            const container = document.getElementById('insightsContainer');
-            const scrollContent = document.getElementById('insightsScroll');
-            const dotsContainer = document.getElementById('insightsDots');
-
-            if (!container || !scrollContent) return;
-
-            const cards = scrollContent.querySelectorAll('.flex-shrink-0');
-            const cardCount = cards.length;
-            if (cardCount <= 1) return;
-
-            const cardWidth = cards[0].offsetWidth;
-            const gap = 24;
-            const scrollAmount = cardWidth + gap;
-
-            let currentIndex = 0;
-            let autoScrollInterval;
-            let isHovering = false;
-
-            // Hanya buat dots di desktop
-            if (window.matchMedia('(min-width: 768px)').matches) {
-                // Buat dots
-                for (let i = 0; i < cardCount; i++) {
-                    const dot = document.createElement('button');
-                    dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-blue-600 w-8' : 'bg-gray-300'}`;
-                    dot.setAttribute('aria-label', `Go to article ${i + 1}`);
-                    dot.addEventListener('click', () => scrollToIndex(i));
-                    dotsContainer.appendChild(dot);
-                }
-
-                function updateDots() {
-                    const dots = dotsContainer.querySelectorAll('button');
-                    dots.forEach((dot, index) => {
-                        dot.className = index === currentIndex ?
-                            'w-8 h-2 rounded-full bg-blue-600 transition-all duration-300' :
-                            'w-2 h-2 rounded-full bg-gray-300 transition-all duration-300';
-                    });
-                }
-
-                function scrollToIndex(index) {
-                    currentIndex = index;
-                    container.scrollTo({
-                        left: scrollAmount * index,
-                        behavior: 'smooth'
-                    });
-                    updateDots();
-                }
-
-                function autoScroll() {
-                    if (!isHovering) {
-                        currentIndex = (currentIndex + 1) % cardCount;
-                        scrollToIndex(currentIndex);
-                    }
-                }
-
-                function startAutoScroll() {
-                    stopAutoScroll();
-                    autoScrollInterval = setInterval(autoScroll, 4000); // sedikit lebih lambat
-                }
-
-                function stopAutoScroll() {
-                    if (autoScrollInterval) clearInterval(autoScrollInterval);
-                }
-
-                // Event listeners
-                container.addEventListener('mouseenter', () => {
-                    isHovering = true;
-                    stopAutoScroll();
-                });
-                container.addEventListener('mouseleave', () => {
-                    isHovering = false;
-                    startAutoScroll();
-                });
-
-                let scrollTimeout;
-                container.addEventListener('scroll', () => {
-                    stopAutoScroll();
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        if (!isHovering) startAutoScroll();
-                    }, 2000);
-                });
-
-                // Init
-                startAutoScroll();
-
-                // Pause on tab blur
-                document.addEventListener('visibilitychange', () => {
-                    if (document.hidden) stopAutoScroll();
-                    else if (!isHovering) startAutoScroll();
-                });
-
-                // Re-init dots on resize
-                const handleResize = () => {
-                    if (window.matchMedia('(min-width: 768px)').matches && dotsContainer.children.length === 0) {
-                        dotsContainer.innerHTML = '';
-                        for (let i = 0; i < cardCount; i++) {
-                            const dot = document.createElement('button');
-                            dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-blue-600 w-8' : 'bg-gray-300'}`;
-                            dot.setAttribute('aria-label', `Go to article ${i + 1}`);
-                            dot.addEventListener('click', () => scrollToIndex(i));
-                            dotsContainer.appendChild(dot);
-                        }
-                        updateDots();
-                    }
-                };
-                window.addEventListener('resize', handleResize);
-            } else {
-                // Mobile: sembunyikan dots
-                if (dotsContainer) dotsContainer.style.display = 'none';
-            }
-        })();
+        });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.hero-bg-slide');
+    let currentSlide = 0;
+    const slideInterval = 5000; // Ganti setiap 5 detik
+
+    function nextSlide() {
+        // Fade out current slide
+        slides[currentSlide].style.opacity = '0';
+        
+        // Move to next slide
+        currentSlide = (currentSlide + 1) % slides.length;
+        
+        // Fade in next slide
+        slides[currentSlide].style.opacity = '1';
+    }
+
+    // Auto slide
+    setInterval(nextSlide, slideInterval);
+});
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\indo_drilling_school\resources\views/home.blade.php ENDPATH**/ ?>

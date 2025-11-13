@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', 'Our Projects | Indonesia Drilling School')
 
-@section('content')
+<?php $__env->startSection('title', 'Our Projects | Indonesia Drilling School'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="page-projects">
     <!-- ================= HERO SECTION ================= -->
     <section class="relative min-h-[60vh] bg-gray-900 text-white overflow-hidden">
@@ -11,7 +11,7 @@
 
         <!-- Background -->
         <div class="absolute inset-0">
-            <img src="{{ asset('images/imgHero.jpg') }}" 
+            <img src="<?php echo e(asset('images/imgHero.jpg')); ?>" 
                 alt="Projects Background" 
                 class="w-full h-full object-cover opacity-40">
             <div class="absolute inset-0 bg-black/70"></div>
@@ -52,7 +52,7 @@
     </section>
 
     <!-- ================= FEATURED PROJECTS ================= -->
-    @if($featuredProjects->count() > 0)
+    <?php if($featuredProjects->count() > 0): ?>
     <section class="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
         <div class="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full filter blur-3xl opacity-20"></div>
         
@@ -66,18 +66,18 @@
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($featuredProjects as $project)
+                <?php $__currentLoopData = $featuredProjects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="group bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
                     <div class="relative h-64 overflow-hidden">
-                        @if($project->featured_image)
-                        <img src="{{ asset('storage/' . $project->featured_image) }}" 
-                            alt="{{ $project->title }}" 
+                        <?php if($project->featured_image): ?>
+                        <img src="<?php echo e(asset('storage/' . $project->featured_image)); ?>" 
+                            alt="<?php echo e($project->title); ?>" 
                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        @else
-                        <img src="{{ asset('images/default-project.jpg') }}" 
-                            alt="{{ $project->title }}" 
+                        <?php else: ?>
+                        <img src="<?php echo e(asset('images/default-project.jpg')); ?>" 
+                            alt="<?php echo e($project->title); ?>" 
                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        @endif
+                        <?php endif; ?>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         
                         <!-- Badges -->
@@ -85,41 +85,45 @@
                             <span class="bg-red-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
                                 Featured
                             </span>
-                            @if($project->category)
-                            <span class="{{ $project->category_badge_color }} px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
-                                {{ ucfirst($project->category) }}
+                            <?php if($project->category): ?>
+                            <span class="<?php echo e($project->category_badge_color); ?> px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
+                                <?php echo e(ucfirst($project->category)); ?>
+
                             </span>
-                            @endif
+                            <?php endif; ?>
                         </div>
 
                         <!-- Status Badge -->
                         <div class="absolute bottom-4 right-4">
-                            <span class="{{ $project->status_badge_color }} px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
-                                {{ ucfirst($project->status) }}
+                            <span class="<?php echo e($project->status_badge_color); ?> px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
+                                <?php echo e(ucfirst($project->status)); ?>
+
                             </span>
                         </div>
                     </div>
 
                     <div class="p-8">
                         <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors">
-                            {{ $project->title }}
+                            <?php echo e($project->title); ?>
+
                         </h3>
                         
-                        @if($project->location)
+                        <?php if($project->location): ?>
                         <div class="flex items-center gap-2 text-gray-500 mb-4">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
-                            <span class="text-sm">{{ $project->location }}</span>
+                            <span class="text-sm"><?php echo e($project->location); ?></span>
                         </div>
-                        @endif
+                        <?php endif; ?>
 
                         <p class="text-gray-600 mb-6 leading-relaxed line-clamp-3">
-                            {{ $project->description }}
+                            <?php echo e($project->description); ?>
+
                         </p>
 
-                        <a href="{{ route('projects.show', $project->slug) }}" 
+                        <a href="<?php echo e(route('projects.show', $project->slug)); ?>" 
                             class="inline-flex items-center gap-2 text-red-600 font-semibold hover:gap-3 transition-all group">
                             View Details
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,25 +132,25 @@
                         </a>
                     </div>
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </section>
-    @endif
+    <?php endif; ?>
 
     <!-- ================= FILTER SECTION ================= -->
     <section class="py-12 bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <form method="GET" action="{{ route('projects.index') }}" class="flex flex-wrap gap-4 items-center justify-center">
+            <form method="GET" action="<?php echo e(route('projects.index')); ?>" class="flex flex-wrap gap-4 items-center justify-center">
                 <!-- Category Filter -->
                 <div class="flex items-center gap-3">
                     <label class="text-gray-700 font-medium text-sm">Category:</label>
                     <select name="category" onchange="this.form.submit()" 
                         class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all">
-                        <option value="all" {{ request('category') == 'all' ? 'selected' : '' }}>All Categories</option>
-                        <option value="drilling" {{ request('category') == 'drilling' ? 'selected' : '' }}>Drilling</option>
-                        <option value="safety" {{ request('category') == 'safety' ? 'selected' : '' }}>Safety</option>
-                        <option value="certification" {{ request('category') == 'certification' ? 'selected' : '' }}>Certification</option>
+                        <option value="all" <?php echo e(request('category') == 'all' ? 'selected' : ''); ?>>All Categories</option>
+                        <option value="drilling" <?php echo e(request('category') == 'drilling' ? 'selected' : ''); ?>>Drilling</option>
+                        <option value="safety" <?php echo e(request('category') == 'safety' ? 'selected' : ''); ?>>Safety</option>
+                        <option value="certification" <?php echo e(request('category') == 'certification' ? 'selected' : ''); ?>>Certification</option>
                     </select>
                 </div>
 
@@ -155,9 +159,9 @@
                     <label class="text-gray-700 font-medium text-sm">Status:</label>
                     <select name="status" onchange="this.form.submit()" 
                         class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all">
-                        <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>All Status</option>
-                        <option value="ongoing" {{ request('status') == 'ongoing' ? 'selected' : '' }}>Ongoing</option>
-                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                        <option value="all" <?php echo e(request('status') == 'all' ? 'selected' : ''); ?>>All Status</option>
+                        <option value="ongoing" <?php echo e(request('status') == 'ongoing' ? 'selected' : ''); ?>>Ongoing</option>
+                        <option value="completed" <?php echo e(request('status') == 'completed' ? 'selected' : ''); ?>>Completed</option>
                     </select>
                 </div>
             </form>
@@ -176,59 +180,63 @@
                 <p class="text-gray-600 text-lg">Browse through our complete portfolio of successful projects</p>
             </div>
 
-            @if($projects->count() > 0)
+            <?php if($projects->count() > 0): ?>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                @foreach($projects as $project)
+                <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="group bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
                     <div class="relative h-56 overflow-hidden">
-                        @if($project->featured_image)
-                        <img src="{{ asset('storage/' . $project->featured_image) }}" 
-                            alt="{{ $project->title }}" 
+                        <?php if($project->featured_image): ?>
+                        <img src="<?php echo e(asset('storage/' . $project->featured_image)); ?>" 
+                            alt="<?php echo e($project->title); ?>" 
                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        @else
-                        <img src="{{ asset('images/default-project.jpg') }}" 
-                            alt="{{ $project->title }}" 
+                        <?php else: ?>
+                        <img src="<?php echo e(asset('images/default-project.jpg')); ?>" 
+                            alt="<?php echo e($project->title); ?>" 
                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        @endif
+                        <?php endif; ?>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                         
                         <!-- Category Badge -->
-                        @if($project->category)
+                        <?php if($project->category): ?>
                         <div class="absolute top-4 left-4">
-                            <span class="{{ $project->category_badge_color }} px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
-                                {{ ucfirst($project->category) }}
+                            <span class="<?php echo e($project->category_badge_color); ?> px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
+                                <?php echo e(ucfirst($project->category)); ?>
+
                             </span>
                         </div>
-                        @endif
+                        <?php endif; ?>
 
                         <!-- Status Badge -->
                         <div class="absolute bottom-4 right-4">
-                            <span class="{{ $project->status_badge_color }} px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
-                                {{ ucfirst($project->status) }}
+                            <span class="<?php echo e($project->status_badge_color); ?> px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm">
+                                <?php echo e(ucfirst($project->status)); ?>
+
                             </span>
                         </div>
                     </div>
 
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors line-clamp-2">
-                            {{ $project->title }}
+                            <?php echo e($project->title); ?>
+
                         </h3>
                         
-                        @if($project->location)
+                        <?php if($project->location): ?>
                         <div class="flex items-center gap-2 text-gray-500 mb-3">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
-                            <span class="text-sm">{{ $project->location }}</span>
+                            <span class="text-sm"><?php echo e($project->location); ?></span>
                         </div>
-                        @endif
+                        <?php endif; ?>
 
                         <p class="text-gray-600 mb-4 leading-relaxed line-clamp-2 text-sm">
-                            {{ $project->description }}
+                            <?php echo e($project->description); ?>
+
                         </p>
 
-                        <a href="{{ route('projects.show', $project->slug) }}" 
+                        <a href="<?php echo e(route('projects.show', $project->slug)); ?>" 
                             class="inline-flex items-center gap-2 text-red-600 font-semibold text-sm hover:gap-3 transition-all group">
                             View Details
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -237,14 +245,15 @@
                         </a>
                     </div>
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
             <!-- Pagination -->
             <div class="flex justify-center">
-                {{ $projects->links() }}
+                <?php echo e($projects->links()); ?>
+
             </div>
-            @else
+            <?php else: ?>
             <div class="text-center py-12">
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-4">
                     <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,7 +263,7 @@
                 <p class="text-gray-500 text-lg">No projects found matching your criteria.</p>
                 <p class="text-gray-400 text-sm mt-2">Try adjusting your filters or check back later.</p>
             </div>
-            @endif
+            <?php endif; ?>
         </div>
     </section>
 
@@ -281,4 +290,5 @@
         </div>
     </section>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\indo_drilling_school\resources\views/projects/index.blade.php ENDPATH**/ ?>

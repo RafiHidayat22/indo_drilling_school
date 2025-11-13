@@ -24,7 +24,7 @@ class HomeController extends Controller
         $latestArticles = Article::with(['category', 'author'])
             ->published()
             ->orderBy('published_at', 'desc')
-            ->limit(3)
+            ->limit(6)
             ->get();
 
         // Return view dengan data trainingCategories dan latestArticles

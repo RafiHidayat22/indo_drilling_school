@@ -7,6 +7,8 @@ use App\Models\ArticleCategory;
 use App\Models\ContactInquiry;
 use App\Models\User;
 use App\Models\TrainingCategory;
+use App\Models\GalleryImage;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -35,13 +37,25 @@ class DashboardAdminController extends Controller
         // Get system activity
         $systemActivity = $this->getSystemActivity();
 
+        // Get recent projects
+        $recentProjects = $this->getRecentProjects();
+
+        // Get projects by status
+        $projectsByStatus = $this->getProjectsByStatus();
+
+        // Get recent gallery images
+        $recentGalleryImages = $this->getRecentGalleryImages();
+
         return view('dashboardadmin', compact(
             'pageTitle',
             'stats',
             'recentArticles',
             'recentInquiries',
             'articlesByCategory',
-            'systemActivity'
+            'systemActivity',
+            'recentProjects',
+            'projectsByStatus',
+            'recentGalleryImages'
         ));
     }
 
@@ -70,6 +84,17 @@ class DashboardAdminController extends Controller
             // Inquiries
             'pendingInquiries' => ContactInquiry::whereNull('read_at')->count(),
             'unreadInquiries' => ContactInquiry::unread()->count(),
+
+            // Projects
+            'totalProjects' => Project::count(),
+            'activeProjects' => Project::where('status', 'ongoing')->count(),
+            'completedProjects' => Project::where('status', 'completed')->count(),
+            'featuredProjects' => Project::where('is_featured', true)->count(),
+
+            // Gallery
+            'totalGalleryImages' => GalleryImage::count(),
+            'activeGalleryImages' => GalleryImage::where('is_active', true)->count(),
+            'featuredGalleryImages' => GalleryImage::where('is_featured', true)->count(),
         ];
     }
 
@@ -208,6 +233,30 @@ class DashboardAdminController extends Controller
             ];
         }
 
+        // Recent project
+        $recentProject = Project::latest('created_at')->first();
+
+        if ($recentProject) {
+            $activities[] = [
+                'icon' => '<svg class="w-4 h-4 text-cyan-600" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/></svg>',
+                'iconBg' => 'bg-cyan-100',
+                'description' => 'Project baru <strong>' . \Illuminate\Support\Str::limit($recentProject->title, 30) . '</strong> ditambahkan',
+                'time' => $recentProject->created_at->diffForHumans(),
+            ];
+        }
+
+        // Recent gallery image
+        $recentGallery = GalleryImage::latest('created_at')->first();
+
+        if ($recentGallery) {
+            $activities[] = [
+                'icon' => '<svg class="w-4 h-4 text-pink-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/></svg>',
+                'iconBg' => 'bg-pink-100',
+                'description' => 'Gambar baru <strong>' . \Illuminate\Support\Str::limit($recentGallery->title, 30) . '</strong> ditambahkan ke galeri',
+                'time' => $recentGallery->created_at->diffForHumans(),
+            ];
+        }
+
         // Recent inquiries
         $recentInquiry = ContactInquiry::latest('created_at')->first();
 
@@ -234,22 +283,102 @@ class DashboardAdminController extends Controller
             ];
         }
 
-        // Recent published article
-        $recentPublished = Article::with('author')
-            ->where('status', 'published')
-            ->latest('published_at')
-            ->first();
+        // Limit to 6 activities
+        return array_slice($activities, 0, 6);
+    }
 
-        if ($recentPublished && $recentPublished->id !== ($recentArticle->id ?? null)) {
-            $activities[] = [
-                'icon' => '<svg class="w-4 h-4 text-indigo-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>',
-                'iconBg' => 'bg-indigo-100',
-                'description' => 'Artikel <strong>' . \Illuminate\Support\Str::limit($recentPublished->title, 30) . '</strong> dipublikasikan',
-                'time' => $recentPublished->published_at->diffForHumans(),
+    /**
+     * Get recent projects
+     */
+    private function getRecentProjects()
+    {
+        $projects = Project::latest('created_at')
+            ->take(4)
+            ->get();
+
+        return $projects->map(function ($project) {
+            return [
+                'id' => $project->id,
+                'title' => $project->title,
+                'client' => $project->client,
+                'status' => ucfirst($project->status),
+                'statusClass' => $this->getProjectStatusClass($project->status),
+                'category' => ucfirst($project->category),
+                'categoryClass' => $this->getProjectCategoryClass($project->category),
+                'date' => $project->created_at->diffForHumans(),
+                'is_featured' => $project->is_featured,
             ];
+        })->toArray();
+    }
+
+    /**
+     * Get project status badge class
+     */
+    private function getProjectStatusClass($status)
+    {
+        return match ($status) {
+            'ongoing' => 'bg-blue-100 text-blue-800',
+            'completed' => 'bg-green-100 text-green-800',
+            'planning' => 'bg-yellow-100 text-yellow-800',
+            default => 'bg-gray-100 text-gray-800',
+        };
+    }
+
+    /**
+     * Get project category badge class
+     */
+    private function getProjectCategoryClass($category)
+    {
+        return match ($category) {
+            'drilling' => 'bg-red-100 text-red-800',
+            'safety' => 'bg-yellow-100 text-yellow-800',
+            'certification' => 'bg-blue-100 text-blue-800',
+            'training' => 'bg-purple-100 text-purple-800',
+            default => 'bg-gray-100 text-gray-800',
+        };
+    }
+
+    /**
+     * Get projects by status for chart
+     */
+    private function getProjectsByStatus()
+    {
+        $statuses = ['ongoing', 'completed', 'planning'];
+        $projectsData = [];
+
+        foreach ($statuses as $status) {
+            $count = Project::where('status', $status)->count();
+            if ($count > 0) {
+                $projectsData[] = [
+                    'status' => ucfirst($status),
+                    'count' => $count,
+                    'colorClass' => $this->getProjectStatusClass($status),
+                ];
+            }
         }
 
-        // Limit to 5 activities
-        return array_slice($activities, 0, 5);
+        return $projectsData;
+    }
+
+    /**
+     * Get recent gallery images
+     */
+    private function getRecentGalleryImages()
+    {
+        $images = GalleryImage::active()
+            ->latest('created_at')
+            ->take(6)
+            ->get();
+
+        return $images->map(function ($image) {
+            return [
+                'id' => $image->id,
+                'title' => $image->title,
+                'year' => $image->year,
+                'image_url' => $image->image_url,
+                'is_featured' => $image->is_featured,
+                'date' => $image->created_at->diffForHumans(),
+            ];
+        })->toArray();
     }
 }
