@@ -443,27 +443,48 @@ function initFloatingButtons() {
         flex-shrink: 0;
     `;
 
+    // Event Listener untuk Email Button (Versi Best Practice)
     emailBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
+        // 1. Prevent Default behavior
+        e.preventDefault();
+        
+        // 2. Data Definition (Pastikan tidak ada spasi di awal/akhir email!)
+        const email = 'info@indonesiadrillingschool.com'; 
+        const subject = 'Permintaan Informasi Program';
+        const body = 'Halo Indonesia Drilling School,\n\nSaya ingin mendapatkan informasi lebih lanjut mengenai program pelatihan yang tersedia.\n\nTerima kasih.';
 
-    const email = 'info@idrillingschool.com';
-    const subject = encodeURIComponent('Permintaan Informasi'); // opsional, bisa disesuaikan
-    const body = encodeURIComponent('Halo Indonesia Drilling School,\n\n'); // opsional
+        // 3. Construct Base Mailto URL (Standard Protocol)
+        // encodeURIComponent sangat PENTING agar spasi dan baris baru terbaca oleh aplikasi HP
+        const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // --- Strategi: Coba buka Gmail dulu (UX terbaik), fallback ke mailto jika gagal ---
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${encodeURIComponent(email)}&su=${subject}&body=${body}`;
+        // 4. Device Detection (Cek apakah user pakai HP)
+        // Deteksi yang mencakup Android, iPhone, iPad, dll.
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    // Buka di tab baru — tidak mengganggu halaman utama
-    const win = window.open(gmailUrl, '_blank', 'noopener,noreferrer,width=700,height=600');
+        // 5. Execution Logic
+        if (isMobile) {
+            // === LOGIKA HP (MOBILE) ===
+            // Di HP, cara paling "pasti berhasil" adalah membiarkan sistem operasi menangani linknya.
+            // Menggunakan window.location.href = mailto akan memaksa Android/iOS membuka prompt "Buka dengan..."
+            // atau langsung membuka aplikasi email default.
+            window.location.href = mailtoUrl;
+        } else {
+            // === LOGIKA LAPTOP (DESKTOP) ===
+            // Di Laptop, kita coba buka Gmail Web di tab baru (fitur yang Anda inginkan),
+            // karena user desktop sering login Gmail di browser.
+            
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // Deteksi kegagalan: popup blocker atau pembukaan gagal
-    if (!win || win.closed || typeof win.closed === 'undefined') {
-        // Fallback: gunakan mailto (akan pakai client default: Outlook, Apple Mail, dll)
-        const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
-        window.location.href = mailtoUrl;
-    }
-});
+            // Coba buka Popup
+            const win = window.open(gmailUrl, '_blank');
+
+            // Cek apakah Popup berhasil dibuka atau diblokir oleh browser
+            if (!win || win.closed || typeof win.closed === 'undefined') {
+                // Jika diblokir (atau user tidak pakai Gmail Web), kembali ke cara standar (Outlook/Thunderbird/Mail app)
+                window.location.href = mailtoUrl;
+            }
+        }
+    });
 
     // Hover effects
     [whatsappBtn, emailBtn].forEach(btn => {

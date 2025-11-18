@@ -35,7 +35,7 @@ Route::get('/articles/{slug}', [ArticleWebController::class, 'show'])->name('art
 // Login route (hanya untuk guest)
 Route::get('/login', function () {
     if (auth()->check()) {
-        return redirect('/');
+        return redirect('/login');
     }
     return view('login');
 })->name('login');
